@@ -1,0 +1,14 @@
+<div>
+  <div nz-dropdown nzTrigger="click" class="dropdown" [nzDropdownMenu]="menu">
+    <span class="text-uppercase">{{language}}</span>
+  </div>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item (click)="changeLanguage('en-US')">
+        <span class="text-uppercase font-size-12 mr-2">EN</span>
+        English
+      </li>
+      
+    </ul>
+  </nz-dropdown-menu>
+</div>

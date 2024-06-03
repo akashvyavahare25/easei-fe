@@ -1,0 +1,113 @@
+<div class="col-md-12 dashboard-height">
+    <div class="options"></div>
+    <div class="options-header">
+        <div class="row">
+            <div class="col-md-2">
+                <form nz-form [nzLayout]="'vertical'" [formGroup]="dashBoardForm" role="form">
+                    <nz-form-item class="display-block">
+                        <nz-form-label class="labels" nzFor="name">Dashboard Name</nz-form-label>
+                        <nz-form-control>
+                            <input nz-input formControlName="name" placeholder="Dashbord Name">
+                        </nz-form-control>
+                    </nz-form-item>
+                </form>
+            </div>
+            <div class="col-md-2">
+                <nz-form-item class="display-block">
+                    <nz-form-label class="labels" nzFor="name">Fixed Col Width</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input [(ngModel)]="options.fixedColWidth" type="number" placeholder="Fixed Col Width"
+                            (ngModelChange)="changedOptions()">
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col-md-2">
+                <nz-form-item class="display-block">
+                    <nz-form-label class="labels" nzFor="name">Fixed Row Height</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input [(ngModel)]="options.fixedRowHeight" type="number"
+                            placeholder="Fixed Row Height" (ngModelChange)="changedOptions()">
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col-md-2">
+                <form nz-form [nzLayout]="'vertical'" [formGroup]="dashBoardForm" role="form">
+                    <nz-form-item>
+                        <nz-form-label class="labels" nzFor="applicationMaster">Application Master
+                        </nz-form-label>
+                        <nz-form-control>
+                            <nz-select nzSize="medium" formControlName="applicationMaster"
+                                nzPlaceHolder="Application Master">
+                                <nz-option *ngFor="let item of listOfApplicationMaste" [nzLabel]="item.name"
+                                    [nzValue]="item._id">
+                                </nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </form>
+            </div>
+            <div class="col-md-4 text-right">
+                <button nz-button nzType="primary" (click)="addItem()" [nzSize]="'small'">Add</button>
+                <button *ngIf="!dashboardId" class="margin-left5" nz-button nzType="primary" (click)="submit()"
+                    [nzSize]="'small'">Submit</button>
+                <button *ngIf="dashboardId" class="margin-left5" nz-button nzType="primary" (click)="submit()"
+                    [nzSize]="'small'">Update</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <nz-form-item class="display-block">
+                    <nz-form-label class="labels check-box-block" nzFor="name">Setting</nz-form-label>
+                    <label nz-checkbox [(ngModel)]="options.swap" (ngModelChange)="changedOptions()">Swap Items</label>
+                    <label nz-checkbox [(ngModel)]="options.draggable.enabled" *ngIf="options.draggable"
+                        (ngModelChange)="changedOptions()">Drag Items</label>
+                    <label nz-checkbox [(ngModel)]="options.resizable.enabled" *ngIf="options.resizable"
+                        (ngModelChange)="changedOptions()">Resize Items</label>
+                </nz-form-item>
+            </div>
+        </div>
+    </div>
+    <gridster [options]="options" class="gridster-height">
+        <gridster-item [item]="item" *ngFor="let item of dashboard;let i = index">
+            <div class="button-holder">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <i class="fa fa-pencil-square-o" (click)="showModal(i)" aria-hidden="true" title="Edit"
+                            style="cursor: pointer;font-size: 100%; color: rgba(0,0,0,.69);padding: 3px;"></i>
+                        <i (click)="removeItem($event, item)" class="fa fa-trash" aria-hidden="true" title="Delete"
+                            style="cursor: pointer;font-size: 100%; color: rgba(0,0,0,.69);padding: 3px;margin-right: 5px;"></i>
+                    </div>
+                    <div class="col-md-12">
+                        <div *ngIf="item.graphData">
+                            <plotly-plot [data]="item.graphData" [layout]="item.layout"></plotly-plot>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </gridster-item>
+    </gridster>
+</div>
+<div class="col-md-12">
+    <nz-modal [(nzVisible)]="isVisible" nzTitle="Choose Visual" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+        <ng-container>
+            <div class="col-md-12">
+                <nz-form-label class="labels" nzFor="name">Choose Visual</nz-form-label>
+                <nz-form-item>
+                    <nz-form-control>
+                        <nz-select nzSize="medium" [(ngModel)]="selectedVisual" nzPlaceHolder="Choose Visual"
+                            (ngModelChange)="changeVisual(selectedVisual)">
+                            <nz-option *ngFor="let item of allVisuals" [nzLabel]="item.name" [nzValue]="item._id">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col-md-12">
+                <span *ngIf="isShowGrap">
+                    <plotly-plot [data]="graph.data" [layout]="graph.layout"></plotly-plot>
+                </span>
+                <span *ngIf="!isShowGrap">Please Select Grap</span>
+            </div>
+        </ng-container>
+    </nz-modal>
+</div>

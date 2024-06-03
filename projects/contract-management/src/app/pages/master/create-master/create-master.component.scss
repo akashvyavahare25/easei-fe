@@ -1,0 +1,65 @@
+::ng-deep.btn-simple {
+    padding: 3px !important;
+    line-height: 0.9;
+    border-radius: 3px;
+    border: 1px solid;
+}
+.first-half {
+    border: 1px solid;
+    padding: 0px;
+    margin-bottom: 15px;
+    height: calc(100vh - 448px);
+    overflow: auto;
+}
+.attribute-title {
+    background: lightblue;
+    height: 40px;
+    display: flex;
+    font-weight: 700;
+    border-bottom: 1px solid black;
+}
+.attribute-field {
+    font-weight: 600;
+    padding: 5px;
+    border: 1px solid;
+    margin-top: 5px;
+    cursor: pointer;
+    border-radius: 20px;
+    text-align: center;
+    background: lightgray;
+}
+.margin-auto {
+    margin: auto;
+}
+::ng-deep.ant-form-item-explain {
+    position: absolute;
+    top: 37px;
+}
+::ng-deep.col-form-label {
+    width: 100%;
+}
+
+.first-half::ng-deep.formcomponents {
+    display: none;
+}
+.first-half::ng-deep.formarea {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+}
+.width100 {
+    width: 100%;
+}
+
+::ng-deep.ant-tabs-tab {
+    padding: 0px 5px !important;
+}
+::ng-deep.ant-tabs-nav .ant-tabs-tab {
+    margin-right: 0px !important;
+}
+
+.create-master-height {
+    min-height: 175px;
+}
+.clear:hover {
+    color:#4b7cf3;
+}   

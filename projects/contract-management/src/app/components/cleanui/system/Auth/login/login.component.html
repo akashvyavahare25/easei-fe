@@ -1,0 +1,42 @@
+<!-- <div class="text-center">
+  <h1><strong>Welcome to Contract Management</strong></h1>
+</div> -->
+<div class="card boxContainer">
+  <div class="text-dark font-size-24 mb-3">
+    <strong>Sign in to your account</strong>
+  </div>
+  <form nz-form [nzLayout]="'vertical'" [formGroup]="form" (ngSubmit)="submitForm()" role="form">
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your email!">
+        <input type="text" nz-input formControlName="email" nzSize="large" placeholder="Email Address" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group >
+          <input type="password" nz-input nzSize="large" formControlName="password" placeholder="Password"
+            />
+          <!-- <ng-template [nzSuffix]="suffixTemplateInfo" #suffixTemplateInfo><i nz-icon nz-tooltip
+              nzTooltipTitle="Password between 8 and 20 characters, must contain at least one letter, one numeric digit, and one special character"
+              nzType="info-circle"></i></ng-template> -->
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <button nz-button nzType="primary" [nzSize]="'large'" [nzLoading]="loading" class="text-center w-100">
+          <strong>Log In</strong>
+        </button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <a routerLink="/auth/forgot-password" class="kit__utils__link font-size-16">
+    Forgot password?
+  </a>
+</div>
+<!-- <div class="text-center pt-2 mb-auto">
+  <span class="mr-2">Don't have an account?</span>
+  <a routerLink="/auth/register" class="kit__utils__link font-size-16">
+    Sign up
+  </a>
+</div> -->

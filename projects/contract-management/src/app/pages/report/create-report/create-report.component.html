@@ -1,0 +1,341 @@
+<div *ngIf="!loading">
+  <div class="card col-md-12 min-card-height">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="text-grey-6 font-size-16 mb-3">
+          <strong *ngIf="!paramaterId">Define Report</strong>
+          <strong *ngIf="paramaterId">Edit Report Field</strong>
+        </div>
+      </div>
+      <div class="col-md-6 text-right padding-right30">
+        <nz-form-item class="margin-bottom0">
+          <nz-form-control>
+            <button *ngIf="!paramaterId" (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+              <strong>Submit</strong>
+            </button>
+            <button *ngIf="paramaterId" (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+              <strong>Update</strong>
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <form nz-form [nzLayout]="'vertical'" [formGroup]="reportForm" role="form">
+        <div class="row">
+          <div class="col-md-3">
+            <nz-form-item>
+              <nz-form-label class="labels" nzFor="name">Report Name</nz-form-label>
+              <nz-form-control>
+                <!-- nzErrorTip="Please input parameter name!" -->
+                <input type="text" nz-input formControlName="name" nzSize="medium" placeholder="Report Name" />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="col-md-3">
+            <nz-form-item>
+              <nz-form-label class="labels" nzFor="name">Choose Application</nz-form-label>
+              <nz-form-control>
+                <nz-select nzSize="medium" nzPlaceHolder="Choose Dataset" (ngModelChange)="selectScreens($event)"
+                  formControlName="application">
+                  <nz-option *ngFor="let item of listOfApplicationMaste" [nzLabel]="item.name" [nzValue]="item">
+                  </nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="col-md-3">
+            <nz-form-item>
+              <nz-form-label class="labels" nzFor="status">Choose Dataset</nz-form-label>
+              <nz-form-control>
+                <!-- nzErrorTip="Please select status!" -->
+                <nz-select nzSize="medium" nzPlaceHolder="Choose Dataset" [nzMaxMultipleCount]=2
+                  (ngModelChange)="addScreenConfig($event)" formControlName="screen" nzMode="tags">
+                  <nz-option *ngFor="let item of screenArray;let i = index" [nzLabel]="item.name" [nzValue]="item">
+                  </nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="col-md-3">
+            <nz-form-item>
+              <nz-form-label class="labels" nzFor="type">Type</nz-form-label>
+              <nz-form-control>
+                <!-- nzErrorTip="Please select status!" -->
+                <nz-select nzSize="medium" nzPlaceHolder="Choose Dataset" (ngModelChange)="addTypeInEditor($event)"
+                  formControlName="type">
+                  <nz-option nzValue="find" nzLabel="find"></nz-option>
+                  <nz-option nzValue="aggregate" nzLabel="aggregate"></nz-option>
+                  <!-- <nz-option nzValue="grouping" nzLabel="grouping"></nz-option> -->
+                  <nz-option nzValue="aggregate+field" nzLabel="aggregate+field"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="card padding-bottom20" *ngIf="isVisibleProjection && schemaData.length > 1">
+    <div class="row">
+      <div class="col-md-6 text-grey-6 font-size-16 mb-3">
+        <strong class="ml-3">Joins</strong>
+      </div>
+      <div class="col-md-6 text-right padding-right40">
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="row" [formGroup]='reportForm'>
+        <div class="col-md-4 ml-3">
+          <nz-form-item class="margin-bottom0" formArrayName="join">
+            <!-- <nz-form-label class="labels" nzFor="name">{{schemaData[0].name}}</nz-form-label> -->
+            <nz-form-control>
+              <nz-select nzSize="medium" nzPlaceHolder="Choose Dataset" (ngModelChange)="selectJoinData($event)"
+                formControlName="screen1">
+                <nz-option *ngFor="let item of schemaData[0].property;let i = index" [nzLabel]="item" [nzValue]="item">
+                </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+          <nz-form-item class="margin-bottom0">
+            <!-- <nz-form-label class="labels" nzFor="name">{{schemaData[1].name}}</nz-form-label> -->
+            <nz-form-control formArrayName='join'>
+              <nz-select nzSize="medium" nzPlaceHolder="Choose Dataset" (ngModelChange)="selectJoinData($event)"
+                formControlName="screen2">
+                <nz-option *ngFor="let item of schemaData[1].property;let i = index" [nzLabel]="item" [nzValue]="item">
+                </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card padding-bottom20" *ngIf="isVisibleProjection">
+    <div class="row">
+      <div class="col-md-6 text-grey-6 font-size-16 mb-3">
+        <strong class="ml-3">Define Projection</strong>
+      </div>
+      <div class="col-md-6 text-right padding-right40">
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div *ngIf="schemaConfig" class="min-height">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="col-md-12 card-css">
+                <div *ngFor="let item of draggableData" class="drag-data" [dndType]="'item'"
+                  (dndMoved)="removeItem(item, draggableData)" [dndDraggable] [dndObject]="item">
+                  <div class="row">
+                    <!--  <div class="col-md-12">{{item.label}}</div> -->
+                    <div class="col-md-12">{{item.property}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 card-css">
+              <div class="row drop-heding">
+                <!-- <div class="col-md-6 text-grey-6 font-size-16">
+                  <strong class="padding-left15">Label</strong>
+                </div> -->
+                <div class="col-md-9 text-grey-6 font-size-16">
+                  <strong>Property Name</strong>
+                </div>
+                <div class="col-md-3 pr-3 text-right">
+                  <button nz-button nzType="primary" (click)="showModal()" [nzSize]="'small'">
+                    <strong>Add Field</strong>
+                  </button>
+                </div>
+              </div>
+              <div class="card-css2" [dndList] [dndModel]="draggableList">
+                <div *ngFor="let item of draggableList;let i = index" class="col-md-12" [dndType]="'item'"
+                  (dndMoved)="removeItem(item, draggableList)" [dndDraggable] [dndObject]="item">
+                  <div class="row drop-data">
+                    <!-- <div class="col-md-6">{{item.label}}</div> -->
+                    <div class="col-md-12">
+                      <span>{{item.property}}</span>
+
+                      <span class="float-right margin-right10" *ngIf="!item.function"> <i
+                          class="fe fe-plus-square cursor-pointer" (click)="showGroupingModal(item)"></i> </span>
+                      <span class="badge" *ngIf="item.type"> {{item.type}} </span>
+                      <span class="float-right margin-right10"
+                        *ngIf="item.function || (item.function && item.function.length > 0)">
+                        <i class="fe fe-file-text cursor-pointer" (click)="showProjectionModal(item)"></i>
+                      </span>
+                      <span class="close-icon" (click)="removeProjection(item, i)">x</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="card padding-bottom20" *ngIf="isVisibleProjection">
+    <div class="row">
+      <div class="col-md-6 text-grey-6 font-size-16 mb-3">
+        <strong class="ml-3">Define Grouping</strong>
+      </div>
+      <div class="col-md-6 text-right padding-right40">
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div *ngIf="schemaConfig" class="min-height">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="col-md-12 card-css">
+                <div *ngFor="let sitem of groupingData" class="drag-data" [dndType]="'sitem.type'"
+                  (dndMoved)="removeItem(sitem, groupingData)" [dndDraggable] [dndObject]="sitem">
+                  <div class="row">
+                   
+                    <div class="col-md-12">{{sitem.property}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 card-css">
+              <div class="row drop-heding">                
+                <div class="col-md-9 text-grey-6 font-size-16">
+                  <strong>Property Name</strong>
+                </div>  
+              </div>
+              <div class="card-css2" [dndList] [dndModel]="groupingList">
+                <div *ngFor="let sitem of groupingList;let i = index" class="col-md-12" [dndType]="'sitem.type'"
+                  (dndMoved)="removeItem(sitem, groupingList)" [dndDraggable]  [dndObject]="sitem">
+                  <div class="row drop-data">
+                    <div class="col-md-12">
+                      <span>{{sitem.property}}</span>  
+                      <span class="float-right margin-right10"> <i class="fe fe-file-text cursor-pointer" (click)="showGroupingModal(sitem)"></i> </span>                    
+                      <span class="close-icon" (click)="removeGrouping(sitem, i)">x</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>        
+      </div>
+    </div>
+  </div> -->
+  <div class="card">
+    <div class="row">
+      <div class="col-md-6 text-grey-6 font-size-16  mb-3">
+        <strong class="ml-3">Custom Query Editor</strong>
+      </div>
+      <div class="col-md-6 text-right padding-right40">
+        <nz-form-item [formGroup]="reportForm">
+          <nz-form-control>
+            <button nz-button nzType="primary" (click)="testQuery()" [nzSize]="'small'">
+              <strong>Test</strong>
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="col-md-12 card min-height">
+        <div class="row">
+          <div *ngFor="let item of parameters">
+            <span class="ml-1">{{item+', '}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="col-md-12">
+          <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="value"></ngx-monaco-editor>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card" *ngIf="isVisibleGrid">
+    <div class="row col-md-12">
+      <div class="col-md-8 text-grey-6 font-size-16  mb-3">
+        <strong class="ml-3">Result</strong>
+      </div>
+      <div class="col-md-4 text-grey-6 font-size-16  text-right mb-3">
+        <nz-form-item class="margin-bottom0">
+          <nz-form-control>
+            <nz-radio-group  [(ngModel)]="isPivote" (ngModelChange)="isradio($event)">
+                <label nz-radio nzValue="pivote" class="btn-check" >Pivot       
+                </label> 
+                <label nz-radio nzValue="grid" >Grid</label>
+                
+              </nz-radio-group >            
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="col-md-12" *ngIf="rowData.length > 0 && !pivotFlag">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <ag-grid-angular style="width: 100%; height: 300px;" class="ag-theme-balham" [rowData]="rowData"
+                [columnDefs]="columnDefs" (firstDataRendered)="onFirstDataRendered($event)" [gridOptions]="gridOptions">
+              </ag-grid-angular>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12" [hidden]="!pivotFlag">
+        <div class="row" id="wdr-pivot">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isVisibles">
+    <nz-modal [nzStyle]="{ width: '650px' }" [(nzVisible)]='isVisibles' nzTitle="Write Function"
+      (nzOnCancel)="handleProjectionCancel()" (nzOnOk)="handleProjectionOk()">
+      <nz-form-item [formGroup]="addFieldForm">
+        <nz-form-control>
+          <div class="col-md-12" formArrayName="function">
+            <nz-select nzSize="medium" nzMode="tags" formControlName="arg" nzPlaceHolder="Select Parameter"
+              (ngModelChange)="selectArg(val,$event)">
+              <nz-option *ngFor="let item of tempItem let itemIndex=index" [nzLabel]="item" [nzValue]="item">
+              </nz-option>
+            </nz-select>
+            <!-- <div class="chipsIn" *ngFor="let item of tempItem let itemIndex=index">
+                <div class="chipsClass">
+                    <span>{{item}}</span>
+                    <span class="fe fe-x chipsCancelButton" (click)="removeChips(val,itemIndex)"></span>
+                </div>
+            </div> -->
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+      <div class="row">
+        <div *ngIf="isVisibles" class="col-md-12 mt-2">
+          <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="val.function.body"></ngx-monaco-editor>
+        </div>
+      </div>
+    </nz-modal>
+  </div>
+  <div *ngIf="isVisible">
+    <form nz-form [nzLayout]="'vertical'" [formGroup]="addFieldForm" role="form">
+      <nz-modal [(nzVisible)]="isVisible" nzTitle="Add Property" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+        <!-- <div class="col-md-12 padding-bottom20">
+          <input nz-input placeholder="Label" formControlName="label" />
+        </div> -->
+        <div class="col-md-12">
+          <input nz-input placeholder="Property" formControlName="property" />
+        </div>
+      </nz-modal>
+    </form>
+  </div>
+  <div *ngIf="isVisibleGrouping">
+    <nz-modal [(nzVisible)]="isVisibleGrouping" nzTitle="Add Property" (nzOnCancel)="cancelGroupingModal()"
+      (nzOnOk)="handleGroupingOk()">
+      <nz-select class="col-md-12" nzSize="medium" [(ngModel)]="selectedParms.type" nzPlaceHolder="Select"
+        (ngModelChange)="addTypeInEditor($event)">
+        <nz-option nzValue="avg" nzLabel="Avg" *ngIf="selectedConfig.type === 'number'"></nz-option>
+        <nz-option nzValue="sum" nzLabel="Sum" *ngIf="selectedConfig.type === 'number'"></nz-option>
+        <nz-option nzValue="count" nzLabel="Count"></nz-option>
+      </nz-select>
+    </nz-modal>
+  </div>
+</div>

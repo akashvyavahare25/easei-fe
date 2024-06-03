@@ -1,0 +1,192 @@
+<div class="dialog">
+    <h2 mat-dialog-title>Raise Alarm</h2>
+    <mat-dialog-content class="mat-typography">
+        <form [formGroup]="raisAlarm">
+            <div class="row" style="width: 100%;padding: 10px 0px;">
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="label">Plants*</p>
+                            <mat-form-field appearance="fill" class="customSelect"> 
+                                <mat-select  matNativeControl formControlName="plantId" (selectionChange)="selectPlantId($event.value)" selectPlantId>
+                                  <mat-option *ngFor="let plant of plantList" [value]="plant.id">
+                                    {{plant.name}}
+                                  </mat-option>
+                                </mat-select>
+                      
+                              </mat-form-field>
+                              <div *ngIf="raisAlarm.get('plantId').hasError('required') && raisAlarm.get('plantId').touched" class="text-danger">
+                                Plant ID is required.
+                              </div>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="label">NCU</p>
+                            <mat-form-field appearance="fill" appearance="fill" class="customSelect"> 
+                                <mat-select  matNativeControl formControlName="ncuId" (selectionChange)="selectNcuId($event.value)" >
+                                 
+                                  <mat-option *ngFor="let ncu of ncuList" [value]="ncu.id">
+                                    {{ncu.name}}
+                                  </mat-option>
+                                </mat-select>
+                      
+                              </mat-form-field>
+                              <!-- <div *ngIf="raisAlarm.get('ncuId').hasError('required') && raisAlarm.get('ncuId').touched" class="text-danger">
+                                NCU ID is required.
+                              </div> -->
+                        </div>
+                        <div class="col-md-6">
+                            <p class="label">Table ID</p>
+                            <mat-form-field appearance="fill" class="customSelect">
+                                <input matInput placeholder="Associated Table ID" type="text"   formControlName="tableId"  matNativeControl (input)="selectBCU($event)"  [disabled]="!tableDisable" >
+                            </mat-form-field>
+                            <!-- <div *ngIf="raisAlarm.get('tableId').hasError('required') && raisAlarm.get('tableId').touched" class="text-danger">
+                                Table ID is required.
+                              </div> -->
+                        </div>
+                        <div class="col-md-6">
+                            <p class="label">BCU ID*</p>
+                            <mat-form-field appearance="fill" class="customSelect">
+                                 <mat-select matNativeControl formControlName="bcuId" [disabled]="!bcuDisable" (selectionChange)="selectComponent($event.value)">
+                                  <mat-option *ngFor="let bcu of bcuList"   [value]="bcu.id"  [matTooltip]="bcu.name">
+                                    {{bcu.name}}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                              <div *ngIf="raisAlarm.get('bcuId').hasError('required') && raisAlarm.get('bcuId').touched" class="text-danger">
+                                BCU ID is required.
+                              </div>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="label">Component*</p>
+                            <mat-form-field appearance="fill" class="customSelect">
+                                <mat-select matNativeControl formControlName="component" [disabled]="!componentDisable">
+                                    <mat-option  *ngFor="let comp of componentList" [value]="comp">{{comp}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div *ngIf="raisAlarm.get('component').hasError('required') && raisAlarm.get('component').touched" class="text-danger">
+                                Component is required.
+                              </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <p class="label">Issue Category</p>
+                            <mat-form-field appearance="fill" class="customSelect">
+                                <mat-select matNativeControl formControlName="issue_cat"  (selectionChange)="selectIssueType($event)" >
+                                    <mat-option value="category" *ngFor="let category of issueCategoryList">{{category}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <!-- <div *ngIf="raisAlarm.get('issue_cat').hasError('required') && raisAlarm.get('issue_cat').touched" class="text-danger">
+                                Issue Category is required.
+                              </div> -->
+                        </div>
+                        <div class="col-md-6">
+                            <p class="label">Issue Type</p>
+                            <mat-form-field appearance="fill" class="customSelect">
+                                <mat-select matNativeControl  formControlName="issue_type" (selectionChange)="selectIssue($event)" [disabled]="!issueTypeDisable" >
+                                    <mat-option  *ngFor="let type of issueTypeList" [value]="type">{{type}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <!-- <div *ngIf="raisAlarm.get('issue_type').hasError('required') && raisAlarm.get('issue_type').touched" class="text-danger">
+                                Issue Type is required.
+                              </div> -->
+                        </div>
+                        <div class="col-md-6">
+                            <p class="label">Issue*</p>
+                            <mat-form-field appearance="fill" class="customSelect" >
+                                <!-- <mat-label>Select Issue</mat-label> -->
+                                    <input matInput formControlName="issue" placeholder="Enter issue" type="text"  matNativeControl >
+                                <!-- <mat-select matNativeControl  formControlName="issue" [disabled]="!issueDisable"> 
+                                    <mat-option value="issue"  >Issue</mat-option>
+                                </mat-select> -->
+                            </mat-form-field>
+                            <div *ngIf="raisAlarm.get('issue').hasError('required') && raisAlarm.get('issue').touched" class="text-danger">
+                                Issue is required.
+                              </div>
+                        </div>
+                        
+                        
+                        <div class="col-md-6">
+                            <p class="label">Issue Description</p>
+                            <mat-form-field appearance="fill" class="customSelect"> 
+                                <input matInput placeholder="Describe Issue" formControlName="issue_desc"  type="text"  matNativeControl>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="label">Impact</p>
+                            <mat-form-field appearance="fill" class="customSelect">
+                                <mat-select matNativeControl  formControlName="impact" >
+                                    <mat-option  *ngFor="let type of impactList" [value]="type">{{type}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="label">Impact Details</p>
+                            <mat-form-field appearance="fill" class="customSelect">
+                                <input matInput formControlName="impact_details" placeholder="Describe Impacts" type="text"  matNativeControl>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="label">Priority</p>
+                            <mat-form-field appearance="fill"  class="customSelect">
+                                <mat-select matNativeControl formControlName="priority">
+                                    <mat-option  *ngFor="let type of priorityList" [value]="type">{{type}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div> 
+                    </div>
+                </div>
+                <div class="col-md-4">
+                   <!--  <div class="outer">
+                        <div class="name">Ticket ID</div>
+                        <div class="value">T17837D7</div>
+                    </div>
+                    <div class="outer">
+                        <div class="name">Ticket Date</div>
+                        <div class="value">21.10.2021 21:47</div>
+                    </div>
+                    <div class="outer">
+                        <div class="name">Ticket Type</div>
+                        <div class="value">Manual</div>
+                    </div>
+                    <div class="outer">
+                        <div class="name">Status</div>
+                        <div class="value">Open</div>
+                    </div>
+                    <div class="outer">
+                        <div class="name">Raised by</div>
+                        <div class="value">John Doe</div>
+                    </div> -->
+                    <div class="outer">
+                        <div class="name">Notify by</div>
+                        <div class="value">
+                            <mat-checkbox formControlName="sms" for style="margin-right: 80px;">Sms </mat-checkbox>
+                            <mat-checkbox formControlName="email" style="margin-right: 80px;">Email </mat-checkbox>
+                            <mat-checkbox formControlName="phoneCall" style="margin-right: 80px;">Phone Call</mat-checkbox>
+                            <mat-checkbox class="l1" formControlName="webForm">Web form</mat-checkbox>
+                        </div>    
+                    </div>
+                    <div class="outer">
+                        <div class="name" style="margin-top: 18px  !important;">Assignee</div> 
+                        <mat-form-field appearance="fill" class="customSelect">
+                              <input matInput placeholder="Assignee" type="text"   formControlName="assignee"  matNativeControl>
+                        </mat-form-field>
+                    </div>
+                    <div class="outer">
+                        <p class="name">Attachment</p>
+                        <input #fileInput type="file" hidden  
+                        formControlName="fileAttachment"
+                      (change)="handleChange($event)">
+                      <button mat-button  class="uploadFile"
+                        (click)="fileInput.click()">+ Upload file</button>  
+                    </div>
+                    <span  style="margin-left: 125px;" *ngIf="fileName">Filename: {{file.name}}</span> 
+                   
+                </div>
+            </div>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close class="cancel">Cancel</button>
+        <button mat-button  cdkFocusInitial class="save" (click)="submitRaiseAlarm()">Save</button>
+    </mat-dialog-actions>
+</div>

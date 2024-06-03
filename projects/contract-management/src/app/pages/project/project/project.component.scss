@@ -1,0 +1,47 @@
+.card-overflow {
+    overflow: auto;
+    height: 290px;
+    min-height: 290px;
+    max-height: 290px;
+}
+.chipsClass {
+    background-color: #f2f4f8;
+    margin: 8px 0px 0px -300px;
+    position: absolute;
+    border-radius: 20px;
+    padding: 2px 15px;
+    z-index: 9;
+}
+.chipsIn {
+    display: inline-table;
+    margin-bottom: 10px;
+}
+.chipsCancelButton {
+    color: #595c97;
+    position: relative;
+    top: 2px;
+    left: 5px;
+    cursor: pointer;
+}
+.padding-top50 {
+    padding-top: 50px;
+}
+.button-extra {
+    padding-bottom: 26px;
+    padding-top: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.padding7 {
+    padding: 7px !important;
+}
+.padding10 {
+    padding: 11.4px !important;
+}
+.margin-top3 {
+    margin-top: 3px;
+}
+.margin-top2 {
+    margin-top: 2px;
+}

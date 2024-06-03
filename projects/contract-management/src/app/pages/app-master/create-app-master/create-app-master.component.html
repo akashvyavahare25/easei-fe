@@ -1,0 +1,63 @@
+<div class="col-md-12 card create-screen-height">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="text-grey-6 font-size-16 mb-3">
+                <strong *ngIf="!appMasterId">Create New Application Master</strong>
+                <strong *ngIf="appMasterId">Edit Application Master</strong>
+            </div>
+        </div>
+        <div class="col-md-6 text-right padding-right30">
+            <nz-form-item>
+                <nz-form-control>
+                    <button *ngIf="!appMasterId" (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+                        <strong>Submit</strong>
+                    </button>
+                    <button *ngIf="appMasterId" (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+                        <strong>Update</strong>
+                    </button>
+                    <button *ngIf="!appMasterId" (click)="clearForm()" nz-button nzType="light" [nzSize]="'small'"
+                        class="margin-left5">
+                        <strong>Clear</strong>
+                    </button>
+                    <button *ngIf="appMasterId" (click)="cancelEdit()" nz-button nzType="light" [nzSize]="'small'"
+                        class="margin-left5">
+                        <strong>Cancel</strong>
+                    </button>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <form nz-form [nzLayout]="'vertical'" [formGroup]="appMasterForm" role="form">
+            <div class="row">
+                <div class="col-md-4">
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Please input name!">
+                            <input type="text" nz-input formControlName="name" nzSize="medium"
+                                placeholder="Application Master Name" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="col-md-4">
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Please input description!">
+                            <input type="text" nz-input nzSize="medium" formControlName="description"
+                                placeholder="Application Master Description" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="col-md-4">
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Please input status!">
+                            <nz-select nzSize="medium" nzPlaceHolder="Application Master Status"
+                                formControlName="status">
+                                <nz-option nzValue="Active" nzLabel="Active"></nz-option>
+                                <nz-option nzValue="Inactive" nzLabel="Inactive"></nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

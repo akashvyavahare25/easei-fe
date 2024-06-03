@@ -1,0 +1,660 @@
+// Import styles
+@import "~@coreui/coreui/scss/coreui";
+// material theme is import in angular.json
+// @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+// $roboto-font-path: "~roboto-fontface/fonts" !default;
+// @import "~roboto-fontface/css/roboto/sass/roboto-fontface";
+$material-icons-font-path: '~material-icons/iconfont/';
+@import '~material-icons/iconfont/material-icons.scss';
+
+
+@import 'core-ui-fixes';
+@import 'material-fixes';
+
+body {
+    min-width: auto !important;
+}
+
+.fc-event-title{
+    word-wrap: break-word;
+    color: black !important;
+      font-weight: bold !important;
+  }
+
+// Tooltip css
+[data-title] {
+    color: #74819E;
+    position: relative;
+}
+  
+[data-title]:hover::before {
+    content: attr(data-title);
+    position: absolute;
+    bottom: 25px;
+    left: -25px;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 10px;
+    background: #2d3047;
+    color: #fff;
+    font-size: 12px;
+    font-family: sans-serif;
+    width: 100%;
+    min-width: 250px;
+    z-index: 9999;
+}
+[data-title]:hover::after {
+    content: '';
+    position: absolute;
+    bottom: 10px;
+    left: 3px;
+    display: inline-block;
+    color: #fff;
+    border: 8px solid transparent;
+    border-top: 8px solid #2d3047;
+}
+
+.mat-sort-header-container .mat-sort-header-content {
+    // font-weight: bold;
+    font: normal normal 600 14px/17px Lato;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+}/*   font-weight:bold;
+    font: normal normal 600 14px/17px ;
+    font-family: "Lato",Semibold !important; 
+    letter-spacing: 0px;
+    color: #000000; */
+.replacementNotification .quantity.mat-sort-header {
+        max-width:75px;
+}
+
+.replacementNotification .wrapheader.mat-sort-header {
+    max-width:108px;
+}
+.replacementNotification .quantity .mat-sort-header-content{
+    word-wrap: break-word;
+    table-layout: fixed;
+    width: 45%;
+   text-align: left !important;
+}
+.replacementNotification .wrapheader .mat-sort-header-content{
+    word-wrap: break-word;
+    table-layout: fixed;
+    width: 50%;
+   text-align: left !important;
+}
+
+.windalarm .wrapheader .mat-sort-header-content{
+    word-wrap: break-word;
+    table-layout: fixed;
+    max-width: 120px;
+    // width: 30%;
+   text-align: left !important;
+}
+.windalarm .wrapheaderwind .mat-sort-header-content{
+    word-wrap: break-word;
+    table-layout: fixed;
+    max-width: 120px;
+    // width: 30%;
+   text-align: left !important;
+}
+ 
+tr.mat-row .mat-cell {
+    font: normal normal 600 14px/40px Lato Semibold;
+    letter-spacing: 0.7px;
+    color: #2D3047;
+}
+.apexcharts-tooltip {
+    background: #626262 !important;
+    color: #fff !important;
+    font-family: "Lato", sans-serif !important; 
+  }
+  .bcuDashboard .apexcharts-toolbar{
+      top:0px !important;
+  }
+  .oemDashboard .apexcharts-toolbar{
+    top:3px !important;
+}
+  .apexcharts-toolbar{
+    top:-50px !important;
+}
+.bcuDashboard .apexcharts-legend.apx-legend-position-top.apexcharts-align-center {
+    justify-content: center;
+    margin-top: 20px;
+}
+.apexcharts-tooltip.apexcharts-theme-light .apexcharts-tooltip-title {
+    background: #626262 !important;
+    color: #fff !important;
+    border-bottom: 0px solid #ddd !important;
+    margin-bottom: -10px !important;
+    font-family: "Lato  sans-serif" !important;
+
+  }
+.overview .chart .mat-card .mat-card-header .mat-card-header-text {
+    margin: 0;
+}
+.reports .chart .mat-card .mat-card-header .mat-card-header-text {
+    margin: 0;
+}
+.replacementNotification .chart .mat-card .mat-card-header .mat-card-header-text {
+    margin: 0;
+}
+
+.c-sidebar {
+    width: 120px;
+}
+.c-sidebar .c-sidebar-nav-link, .c-sidebar .c-sidebar-nav-dropdown-toggle {
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+}
+.c-sidebar .c-sidebar-nav-link .c-sidebar-nav-icon, .c-sidebar .c-sidebar-nav-dropdown-toggle .c-sidebar-nav-icon {
+    flex: 0 0 20px;
+    color: #fff;
+    margin: 0 !important;
+}.resetBtn:focus {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+.resetBtn {
+    letter-spacing: 0;
+    color: #057AE7;
+    // font-family: "Lato", sans-serif;
+    font: normal normal normal 14px/20px Lato sans-serif;
+    font-weight: 600;
+    margin-top: 0px;
+}
+.c-sidebar-nav-item .material-icons-outlined {
+    width: 30%;
+}
+.c-sidebar .c-sidebar-nav-dropdown .user {
+    width: 37px; 
+    height: 30px;
+    border-radius: 50%;
+    // border: 1px solid #656F6F;
+}
+.c-sidebar .c-sidebar-nav-dropdown .fa.fa-ellipsis-h {
+    position: absolute;
+    right: 25px;
+    top: 25px;
+}
+table.mat-table {
+    box-shadow: none;
+}
+.c-sidebar .c-sidebar-nav-dropdown {
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+// customDate
+.mat-form-field.customDate {
+    width: 15vw !important;
+}.mat-form-field.customDate .mat-form-field-flex {
+    padding-left: 30px !important;
+}
+.mat-form-field.customDate .mat-form-field-suffix {
+    position: absolute;
+    left: 0;
+}
+.mat-form-field.customDate .mat-date-range-input-container {
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+	color: #888888;
+}
+.mat-form-field.customDate .mat-form-field-label-wrapper {
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+	color: #888888;
+}
+// customDate
+
+.c-wrapper .c-header-brand {
+    float: right;
+    padding: 0px 30px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 9999;
+    // left: 0;
+}
+.c-wrapper .c-header-brand .logo {
+    height: 45px;
+}
+
+// select css starts
+.mat-form-field-type-mat-native-select .mat-form-field-infix::after {
+    content: "";
+    color: #057AE7;
+}
+.mat-form-field-type-mat-native-select .mat-form-field-label-wrapper {
+    display: none;
+}
+.mat-form-field-appearance-fill .mat-form-field-infix {
+    padding: 0;
+}
+.mat-form-field-appearance-fill .mat-form-field-flex {
+    padding: 0em 0.75em 0 0.75em;
+}
+.mat-form-field-appearance-fill .mat-form-field-flex {
+    background: #fff;
+    border: 1px solid #CBCBCB;
+    border-radius: 4px !important;
+}
+.mat-form-field-appearance-fill .mat-form-field-underline::before {
+    background: transparent;
+}
+.mat-select-value-text {
+    padding-left: 20px;
+}
+.mat-input-value-text {
+    padding-left: 20px;
+}
+.mat-form-field-label-wrapper {
+    overflow: visible !important;
+}
+.mat-form-field-type-mat-select  .mat-form-field-infix .mat-form-field-label {
+    padding-left: 25px;
+    padding-top: 9px;
+    font: normal normal 600 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #888888;
+    font-family: "Lato", sans-serif;
+    top: 0px;
+    margin: 0;
+    font-weight: 600;
+}
+.mat-form-field-type-mat-input  .mat-form-field-infix .mat-form-field-label {
+    padding-left: 25px;
+    padding-top: 9px;
+    font: normal normal 600 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #888888;
+    font-family: "Lato", sans-serif;
+    top: 0px;
+    margin: 0;
+    font-weight: 600;
+}
+.mat-form-field-type-mat-date-range-input .mat-form-field-infix .mat-form-field-label {
+    padding-left: 25px;
+    padding-top: 9px;
+    margin-left: -28px !important;
+    font: normal normal 600 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #888888;
+    font-family: "Lato", sans-serif;
+    top: 0px;
+    margin: 0;
+    font-weight: 600;
+}
+.mat-select-value-text {
+    font: normal normal 600 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #888888;
+    font-family: "Lato", sans-serif;
+    padding-left: 25px;
+    padding-top: 12px;
+  
+}
+.mat-select-arrow {
+    color: #057AE7;
+}
+.mat-form-field-type-mat-select .mat-form-field-infix .mat-select .mat-select-trigger:before {
+    content: "";
+	width: 30px;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    z-index: 9999;
+    height: 30px;
+    background-repeat: no-repeat;
+    background-size: 70% 70%;
+}
+.example-additional-selection {
+    background: #0575E6;
+    padding: 0px 2px;
+    border-radius: 50%;
+    float: right;
+    color: #fff;
+    border: 1px solid #0575E6;
+    position: absolute;
+    right: 13px;
+    bottom: 10px;
+    font-size: 10px;
+}
+.mat-form-field {
+    padding: 10px 5px 5px 5px !important;
+}
+.mat-form-field-appearance-fill.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    transform:translateY(-2em) scale(1.00);
+    padding-left: 0;
+    color: #888888e3;
+}
+.mat-form-field-appearance-fill .mat-form-field-flex {
+    padding: 0em 0em 0.75em 5px !important;
+}
+.mat-form-field-appearance-fill .mat-select-arrow-wrapper {
+    transform: translateY(0%) !important;
+}
+// .mat-form-field-type-mat-native-select .mat-form-field-infix::before {
+//     content: '';
+//     width: 30px;
+//     position: absolute;
+//     top: -10px;
+//     left: 0;
+//     z-index: 9999;
+//     height: 30px;
+//     background-repeat: no-repeat;
+//     background-size: 70% 70%;
+// }
+// .calendar.mat-form-field-type-mat-native-select .mat-form-field-infix::before {
+//     content: '';
+//     background: url("./../assets/images/calendar.png");   
+//     background-repeat: no-repeat;
+//     background-size: 70% 70%;
+// }
+.calendar.mat-form-field-type-mat-select .mat-form-field-infix .mat-select .mat-select-trigger:before {
+    content: '';
+    background: url("./../assets/images/calendar.png");   
+    background-repeat: no-repeat;
+    background-size: 55% 55%;
+}
+.plants.mat-form-field-type-mat-select .mat-form-field-infix .mat-select .mat-select-trigger:before {
+    content: '';
+    margin-top: -2px;
+    background: url("./../assets/images/plants.png");   
+    background-repeat: no-repeat;
+}
+.incharge.mat-form-field-type-mat-select .mat-form-field-infix .mat-select .mat-select-trigger:before {
+    content: '';
+    margin-top: 2px;
+    background: url("./../assets/images/incharge.png");   
+    background-repeat: no-repeat;
+}
+.region.mat-form-field-type-mat-select .mat-form-field-infix .mat-select .mat-select-trigger:before {
+    content: '';
+    background: url("./../assets/images/region.png");   
+    background-repeat: no-repeat;
+}
+.country.mat-form-field-type-mat-select .mat-form-field-infix .mat-select .mat-select-trigger:before {
+    content: '';
+    margin-top: -2px;
+    background: url("./../assets/images/country.png");   
+    background-repeat: no-repeat;
+}
+.state.mat-form-field-type-mat-select .mat-form-field-infix .mat-select .mat-select-trigger:before {
+    content: '';
+    background: url("./../assets/images/state.png");   
+    background-repeat: no-repeat;
+}
+.allKnu.mat-form-field-type-mat-select .mat-form-field-infix .mat-select .mat-select-trigger:before {
+    content: '';
+    background: url("./../assets/images/KNU.png");   
+    background-repeat: no-repeat;
+}
+.botStatus.mat-form-field-type-mat-select .mat-form-field-infix .mat-select .mat-select-trigger:before {
+    content: '';
+    background: url("./../assets/images/BOTStatus.png");   
+    background-repeat: no-repeat;
+}
+.allBot.mat-form-field-type-mat-select .mat-form-field-infix .mat-select .mat-select-trigger:before {
+    content: '';
+    background: url("./../assets/images/AllBOT.png");   
+    background-repeat: no-repeat;
+}
+.mat-form-field-type-mat-native-select .mat-input-element {
+    padding-left: 30px;
+    top: -20px;
+}
+
+// .mat-select .mat-select-value {
+//     overflow: visible;
+// }
+
+
+// report
+.kpis.mat-form-field-type-mat-select .mat-form-field-infix .mat-select .mat-select-trigger:before {
+    content: '';
+    background: url("./../assets/images/kpis.png");  
+    margin-top: 3px; 
+    background-repeat: no-repeat;
+}
+.amc.mat-form-field-type-mat-select .mat-form-field-infix .mat-select .mat-select-trigger:before {
+    content: '';
+    background: url("./../assets/images/amc.png");   
+    background-repeat: no-repeat;
+}
+.pdf.mat-form-field-type-mat-select .mat-form-field-infix .mat-select .mat-select-trigger:before {
+    content: '';
+    margin-top: -2px;
+    background: url("./../assets/images/pdf.png");   
+    background-repeat: no-repeat;
+}
+
+
+.priority.mat-form-field-type-mat-select .mat-form-field-infix .mat-select .mat-select-trigger:before {
+    content: '';
+    background: url("./../assets/images/priority.png");   
+    background-repeat: no-repeat;
+}
+.status.mat-form-field-type-mat-select .mat-form-field-infix .mat-select .mat-select-trigger:before {
+    content: '';
+    background: url("./../assets/images/status.png");   
+    margin-top: -4px;
+    background-repeat: no-repeat;
+}
+// overview2
+
+
+
+// select css ends
+.select-all{
+    margin-left: 15px!important;
+    margin-top: 10px !important;
+}
+
+// Popup css
+.dialog .mat-dialog-content .mat-form-field-type-mat-native-select .mat-input-element {
+    padding-left: 0px;
+    color: #00000080;
+}
+.dialog .mat-dialog-content .mat-form-field {
+    width: 100%;
+}
+.dialog .mat-dialog-content .mat-typography h2 {
+    font: normal normal bold 24px/29px Lato;
+    letter-spacing: 1.2px;
+    color: #2D3047;
+    font-size: 24px;
+    font-family: 'Lato', sans-serif;
+}
+.dialog .mat-dialog-content p.label {
+    font: normal normal medium 16px/24px Lato;
+    letter-spacing: 0.15px;
+    color: #2D3047;
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+}
+.dialog .mat-dialog-content .mat-form-field-appearance-fill .mat-form-field-flex {
+    border-color: #0000001F;
+}
+.dialog .mat-dialog-content .outer {
+    display: flex;
+    padding: 5px 0;
+}
+.dialog .mat-dialog-content .outer .name {
+    font: normal normal normal 16px/24px Lato;
+    letter-spacing: 0.15px;
+    color: #00000080;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    min-width: 120px;
+    font-weight: 600;
+}
+.dialog .mat-dialog-content .outer .value {
+    font: normal normal normal 16px/24px Lato;
+    letter-spacing: 0.15px;
+    color: #2D3047;
+    font-family: "Lato", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+}
+.dialog .mat-dialog-content .uploadFile {
+    border: 1px solid #0000001F;
+    width: 100%;
+    border-radius: 4px;
+    letter-spacing: 0.14px;
+    color: #001DFF80;
+    font-family: "Lato", sans-serif;
+    font-weight: 600;
+}
+.dialog .cancel {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #057AE7;
+    border-radius: 20px;
+    font-size: 14px;
+    letter-spacing: 0.7px;
+    color: #057AE7;
+    font-family: 'Lato', sans-serif;
+    padding: 0 30px;
+    font-weight: 600;
+}
+.dialog .cancel:focus {
+    outline: none;
+}
+.dialog .save {
+    background: #0575E6 0% 0% no-repeat padding-box;
+    border-radius: 20px;
+    letter-spacing: 0.7px;
+    font-size: 14px;
+    color: #FFFFFF;
+    font-family: 'Lato', sans-serif;
+    padding: 0 30px;
+    font-weight: 600;
+}
+.dialog .save:focus {
+    outline: none;
+}
+.dialog .mat-form-field-type-mat-native-select .mat-form-field-infix::after {
+    color: rgba(0,0,0,.54);
+    content: '';
+}
+.dialog .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background: #057AE7;
+}
+// Popup css
+
+
+.c-sidebar {
+    background: #2D3047;
+}
+.c-sidebar .c-sidebar-nav-link.c-active:before {
+    content: '';
+    border: 5px solid #00F260;
+    height: 100%;
+    width: 10px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.c-sidebar .c-sidebar-nav-link.c-active {
+    background: inherit;
+    color: #00F260;
+}
+.c-sidebar .c-sidebar-nav-link.c-active .c-sidebar-nav-icon {
+    color: #00F260;
+}
+.c-sidebar .c-sidebar-nav-link:hover {
+    color: #00F260;
+    background: inherit;
+}
+.c-sidebar .c-sidebar-nav-link:hover .c-sidebar-nav-icon{
+    color: #00F260;
+}
+
+@media (min-width: 992px) {
+    html:not([dir=rtl]) .c-sidebar.c-sidebar-lg-show:not(.c-sidebar-right).c-sidebar-fixed ~ .c-wrapper, html:not([dir=rtl]) .c-sidebar.c-sidebar-show:not(.c-sidebar-right).c-sidebar-fixed ~ .c-wrapper {
+        margin-left: 120px;
+    }
+}
+ 
+  .fc-event-title{
+    color:rgb(0, 0, 0) !important;
+    font-weight: bold !important;
+}
+.fc-button-group{
+display: none !important;
+}
+.fc-today-button  {
+    display: none !important;
+    }
+
+    //table css
+    .apexcharts-svg{
+        margin-top: 20px !important;
+    }
+ #SvgjsRect2784 {width: 130px !important;}
+ 
+ .mat-select-trigger{
+     width: 100% !important;
+     min-width: 70px !important; 
+}/* 
+.mat-select-value-text{
+    margin-left: 5px !important; 
+} */
+ 
+.mat-form-field-appearance-legacy .mat-form-field-infix {
+   margin-left: -10px !important;
+   margin-top: -8px !important;
+}
+
+
+@media (min-width: 1777px) {
+    .l1 {
+      margin-left: -48px;
+    }
+  }
+  .help .mat-select-trigger {
+    width: 100%!important;
+    min-width: 94px!important;
+    margin-left: -18px;
+}
+.help .mat-form-field-infix{
+    height: 25px;
+}
+.commentc .mat-form-field-flex {
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    border-right: 0px !important;
+  }
+  ::ng-deep .mat-tooltip {
+    white-space:normal !important; /* Allow text to wrap */
+    overflow: visible !important; /* Display the full tooltip text */
+    max-width: none !important; /* Remove the default max-width restriction */
+    width: 100% !important; /* Set the tooltip width to 100% */
+    text-overflow: initial !important;
+  }
+  .apexcharts-pan-icon{
+    display: none !important;
+  }
+   mat-footer-row {
+  display: flex;
+  border-width: 0;
+  border-bottom-width:0px !important;
+  border-style: solid;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100% !important;
+}
+.tablecss{
+    width: 100%;
+    display: inline-grid;
+    overflow: auto;
+}

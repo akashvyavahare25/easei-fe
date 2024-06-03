@@ -1,0 +1,258 @@
+        <div class="c-subheader sticky-top justify-content-between px-3 c-header-shadow" >
+            <div class="renewSolarForm">
+                <div class="row" style="width: 100%;padding: 10px 0px;">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-lg-12" style="display: flex;">
+                                <a class="material-icons-outlined" routerLink="/front/portfolio/home" style="margin-top: 5px;padding-right: 5px;">arrow_back</a>
+                                <h3 class="title">{{plants | titlecase }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="generateReport" (click)="getReport()">Generate Report</button>
+                    </div>
+                    <div class="col-md-12" *ngIf="summeryData">
+                        <p class="smallDesc">{{summeryData.data['noofbots']}}  <span *ngIf="summeryData.data['noofbots'] == 1">BOT </span><span *ngIf="summeryData.data['noofbots'] > 1">BOTS </span> &nbsp;|&nbsp; {{summeryData.data['capacity']}} &nbsp;|&nbsp; {{summeryData.data['noofplants']}} Plant &nbsp;|&nbsp; Last
+                            Updated
+                            On {{summeryData.data['lastupdatedtime']}}</p>
+                    </div>
+                    <div class="col-md-12">
+                        <mat-form-field appearance="fill" class="calendar">
+                            <!-- <mat-label>Last 7 days</mat-label> -->
+                            <mat-select matNativeControl [(ngModel)]="calendar" (selectionChange)="selectedDate($event.value)">
+                                <mat-option value="7">Last 7 days</mat-option>
+                                <mat-option value="15">Last 15 days</mat-option>
+                                <mat-option value="30">Last 30 days</mat-option>
+                                <mat-option value="60">Last 60 days</mat-option>
+                                <mat-option value="180">Last 180 days</mat-option>
+                                <mat-option value="365">Last 1 year</mat-option>
+                                <mat-option value='custom'>Custom date</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="incharge" appearance="fill" *ngIf="calendar == 'custom'"> 
+                            <mat-label>Enter a date range</mat-label>
+                            <mat-date-range-input [formGroup]="dateForm" [rangePicker]="picker" [max]="maxDate">
+                              <input matStartDate placeholder="Start date" (dateChange)="selectedCustomDateStart($event)" formControlName="start">
+                              <input matEndDate placeholder="End date" (dateChange)="selectedCustomDateEnd($event)" formControlName="end">
+                            </mat-date-range-input>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-date-range-picker #picker ></mat-date-range-picker>
+                          </mat-form-field>
+                       <mat-form-field appearance="fill" class="incharge">
+                                <mat-label>Incharge</mat-label>
+                                <input matInput placeholder="Enter the name of requested person"   type="text" [ngModel]="incharge" matNativeControl readonly>
+                            </mat-form-field> 
+                            <mat-form-field appearance="fill" class="region">
+                                <mat-label>Region</mat-label>
+                                <input matInput placeholder="Enter the name of requested person"   type="text" [ngModel]="region" matNativeControl readonly>
+                            </mat-form-field> 
+                            <mat-form-field appearance="fill" class="country">
+                                <mat-label>Country</mat-label>
+                                <input matInput placeholder="Enter the name of requested person"   type="text" [ngModel]="country" matNativeControl readonly>
+                            </mat-form-field>
+        
+                            <mat-form-field appearance="fill" class="state">
+                                <mat-label>State</mat-label>
+                                <input matInput placeholder="Enter the name of requested person"   type="text" [ngModel]="state" matNativeControl readonly>
+                            </mat-form-field>
+                        <span style="position: relative;">
+                            <button type="button" class="btn btn-link resetBtn" (click)="reset()">Reset</button>
+                        </span>
+                    </div>
+                </div>
+        
+                <div class="row" style="padding: 0 20px;">
+                    <div class="col-12">
+                        <div class="row chart">
+                            <div class="col-lg-5">
+                                <mat-card class="mb-4" >
+                                    <mat-card-header>
+                                        <mat-card-title class="t4"> 
+                                            Latest BOT Operating Status
+                                           <!--  <a data-title="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s">
+                                                <i class="fa fa-info-circle"></i>
+                                            </a> -->
+                                        </mat-card-title>
+                                    </mat-card-header>
+                                    <mat-card-content class="botOSChartOuter" style="margin-top: -10px ;    height: 315px !important;">
+                                        <div id="chart" class="botOSChart" style="margin-top: -24px" *ngIf="chartOptions7">
+                                            <apx-chart [series]="chartOptions7.series" [chart]="chartOptions7.chart"
+                                                [plotOptions]="chartOptions7.plotOptions" [fill]="chartOptions7.fill"
+                                                [stroke]="chartOptions7.stroke" [labels]="chartOptions7.labels">
+                                            </apx-chart>
+                                        </div>
+                                        <div class="desc" *ngIf="botStatusArray?.length >= 1">
+                                            <p class="title"  *ngIf="type == 'With AMC'">With AMC - {{botStatusArray[0].total}} BOTs</p>
+                                            <p class="title"  *ngIf="type == 'Without AMC'">W/o AMC - {{botStatusArray[0].total}} BOTs</p>
+                                            <p class="d1">{{botStatusArray[0].healthy}} Healthy BOTs</p>
+                                            <p class="d2">{{botStatusArray[0].unhealthy}} Unhealthy BOTs</p>
+                                        </div>
+                                    </mat-card-content>
+                                </mat-card>
+
+                            </div>
+                            <div class="col-lg-7">
+                                <mat-card class="mb-4">
+                                    <mat-card-header>
+                                        <mat-card-title class="t2">
+                                            Average Uptime
+                                            <a data-title="Bot uptime is the ratio of total operating time of the robot and the total expected operation time. Any down time resulting from rains, high wind, manual aborts for maintenance of any system apart from robot shall not be considered as down time.">
+                                                <i class="fa fa-info-circle"></i>
+                                            </a>
+                                        </mat-card-title>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div id="chart" *ngIf="chartOptions6" class="averageUptimeChart">
+                                                    <div class="desc" *ngIf="allAvgUptime.length == 1">
+                                                        <p class="d1" *ngIf="allAvgUptime[0].name == 'With AMC'">Avg with AMC- {{allAvgUptime[0].average}} %</p>
+                                                        <p class="d2" *ngIf="allAvgUptime[0].name == 'Without AMC'">Avg w/o AMC - {{allAvgUptime[0].average}} %</p>
+                                                    </div>
+                                                    <apx-chart [series]="chartOptions6.series" [chart]="chartOptions6.chart"
+                                                        [xaxis]="chartOptions6.xaxis" [stroke]="chartOptions6.stroke"
+                                                        [colors]="chartOptions6.colors" [dataLabels]="chartOptions6.dataLabels"
+                                                        [legend]="chartOptions6.legend" [markers]="chartOptions6.markers"
+                                                        [grid]="chartOptions6.grid" [yaxis]="chartOptions6.yaxis" [annotations]="chartOptions6.annotations" 
+                                                        [title]="chartOptions6.title" [tooltip]="chartOptions6.tooltip">
+                                                    </apx-chart>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                            <div class="col-lg-5">
+                                <mat-card class="mb-4"  style="height: 380px;">
+                                    <mat-card-header>
+                                        <mat-card-title class="t1">
+                                            Average Soiling Loss
+                                            <a data-title="Soiling loss is the loss of power generation due to deposition of contamination on solar modules resulting in a loss of light transmission to solar cells.">
+                                                <i class="fa fa-info-circle"></i>
+                                            </a>
+                                        </mat-card-title>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div id="chart" *ngIf="chartOptions5" class="treeChart averageSollingLossChart">
+                                                    <div class="desc" *ngIf="allAvgSoilloss.length == 1">
+                                                        <p class="d1" *ngIf="allAvgSoilloss[0].name == 'With AMC'">Avg with AMC - {{allAvgSoilloss[0].average}} %</p>
+                                                        <p class="d2" *ngIf="allAvgSoilloss[0].name == 'Without AMC' ">Avg w/o AMC - {{allAvgSoilloss[0].average}} %</p>
+                                                    </div>
+                                                    <apx-chart [series]="chartOptions5.series" [chart]="chartOptions5.chart"
+                                                        [yaxis]="chartOptions5.yaxis" [xaxis]="chartOptions5.xaxis"
+                                                        [labels]="chartOptions5.labels" [stroke]="chartOptions5.stroke"
+                                                        [title]="chartOptions5.title" [dataLabels]="chartOptions5.dataLabels"
+                                                        [grid]="chartOptions5.grid" [fill]="chartOptions5.fill"
+                                                        [tooltip]="chartOptions5.tooltip" [colors]="chartOptions5.colors"
+                                                        [plotOptions]="chartOptions5.plotOptions" [annotations]="chartOptions5.annotations" 
+                                                        [markers]="chartOptions5.markers" [legend]="chartOptions5.legend">
+                                                    </apx-chart>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <div class="col-sm-12"> 
+                                        <mat-card class="mb-4" style="height: 185px;">
+                                            <mat-card-header class="PortfolioDiv">
+                                                <mat-card-title class="t3">NCU Status</mat-card-title>
+                                            </mat-card-header>
+                                            <mat-card-content>
+                                                <div class="row">
+                                                    <div class="col-sm">
+                                                        <div id="chart">
+                                                            <!--class="treeChart porfolioChart" <app-constantheatmap [notifier]="childNotifier"></app-constantheatmap> -->
+                                                            <app-heatmap [start]="startDate" [end]="endDate" [startDNotifier]="startDatechildNotifier" [endDNotifier]="endDatechildNotifier" [data]="plantsId"></app-heatmap> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </mat-card-content>
+                                </mat-card>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <mat-card class="mb-4" style="height: 182px;">
+                                            <mat-card-header>
+                                                <mat-card-title class="t5">
+                                                    Cleaning Schedule
+                                                </mat-card-title>
+                                            </mat-card-header>
+                                            <mat-card-content class="botOSChartOuter2">
+                                                <div class="row" *ngIf="cleaningData">
+                                                    <div class="col-sm-12">
+                                                        <b> Today :</b>  {{cleaningData[0].today_date}}
+                                                        </div>
+                                                    <div class="col-sm-6" style="margin-top: 20px;">
+                                                        <b> Start :</b> {{cleaningData[0].start}} 
+                                                    </div>
+                                                    <div class="col-sm-6" style="margin-top: 20px;">
+                                                        <b>End :</b>{{cleaningData[0].end }}
+                                                    </div>
+                                                    <div class="col-sm-12" style="margin-top: 5px;">
+                                                        <p class="mark"><b> Next :</b>{{cleaningData[0].next_date}} | {{cleaningData[0].next_start}} - {{cleaningData[0].next_end}}</p>  
+                                                    </div>
+                                                </div>
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </div>
+                                </div>
+                                    
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <mat-card class="mb-4" style="height: 185px;">
+                                            <mat-card-header>
+                                                <mat-card-title class="t6">
+                                                    Alarm Summary
+                                                    <a data-title="List of active alarms  auto-assigned from BCUs and NCUs from the plant">
+                                                        <i class="fa fa-info-circle"></i>
+                                                    </a>
+                                                </mat-card-title>
+                                            </mat-card-header>
+                                            <mat-card-content>
+                                                <div class="row col-sm">
+                                                    <div class="col-sm" *ngIf="summeryData">
+                                                        <p class="valueTitle">{{summeryData.data['number_of_active_alarm']}} Active Alarm</p>
+                                                        <div style="text-align: center;">
+                                                        <img src="../../../assets/images/alarm.jpeg" style="height: auto;max-height: 70px;" />
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </div>
+                                    <div class="col-12">
+                                        <mat-card class="mb-4" style="height: 182px;">
+                                            <mat-card-header>
+                                                <mat-card-title class="t7">
+                                                    Weather
+                                                    <a data-title="Local weather condition (Accuweather)">
+                                                        <i class="fa fa-info-circle"></i>
+                                                    </a>
+                                                </mat-card-title>
+                                            </mat-card-header>
+                                            <mat-card-content>
+                                                <div class="row col-sm">
+                                                    <div class="col-sm" *ngIf="summeryData">
+                                                        <p class="valueTitle">{{summeryData.data['current_temperature'] | slice:0:2}}<sup>o</sup>C</p>
+                                                        <div style="text-align: center;">
+                                                            <img src="../../../assets/images/weather.jpeg" style="height: auto;max-height: 70px;" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

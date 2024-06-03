@@ -1,0 +1,43 @@
+.permission-height {
+    height: calc(100vh - 122px);
+    overflow: auto;
+    margin-right: -10px;
+}
+.history-height {
+    min-height: calc(100vh - 560px);
+    overflow: auto;
+}
+.circle {
+    border: 2px solid #999;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    margin: auto;
+}
+.approved {
+    border: 2px solid green;
+    background-color: green;
+}
+.rejected {
+    border: 2px solid red;
+    background-color: red;
+}
+.delegated {
+    border: 2px solid yellow;
+    background-color: yellow;
+}
+.sky-color {
+    color: skyblue;
+}
+.time {
+    font-weight: 700;
+}
+.border-bottom {
+    border-bottom: 1px solid lightgray;
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+.files > span:hover{
+    color:#4b7cf3;
+}

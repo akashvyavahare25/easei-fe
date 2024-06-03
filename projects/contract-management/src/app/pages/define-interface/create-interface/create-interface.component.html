@@ -1,0 +1,234 @@
+<div class="card col-md-12">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="text-grey-6 font-size-16 mb-3">
+        <strong>Define Interface Create</strong>
+        <!-- <strong>Edit Define Interface</strong> -->
+      </div>
+    </div>
+    <div class="col-md-5"></div>
+    <div class="col-md-1 padding-right25 padding-top10">
+      <button *ngIf="!interfaceId" (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+        <strong>Submit</strong>
+      </button>
+      <!-- <button *ngIf="interfaceId" (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+          <strong>Update</strong>
+      </button> -->
+    </div>
+  </div>
+  <div class="col-md-12">
+    <form nz-form [nzLayout]="'vertical'" [formGroup]="iForm" role="form">
+      <div class="row">
+        <div class="col-md-4">
+            <nz-form-item>
+              <nz-form-label class="labels" nzFor="iname">Interface Name</nz-form-label>
+              <nz-form-control>
+                <input type="text" nz-input [formGroup]="iForm" formControlName="iname" nzSize="medium" placeholder="Enter Name of Interface" />
+              </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div class="col-md-3">
+          <nz-form-item>
+              <nz-form-label class="labels" nzFor="itype">Interface Type</nz-form-label>
+              <nz-form-control>
+                <nz-select nzSize="medium" nzPlaceHolder="Choose Interface Type" (ngModelChange)="addTypeInEditor($event)"
+                [formGroup]="iForm" formControlName="itype">
+                  <nz-option nzValue="Expose" nzLabel="Expose"></nz-option>
+                  <nz-option nzValue="Consume" nzLabel="Consume"></nz-option>
+                </nz-select>
+              </nz-form-control>
+          </nz-form-item>
+        </div>     
+      </div>
+    </form>
+  </div>
+  <div *ngIf="value==='Consume'" class="col-md-12">
+    <form nz-form [nzLayout]="'vertical'" [formGroup]="iForm" role="form">
+      <div class="row">
+        <div class="col-md-4">
+            <nz-form-item>
+              <nz-form-label class="labels" nzFor="ireq">Request Method</nz-form-label>
+              <nz-form-control>
+                <nz-select nzSize="medium" nzPlaceHolder="Choose Request Method" (ngModelChange)="addRequestInEditor($event)"
+                [formGroup]="iForm" formControlName="ireq">
+                <nz-option *ngFor="let method of this.requestMethods" [nzLabel]="method" [nzValue]="method">
+                </nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div class="col-md-7">
+          <nz-form-item>
+            <nz-form-label class="labels" nzFor="iurl">API Endpoint</nz-form-label>
+            <nz-form-control>
+              <input type="text" nz-input [formGroup]="iForm" formControlName="iurl" nzSize="medium" placeholder="Enter URL here..." />
+            </nz-form-control>
+            <error *ngIf="endpointError !== ''">{{ endpointError }}</error>
+          </nz-form-item>
+        </div> 
+        <div class="col-md-1 text-right padding-right29" style="padding-top: 2rem;">
+          <nz-form-item [formGroup]="iForm">
+            <nz-form-control>
+              <button nz-button nzType="primary" (click)="sendRequest()"  [nzSize]="'small'">
+                <strong>Test</strong>
+              </button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>    
+      </div>
+    </form>
+  </div>
+  <div *ngIf="value==='Expose'" class="col-md-12">
+    <form nz-form [nzLayout]="'vertical'" [formGroup]="iForm" role="form">
+      <div class="row">
+        <div class="col-md-4">
+              <nz-form-item>
+                <nz-form-label class="labels" nzFor="itype">Storage Type</nz-form-label>
+                <nz-form-control>
+                  <nz-select nzSize="medium" nzPlaceHolder="Choose Storage Type" (ngModelChange)="addTypeInEditor2($event)"
+                  [formGroup]="iForm" formControlName="itypeStorage">
+                    <nz-option nzValue="master" nzLabel="Master"></nz-option>
+                    <nz-option nzValue="screen" nzLabel="Screen"></nz-option>
+                    <nz-option nzValue="report" nzLabel="Report"></nz-option>
+                  </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div class="col-md-3">
+          <nz-form-item>
+            <nz-form-label class="labels" nzFor="itype">DataSet</nz-form-label>
+            <nz-form-control>
+              <nz-select nzSize="medium" nzPlaceHolder="Choose DataSet" (ngModelChange)="addTypeInEditor3($event)"
+              [formGroup]="iForm" formControlName="iStorage">
+              <nz-option *ngFor="let item of this.storageResData" [nzLabel]="item.name" [nzValue]="item">
+              </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div> 
+        <div class="col-md-5">
+          <nz-form-item>
+            <nz-form-label class="labels" nzFor="iurl">API Endpoint</nz-form-label>
+            <nz-form-control>
+              <input type="text" nz-input [formGroup]="iForm" formControlName="iurl" nzSize="medium" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <!-- <div class="col-md-1 text-right padding-right29" style="padding-top: 2rem;">
+          <nz-form-item [formGroup]="iForm">
+            <nz-form-control>
+              <button nz-button nzType="primary" (click)="sendRequest()"  [nzSize]="'small'">
+                <strong>Test</strong>
+              </button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>     -->
+      </div>
+    </form>
+  </div>
+  <div *ngIf="value==='Consume'" class="col-md-12">
+      <nz-tabset nzType="card" [nzSize]="'small'">
+          <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab">
+              <div *ngIf="tab === 'Headers'" class="col-md-12">
+                <div class="row" >
+                  <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-4" >
+                            <nz-form-label class="labels" nzFor="key1">Key</nz-form-label>
+                          </div>
+                          <div class="col-md-1"></div>
+                          <div class="col-md-4">
+                              <nz-form-label class="labels" nzFor="value1">Value</nz-form-label>
+                          </div>
+                          <div class="col-md-1 text-right padding-right25" (click)="addNewStep()">
+                            <button [nzSize]="'small'" nz-button nzType="primary">
+                              <span class="addAnotherStepText">ADD Parameter</span>
+                            </button>
+                          </div>
+                        </div> 
+                      
+                        <div class="row" *ngFor="let item of iForm.get('steps').controls let indexOfelement=index">
+                          <div class="col-md-12">
+                          <form nz-form [nzLayout]="'vertical'" [formGroup]="item" role="form">
+                          <div class="row"> 
+                                <div class="col-md-4">
+                                      <nz-form-item>
+                                          <nz-form-control>
+                                              <input type="text" nz-input formControlName="key" nzSize="medium" />
+                                          </nz-form-control>
+                                      </nz-form-item>
+                                  </div>
+                                  <div class="col-md-1"></div>
+                                  <div class="col-md-4">
+                                      <nz-form-item>
+                                          <nz-form-control>
+                                              <input type="text" nz-input  formControlName="value" nzSize="medium" />
+                                          </nz-form-control>
+                                      </nz-form-item>
+                                  </div>
+                                  <div class="col-md-1" style="padding: 0.8rem;">
+                                    <div *ngIf="indexOfelement" class="deleteIcon" (click)="removeNewStep(indexOfelement)">
+                                      <i nz-icon nzType="delete" style="font-size: 16px;"></i>
+                                    </div>
+                                  </div>
+                              </div>
+                             </form>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              </div>
+              <div *ngIf="tab === 'Body'">
+                  <div class="row">
+                    <div class="col-md-12">
+                    <form nz-form [nzLayout]="'vertical'" [formGroup]="iForm" role="form">
+                      <textarea rows="4"  nz-input nzPlaceHolder="Please enter Data" formControlName="bodytxt" ></textarea>
+                    </form>
+                  </div>
+                  </div>
+              </div>
+          </nz-tab>
+      </nz-tabset>
+  </div>
+  <div *ngIf="value==='Consume'" class="col-md-12">
+    <div class="card boxContainer" style="padding-top: 0.5rem;">
+      <div class="w-100" style="background-color: black; padding: 0.5rem; min-height: 5rem;">
+          <progress-spinner 
+              *ngIf="loadingState" 
+              class="d-block mx-auto" 
+              color="accent" 
+              mode="indeterminate"
+          ></progress-spinner>
+          <pre 
+              *ngIf="responseData" 
+              style="color: green; white-space: pre-wrap;"
+          >{{ responseData }}</pre>
+          <pre 
+              *ngIf="responseError" 
+              style="color: red; white-space: pre-wrap;"
+          >{{ responseError }}</pre>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="value==='Expose'" class="col-md-12">
+    <div class="card boxContainer" style="padding-top: 0.5rem;">
+      <div class="w-100" style="background-color: black; padding: 0.5rem; min-height: 5rem;">
+          <progress-spinner 
+              *ngIf="loadingState" 
+              class="d-block mx-auto" 
+              color="accent" 
+              mode="indeterminate"
+          ></progress-spinner>
+          <pre 
+              *ngIf="fetchRes" 
+              style="color: green; white-space: pre-wrap;"
+          >{{ fetchRes }}</pre>
+          <!-- <pre 
+              *ngIf="responseError" 
+              style="color: red; white-space: pre-wrap;"
+          >{{ responseError }}</pre> -->
+      </div>
+    </div>
+  </div>
+</div>       
+

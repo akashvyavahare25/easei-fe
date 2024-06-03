@@ -1,0 +1,42 @@
+
+<div class="project card">
+  <div class="col-md-12 row">
+    <div class="col-md-6">
+      <div class="text-grey-6 font-size-16 mb-3">
+        <strong>Upload</strong>
+      </div>
+    </div>
+    <div class="col-md-6 text-right">
+      <nz-form-item class="margin-bottom0">
+        <nz-form-control>
+          <button nz-button nzType="primary" [disabled]='isButtonEnabled' (click)="submit()" [nzSize]="'small'">
+            <strong>Submit</strong>
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <form nz-form [nzLayout]="'vertical'" class="row" [formGroup]="uplaodForm" role="form">
+        
+      <div class="mb-2 col-md-4">
+        <input  type="file" accept=".xlsx" class="btn btn-outline-primary" formControlName="file"
+          (change)="onFileSelect($event.target)" id="fileupload" />
+      
+      </div>
+    </form>
+    </div>
+  <div class="row" *ngIf="isViewed">
+    <div class="col-md-12 exceldiv">
+      <nz-tabset nzType="card" [(nzSelectedIndex)]="selectedIndex" (nzSelectChange)="log([$event])">
+        <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab" >
+          
+        </nz-tab>
+      </nz-tabset>
+      <ag-grid-angular style="width: 100%; height: 450px;" class="ag-theme-balham" [rowData]="rowData"
+          [columnDefs]="columnDefs" (firstDataRendered)="onFirstDataRendered($event)" [gridOptions]="gridOptions">
+        </ag-grid-angular>
+        
+    </div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="col-md-12 card">
+    <div class="row">
+      <div class="col-md-10 text-grey-6 font-size-16 mb-3">
+        <strong>NCU Page Layout</strong>
+      </div>
+    </div>
+    <form nz-form [nzLayout]="'vertical'" [formGroup]="ncuLayoutForm" role="form">
+            <div class="row">
+                <div class="col-md-3">
+                  <nz-form-item>
+                      <nz-form-label class="labels" nzFor="dropdown">NCU Id</nz-form-label>
+                      <nz-form-control>
+                          <nz-select nzSize="medium" nzPlaceHolder="NCU Id" formControlName="ncuId">
+                            <nz-option nzValue="1" nzLabel="NCU1"></nz-option>
+                            <nz-option nzValue="2" nzLabel="NCU2"></nz-option>
+                            <nz-option nzValue="3" nzLabel="NCU3"></nz-option>
+                          </nz-select>
+                      </nz-form-control>
+                  </nz-form-item>
+                </div>
+                <div class="col-md-3">
+                    <nz-form-item>
+                        <nz-form-label class="labels" nzFor="designation">Date</nz-form-label>
+                        <nz-form-control>
+                          <!-- nzErrorTip="Please input master name!" -->
+                          <nz-date-picker nz-input formControlName="date" nzSize="medium"></nz-date-picker>
+                         </nz-form-control>
+                      </nz-form-item>
+                  </div>
+                  <div class="col-md-3">
+                    <nz-form-item>
+                      <nz-form-label class="labels" nzFor="designation">Wind Speed (m/s)</nz-form-label>
+                      <nz-form-control>
+                        <!-- nzErrorTip="Please input master name!" -->
+                        <input type="text" nz-input formControlName="windSpeed" nzSize="medium" placeholder="Wind Speed" />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div class="col-md-3">
+                    <nz-form-item>
+                        <nz-form-label class="labels" nzFor="dropdown">Wind Alarm Active</nz-form-label>
+                        <nz-form-control>
+                            <nz-select nzSize="medium" nzPlaceHolder="Wind Active Alarm" formControlName="windAlarm">
+                              <nz-option nzValue="yes" nzLabel="Yes"></nz-option>
+                              <nz-option nzValue="no" nzLabel="No"></nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <nz-form-item>
+                        <nz-form-label class="labels" nzFor="dropdown">NCU Alarm and Notification List</nz-form-label>
+                    </nz-form-item>
+                </div>
+                <ag-grid-angular style="width: 100%; height: 250px;" class="ag-theme-balham" [rowData]="rowData"  [columnDefs]="columnDefs">
+                </ag-grid-angular>        
+            </div>
+    </form>
+</div>

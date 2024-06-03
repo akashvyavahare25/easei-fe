@@ -1,0 +1,114 @@
+<div class="card col-md-12">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="text-grey-6 font-size-16 mb-3">
+        <strong *ngIf="!jobId">Define Job Create</strong>
+        <strong *ngIf="jobId">Edit Define Job</strong>
+      </div>
+    </div>
+    <div class="col-md-6 text-right padding-right30">
+      <nz-form-item>
+          <nz-form-control>
+              <button *ngIf="!jobId" (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+                  <strong>Submit</strong>
+              </button>
+              <!-- <button *ngIf="jobId" (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+                  <strong>Update</strong>
+              </button>
+              <button *ngIf="!jobId" (click)="clearForm()" nz-button nzType="light" [nzSize]="'small'"
+                  class="margin-left5">
+                  <strong>Clear</strong>
+              </button>
+              <button *ngIf="jobId" (click)="cancelEdit()" nz-button nzType="light" [nzSize]="'small'"
+                  class="margin-left5">
+                  <strong>Cancel</strong>
+              </button> -->
+          </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <form nz-form [nzLayout]="'vertical'" [formGroup]="iForm" role="form">
+        <div class="row">
+            <div class="col-md-3">
+                <nz-form-item>
+                    <nz-form-label class="labels" nzFor="name">Job name</nz-form-label>
+                    <nz-form-control>
+                        <input type="text" nz-input formControlName="name" nzSize="medium" placeholder="Job Name" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col-md-3">
+                  <nz-form-item>
+                    <nz-form-label class="labels" nzFor="type">Type</nz-form-label>
+                    <nz-form-control>
+                      <nz-select nzSize="medium" nzPlaceHolder="Choose Job Type" (ngModelChange)="addTypeInEditor($event)"
+                      [formGroup]="iForm" formControlName="type">
+                        <nz-option nzValue="Interface" nzLabel="Interface"></nz-option>
+                      </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </form>
+    </div>
+  <div class="col-md-12" style="padding-top: 1rem;">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="card">
+          <div class="row" style="padding-left: 4rem;">
+            <cron-editor class="croneditor" [(cron)]="cronExpression" [disabled]="isCronDisabled" [(options)]="cronOptions"></cron-editor>
+          </div>
+          <div class="row" style="padding-left: 3rem; padding-Top: 1rem">
+            <p>The resulting Cron expression: <strong>{{cronExpression.toString().replace('?','*')}}</strong></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card" *ngIf="dynamicInterface" style="padding: 1rem;">
+          <form nz-form [nzLayout]="'vertical'" [formGroup]="iForm" role="form">
+            <nz-form-item>
+              <nz-form-label class="labels" nzFor="interfaces">Interface Name
+              </nz-form-label>
+              <nz-form-control>
+                  <nz-select nzSize="medium" formControlName="interfaces"
+                      nzPlaceHolder="Please select interface name"(ngModelChange)="selectInterface($event)">
+                      <nz-option *ngFor="let item of listOfInterface" [nzLabel]="item.name"
+                          [nzValue]="item">
+                      </nz-option>
+                  </nz-select>
+              </nz-form-control>
+              </nz-form-item>
+                <nz-form-item>
+                  <nz-form-label class="labels" nzFor="itype">Interface Type</nz-form-label>
+                  <nz-form-control>
+                    <input type="text" nz-input [formGroup]="iForm" formControlName="itype" nzSize="medium" placeholder="Choose interface name for type" />
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                <nz-form-label class="labels" nzFor="itype">Unique Column</nz-form-label>
+                  <nz-form-control>
+                    <nz-select nzSize="medium" nzPlaceHolder="Choose Unique Column" (ngModelChange)="addTypeInEditor($event)"
+                    [formGroup]="iForm" formControlName="iColm">
+                      <nz-option nzValue="PanNumner" nzLabel="PanNumner"></nz-option>
+                      <nz-option nzValue="GSTN" nzLabel="GSTN"></nz-option>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+              <nz-form-label class="labels" nzFor="iurl">Table Name</nz-form-label>
+              <nz-form-control>
+                <input type="text" nz-input [formGroup]="iForm" formControlName="itable" nzSize="medium" placeholder="Enter Table Name" />
+              </nz-form-control>
+            </nz-form-item>
+         </form>
+        </div>
+       </div>
+      </div>
+  </div>
+  <div class="col-md-12">
+    <div class="row">
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,159 @@
+
+<div class="card col-md-12 min-card-height">
+    <div class="row">
+    <div class="col-md-6">
+        <div class="text-grey-6 font-size-16 mb-3">
+        <strong *ngIf="!paramaterId">Define Upload</strong>
+        <strong *ngIf="paramaterId">Edit Upload Field</strong>
+        </div>
+    </div>
+    <div class="col-md-6 text-right padding-right30">
+        <nz-form-item class="margin-bottom0">
+        <nz-form-control>
+            <button *ngIf="!paramaterId" (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+            <strong>Submit</strong>
+            </button>
+            <button *ngIf="paramaterId" (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+            <strong>Update</strong>
+            </button>
+        </nz-form-control>
+        </nz-form-item>
+    </div>
+    </div>
+    <div class="col-md-12">
+    <form nz-form [nzLayout]="'vertical'" [formGroup]="uploadForm" role="form">
+        <div class="row">
+            <div class="col-md-3">
+                <nz-form-item>
+                    <nz-form-label class="labels" nzFor="name">Upload name</nz-form-label>
+                    <nz-form-control>
+                        <!-- nzErrorTip="Please input parameter name!" -->
+                        <input type="text" nz-input formControlName="name" nzSize="medium" placeholder="Upload Name" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col-md-3">
+                <nz-form-item>
+                    <nz-form-label class="labels" nzFor="application">Choose Application</nz-form-label>
+                    <nz-form-control>
+                        <nz-select nzSize="medium" nzPlaceHolder="Choose Dataset" (ngModelChange)="selectScreens($event)"
+                        formControlName="application">
+                        <nz-option *ngFor="let item of listOfApplicationMaste" [nzLabel]="item.name" [nzValue]="item">
+                        </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col-md-3">
+                <nz-form-item>
+                    <nz-form-label class="labels" nzFor="screens">Choose Dataset</nz-form-label>
+                    <nz-form-control>                        
+                        <nz-select nzSize="medium" nzPlaceHolder="Choose Dataset"  (ngModelChange)="addScreenConfig($event)" 
+                        formControlName="screens">
+                        <nz-option *ngFor="let item of screenArray;let i = index" [nzLabel]="item.name" [nzValue]="item">
+                        </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col-md-3">
+              <nz-form-item>
+                <nz-form-label class="labels" nzFor="type">Type</nz-form-label>
+                <nz-form-control>
+                  <nz-select nzSize="medium" nzPlaceHolder="Choose Dataset" (ngModelChange)="addTypeInEditor($event)"
+                    formControlName="type">
+                    <nz-option nzValue="By columns" nzLabel="By columns"></nz-option>
+                    <nz-option nzValue="As Multiple Rows" nzLabel="As Multiple Rows"></nz-option>
+                    <nz-option nzValue="By Rows-Columns" nzLabel="By Rows-Columns"></nz-option>
+                   </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+            </div>            
+        </div>
+    </form>
+    </div>
+</div>
+<div class="card padding-bottom20">    
+    <div class="row">
+      <div class="col-md-3 text-grey-6 font-size-16 mb-3">
+        <strong class="ml-3">Define Upload</strong>
+      </div>
+      <div class="col-md-3 text-right padding-right30 ">
+          <a  (click)="copyAll()" >Copy All</a>
+      </div>
+      <div class="col-md-6 text-right padding-right30">
+          <a (click)="removeAll()">Remove All</a>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="min-height">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="col-md-12 card-css">
+                <div *ngFor="let item of draggableData" class="drag-data" [dndType]="'item'"
+                  (dndMoved)="removeItem(item, draggableData)" [dndDraggable] [dndObject]="item">
+                  <div class="row text-truncate">                   
+                    <div class="col-md-12 text-truncate">{{item.components[0].key}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 card-css">
+              <div class="row drop-heding">                
+                <div class="col-md-9 text-grey-6 font-size-16">
+                  <strong>Property Name</strong>
+                </div>
+              </div>
+              <div class="card-css2" [dndList] [dndModel]="draggableList">
+                <div *ngFor="let item of draggableList;let i = index" class="col-md-12" [dndType]="'item'"
+                  (dndMoved)="removeItem(item, draggableList)" [dndDraggable] [dndObject]="item">
+                  <div class="row drop-data">                   
+                    <div class="col-md-12">
+                      <span>{{item.components[0].key}}</span>
+                       <span class="float-right margin-right10"
+                        *ngIf="item.components[0].type==='datagrid'">
+                        <i class="fe fe-chevrons-right cursor-pointer" (click)="showGridModel(item)"></i>
+                      </span> 
+                      <span class="close-icon" (click)="removeParameter(item, i)">x</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2 ml-1">
+            <button (click)="csvPreview()" nz-button nzType="primary" [nzSize]="'small'">
+              <strong>Generate Template</strong>
+              </button>
+          </div>
+        </div>        
+      </div>
+    </div>
+  </div>
+<div class="card" *ngIf="visibleGrid">
+  <div class="card-body">
+    <nz-table #basicTable class="scroll-bar" nzSize="small" [nzData]="tableData" [nzFrontPagination]="false">
+      <thead>
+        <tr >
+          <th *ngFor="let item of tableData">{{item}}</th>        
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </nz-table>
+  </div>
+</div>
+<div *ngIf="visibleModal">    
+  <nz-modal [(nzVisible)]="visibleModal" nzTitle="Add Property" (nzOnCancel)="cancelGrid()" (nzOnOk)="okGrid()">      
+    <div class="col-md-12">
+      <span>How much steps {{value.components[0].key}}</span>
+      <nz-input-number  [(ngModel)]="value.components[0].step" [nzMin]="0" [nzStep]="1"></nz-input-number>   
+      <div *ngFor="let item of value.components[0].components;let i=index">
+        <span *ngIf="item.components">How much steps {{value.components[0].key +'.'+item.key}}</span>
+        <nz-input-number *ngIf="item.components" [(ngModel)]="value.components[0].components[i].step" [nzMin]="0" [nzStep]="1"></nz-input-number> 
+      </div>
+      <!-- <input type="text" nzSize="medium" placeholder="Enter step" [(ngModel)]="" /> -->
+    </div>
+  </nz-modal>
+</div>
+

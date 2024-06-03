@@ -1,0 +1,339 @@
+
+<div class="c-subheader sticky-top justify-content-between px-3 c-header-shadow">
+    <div class="reports">
+        <div class="row" style="width: 100%;padding: 10px 0px;">
+            <div class="col-md-6">
+                <h3 class="title">Reports</h3>
+            </div>    
+            <div class="col-md-6">
+                <button class="generateReport" (click)="generateReport()" >Download Report</button>
+            </div>
+            <div class="col-md-12">
+                <mat-form-field appearance="fill" class="calendar">
+                   <!--  <mat-label>Last 7 days</mat-label> -->
+                    <mat-select matNativeControl [(ngModel)]="calendar" (selectionChange)="selectedDate($event.value)">
+                        <mat-option value="7">Last 7 days</mat-option>
+                        <mat-option value="15">Last 15 days</mat-option>
+                        <mat-option value="30">Last 30 days</mat-option>
+                        <mat-option value="60">Last 60 days</mat-option>
+                        <mat-option value="180">Last 180 days</mat-option>
+                        <mat-option value="365">Last 1 year</mat-option>
+                        <mat-option value='custom'>Custom date</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="customDate" appearance="fill" *ngIf="calendar == 'custom'"> 
+                    <mat-label>Enter a date range</mat-label>
+                    <mat-date-range-input [rangePicker]="picker" [max]="maxDate">
+                      <input matStartDate placeholder="Start date" (dateChange)="selectedCustomDateStart($event)">
+                      <input matEndDate placeholder="End date"  (dateChange)="selectedCustomDateEnd($event)">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker ></mat-date-range-picker>
+                </mat-form-field> 
+                  <mat-form-field  appearance="fill" class="plants">
+                    <mat-label>Plants</mat-label>
+                    <mat-select [formControl]="allPlants" [(ngModel)]="allPlants1" #select multiple  (selectionChange)="getIncharge($event.value)">
+                        <mat-select-trigger>
+                            {{allPlants.value?.length >0 ? allPlants.value[0].name : ''}}
+                            <span *ngIf="allPlants.value?.length > 1" class="example-additional-selection">
+                                +{{allPlants.value.length - 1}}
+                            </span>
+                        </mat-select-trigger>
+                        <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelection()">All Plants</mat-checkbox>
+                        </div>
+                        <mat-option (click)="optionClick()" *ngFor="let pl of allPlantsList" [value]="pl">
+                            {{pl.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                    <mat-form-field appearance="fill" class="incharge">
+                        <mat-label>Incharge</mat-label>
+                        <mat-select matNativeControl #select1 multiple [formControl]="allIncharge" [(ngModel)]="allIncharge1">
+                            <mat-select-trigger>
+                                {{allIncharge.value?.length >0 ? allIncharge.value[0].name : ''}}
+                                <span *ngIf="allIncharge.value?.length > 1" class="example-additional-selection">
+                                    +{{allIncharge.value.length - 1}}
+                                </span>
+                            </mat-select-trigger>
+                            <div class="select-all">
+                                <mat-checkbox [(ngModel)]="allSelected1" [ngModelOptions]="{standalone: true}"
+                                    (change)="toggleAllSelection1()">All Incharge</mat-checkbox>
+                            </div>
+                            <mat-option (click)="optionClick1()" *ngFor="let incharg of allInchargeList" [value]="incharg">
+                                {{incharg.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field> 
+                    <mat-form-field appearance="fill" class="region">
+                        <mat-label>Region</mat-label>
+                        <mat-select matNativeControl #select2 multiple [formControl]="allRegion" [(ngModel)]="allRegion1" (selectionChange)="getCountry($event.value)">
+                            <mat-select-trigger>
+                                {{allRegion.value?.length > 0 ? allRegion.value[0].name : ''}}
+                                <span *ngIf="allRegion.value?.length > 1" class="example-additional-selection">
+                                    +{{allRegion.value.length - 1}}
+                                </span>
+                            </mat-select-trigger>
+                            <div class="select-all">
+                                <mat-checkbox [(ngModel)]="allSelected2" [ngModelOptions]="{standalone: true}"
+                                    (change)="toggleAllSelection2()">All Region</mat-checkbox>
+                            </div>
+                            <mat-option (click)="optionClick2()" *ngFor="let region of jsonData.data" [value]="region">
+                                {{region.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="country">
+                        <mat-label>Country</mat-label>
+                        <mat-select matNativeControl #select3 multiple [formControl]="allCountry" [(ngModel)]="allCountry1"  (selectionChange)="getState($event.value)">
+                            <mat-select-trigger>
+                                {{allCountry.value?.length >0 ? allCountry.value[0].name : ''}}
+                                <span *ngIf="allCountry.value?.length > 1" class="example-additional-selection">
+                                    +{{allCountry.value.length - 1}}
+                                </span>
+                            </mat-select-trigger>
+
+                            <div class="select-all">
+                                <mat-checkbox [(ngModel)]="allSelected3" [ngModelOptions]="{standalone: true}"
+                                    (change)="toggleAllSelection3()">All Country</mat-checkbox>
+                            </div>
+                            <mat-option (click)="optionClick3()" *ngFor="let country of allCountryList"  [value]="country">
+                                {{country.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="state">
+                        <mat-label>State</mat-label>
+                        <mat-select matNativeControl #select4 multiple [formControl]="allState" [(ngModel)]="allState1"(selectionChange)="getPlant($event.value)">
+                            <mat-select-trigger>
+                                {{allState.value?.length > 0 ? allState.value[0].name : ''}}
+                                <span *ngIf="allState.value?.length > 1" class="example-additional-selection">
+                                    +{{allState.value.length - 1}}
+                                </span>
+                            </mat-select-trigger> 
+                            <div class="select-all">
+                                <mat-checkbox [(ngModel)]="allSelected4" [ngModelOptions]="{standalone: true}"
+                                    (change)="toggleAllSelection4()">All States</mat-checkbox>
+                            </div>
+                            <mat-option (click)="optionClick4()" *ngFor="let state of allStateList" [value]="state">
+                                {{state.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                <mat-form-field appearance="fill" class="kpis">
+                    <mat-label>KPIs</mat-label>
+                    <mat-select matNativeControl #select5 multiple [formControl]="allkpis" [(ngModel)]="allkpis1" (selectionChange)="getKpiValue($event.value)"> 
+                        <mat-select-trigger>
+                            {{allkpis.value ? allkpis.value[0] : ''}}
+                            <span *ngIf="allkpis.value?.length > 1" class="example-additional-selection">
+                                +{{allkpis.value.length - 1}}
+                            </span>
+                        </mat-select-trigger>
+                          <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelected5" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelection5()">All KPIs</mat-checkbox>
+                        </div>
+                        <mat-option (click)="optionClick5()" *ngFor="let kpi of allkpisList" [value]="kpi.value">
+                            {{kpi.value}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="amc">
+                    <mat-label>AMC Status</mat-label>
+                    <mat-select matNativeControl #select6 multiple [formControl]="amcStatus" [(ngModel)]="amcStatus1" (selectionChange)="getamcPlant($event.value)"> 
+                        <mat-select-trigger>
+                            {{amcStatus.value ?.length > 0 ? amcStatus.value[0].plant_amc : ''}}
+                            <span *ngIf="amcStatus.value?.length > 1" class="example-additional-selection">
+                                +{{amcStatus.value.length - 1}}
+                            </span>
+                        </mat-select-trigger>
+                        <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelected6" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelection6()">All AMC Status</mat-checkbox>
+                        </div>
+                        <mat-option (click)="optionClick6()" *ngFor="let amc of amcStatusList" [value]="amc">
+                            {{amc.plant_amc}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="pdf">
+                    <mat-label>Format</mat-label>
+                    <mat-select matNativeControl #select7  [formControl]="pdfFormat" [(ngModel)]="pdfFormat1" (selectionChange)="getFormat($event.value)"> 
+                     <!--    <mat-select-trigger>
+                            {{pdfFormat.value ? pdfFormat.value[0] : ''}}
+                            <span *ngIf="pdfFormat.value?.length > 1" class="example-additional-selection">
+                                +{{pdfFormat.value.length - 1}}
+                            </span>
+                        </mat-select-trigger>
+                         <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelected7" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelection7()">All PDF Format</mat-checkbox>
+                        </div> -->
+                        <mat-option (click)="optionClick7()" *ngFor="let pdf of pdfFormatList" [value]="pdf.value">
+                            {{pdf.value}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <span style="position: relative;">
+                    <button type="button" class="btn btn-link resetBtn" (click)="reset()">Reset</button>
+                </span>
+            </div>
+        </div>    
+        
+
+        <div class="row chartDiv">
+            <div class="col-12">
+                <div class="row chart">
+                    <div class="col-lg-6">
+                            <mat-card class="mb-4">
+                                <mat-card-header>
+                                    <mat-card-title class="t2">
+                                        Average Uptime
+                                        <a data-title="Bot uptime is the ratio of total operating time of the robot and the total expected operation time. Any down time resulting from rains, high wind, manual aborts for maintenance of any system apart from robot shall not be considered as down time.">
+                                            <i class="fa fa-info-circle"></i>
+                                        </a>
+                                    </mat-card-title>
+                                </mat-card-header>
+                                <mat-card-content id="capture">
+                                    <div class="row">
+                                        <div class="col-sm" *ngIf="chartOptions4"> 
+                                            <div id="chart" class="averageUptimeChart">
+                                                <div class="desc" *ngIf="allAvgUptime.length > 1">
+                                                    <p class="d1" *ngIf="allAvgUptime[0].name == 'With AMC'"> Avg with AMC - {{allAvgUptime[0].average}} %</p>
+                                                    <p class="d2" *ngIf="allAvgUptime[0].name == 'Without AMC'">Avg w/o AMC  - {{allAvgUptime[0].average}} %</p>
+                                                    <p class="d2" *ngIf="allAvgUptime[1].name">Avg w/o AMC - {{allAvgUptime[1].average}} %</p>
+                                                </div>
+                                                <apx-chart [series]="chartOptions4.series" [chart]="chartOptions4.chart"
+                                                    [xaxis]="chartOptions4.xaxis" [stroke]="chartOptions4.stroke"
+                                                    [colors]="chartOptions4.colors" [dataLabels]="chartOptions4.dataLabels"
+                                                    [legend]="chartOptions4.legend" [markers]="chartOptions4.markers"
+                                                    [grid]="chartOptions4.grid" [yaxis]="chartOptions4.yaxis" [annotations]="chartOptions4.annotations" 
+                                                    [title]="chartOptions4.title" [tooltip]="chartOptions4.tooltip">
+                                                </apx-chart>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                    </div>
+                    <div class="col-lg-6">
+                        <mat-card class="mb-4">
+                            <mat-card-header>
+                                <mat-card-title class="t1">
+                                    Average Soiling Loss
+                                    <a data-title="Soiling loss is the loss of power generation due to deposition of contamination on solar modules resulting in a loss of light transmission to solar cells.">
+                                        <i class="fa fa-info-circle"></i>
+                                    </a>
+                                </mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content id="capture1">
+                                <div class="row">
+                                    <div class="col-sm" *ngIf="chartOptions3">
+                                        <div id="chart" class="treeChart averageUptimeChart">
+                                            <div class="desc" *ngIf="allAvgSoilloss.length >1">
+                                                <p class="d1" *ngIf="allAvgSoilloss[0].name == 'With AMC'">Avg with AMC - {{allAvgSoilloss[0].average}} %</p>
+                                                <p class="d2" *ngIf="allAvgSoilloss[0].name == 'Without AMC'">Avg w/o AMC - {{allAvgSoilloss[0].average}} %</p>
+                                                <p class="d2" *ngIf="allAvgSoilloss[1].name">Avg w/o AMC - {{allAvgSoilloss[1].average}} %</p>
+                                            </div>
+                                            <apx-chart [series]="chartOptions3.series" [chart]="chartOptions3.chart"
+                                                [yaxis]="chartOptions3.yaxis" [xaxis]="chartOptions3.xaxis"
+                                                [labels]="chartOptions3.labels" [stroke]="chartOptions3.stroke"
+                                                [title]="chartOptions3.title" [dataLabels]="chartOptions3.dataLabels"
+                                                [grid]="chartOptions3.grid" [fill]="chartOptions3.fill"
+                                                [tooltip]="chartOptions3.tooltip" [colors]="chartOptions3.colors"
+                                                [plotOptions]="chartOptions3.plotOptions" [annotations]="chartOptions3.annotations" 
+                                                [markers]="chartOptions3.markers" [legend]="chartOptions3.legend">
+                                            </apx-chart>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <mat-card class="mb-12">
+                                    <mat-card-content>
+                                        <div class="row">
+                                                <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+                                                class="mat-elevation-z8">
+                                            
+                                              <!-- Position Column -->
+                                              <ng-container matColumnDef="date">
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date">
+                                                Date
+                                                </th>
+                                                <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+                                              </ng-container>
+                                            
+                                              <!-- Name Column -->
+                                              <ng-container matColumnDef="avguptime">
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by avguptime">
+                                                    Average Uptime
+                                                </th>
+                                                <td mat-cell *matCellDef="let element"> {{element.avguptime | number}} % </td>
+                                              </ng-container>
+                                            
+                                              <!-- Weight Column -->
+                                              <ng-container matColumnDef="avgsoilingloss">
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by avgsoilingloss">
+                                                  Average Soiling Loss
+                                                </th>
+                                                <td mat-cell *matCellDef="let element"> {{element.avgsoilingloss | number}} %</td>
+                                              </ng-container>
+                                            
+                                              <!-- Symbol Column -->
+                                              <ng-container matColumnDef="co2saved">
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by co2saved">
+                                                    CO<span style="font-size: 10px !important; margin-top: 10px;margin-right: 10px;">2</span> Saved
+                                                </th>
+                                                <td mat-cell *matCellDef="let element"> {{element.co2saved}} </td>
+                                              </ng-container>
+                                              <ng-container  matColumnDef="water">
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by water">
+                                                    Water Saved
+                                                </th>
+                                                <td mat-cell *matCellDef="let element"> {{element.water}} </td>
+                                              </ng-container>
+                                              <ng-container  matColumnDef="healthybot">
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by healthybot">
+                                                    Healthy Bot
+                                                </th>
+                                                <td mat-cell *matCellDef="let element"> {{element.healthybot}} </td>
+                                              </ng-container>
+                                              <ng-container  matColumnDef="unhealthybot">
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by unhealthybot">
+                                                    Unhealthy Bot
+                                                </th>
+                                                <td mat-cell *matCellDef="let element"> {{element.unhealthybot}} </td>
+                                              </ng-container>
+                                              <!-- <ng-container matColumnDef="nodata">
+                                                <td mat-footer-row *matFooterCellDef [colSpan]="displayedColumns.length" 
+                                                style="text-align: center;">No Data Available {{dataSource.length}} {{dataSource.data.length}}</td>
+                                              </ng-container> -->
+                                              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                              <!-- <tr mat-footer-row 
+                                              [hidden]="dataSource.data.length > 0"
+                                             *matFooterRowDef="['nodata']">
+                                            </tr> -->
+                                            </table>
+                                            <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20,50]" [showFirstLastButtons]="true">
+                                            </mat-paginator>
+                                        </div>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,258 @@
+<div class="c-subheader sticky-top justify-content-between px-3 c-header-shadow">
+    <div class="alarm">
+        <div class="row" style="width: 100%;padding: 10px 0px;">
+            <div class="col-md-6">
+                <h3 class="title">{{plantName}}</h3>
+            </div>
+            <!-- <div class="col-md-6">
+                <button class="generateReport" >Download Summary</button>
+                <button class="alarmSummary" (click)="openDialog()">Raise Alarm</button>
+            </div> -->
+            <div class="col-md-12" *ngIf="ncuSummary">
+                <p class="smallDesc">NCU IP: {{ncuSummary.ncu_ip}}  &nbsp;|&nbsp; Wind speed: {{ncuSummaryFromAdminService.windspeed}} m/s &nbsp;|&nbsp; Wind Alarm:<span *ngIf="ncuSummaryFromAdminService.windalarm=='Active'" [ngClass]="{'activeAlarm':ncuSummaryFromAdminService.windalarm=='Active' }">{{ncuSummaryFromAdminService.windalarm | titlecase}}</span><span *ngIf="ncuSummaryFromAdminService.windalarm=='InActive'" [ngClass]="{'InactiveAlarm':ncuSummaryFromAdminService.windalarm=='InActive' }">{{ncuSummaryFromAdminService.windalarm | titlecase}}</span> &nbsp;
+                    |&nbsp; Last Updated
+                    On {{ncuSummaryFromAdminService.lastupdatedtime}}
+                </p>
+            </div>
+            <div class="col-md-12" >
+                <mat-form-field appearance="fill" class="allKnu">
+                    <mat-label>NCU ID </mat-label>
+                    <mat-select matNativeControl (selectionChange)="selectNcuId($event.value)">
+                        <mat-option  *ngFor="let ncu of ncuList" [value]="ncu.id">
+                            {{ncu.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <span *ngIf="ncuSummary" class="smallDesc">
+                   commissioned on  {{ncuSummary.commissioneddate}}
+                </span>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="row chart">
+                    <div class="col-sm-12">
+                        <mat-card class="mb-4">
+                            <mat-card-header class="oemheader">
+                                <mat-card-title class="t1">BCU status in NCU ID</mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <app-constantheatmap [id]="ncuId" [idNotifier]="idchildNotifier"></app-constantheatmap>
+                                    </div>
+                                </div>
+                               
+                            </mat-card-content>
+                            <mat-card-footer>
+                                <div class="desc col-md-12">
+                                    <p class="d1 col-md-4">Normal At The Docking Station</p>
+                                    <p class="d2 col-md-4">Strained And Cleaning</p>
+                                   <!--  <p class="d3 col-md-4">Not Communicating</p> -->
+                                   <p class="d4 col-md-4">Normal and Cleaning</p>
+                                </div> 
+                                <div class="desc col-md-12">
+                                    <!-- <p class="d4 col-md-4">Normal and Cleaning</p> -->
+                                    <p class="d5 col-md-4">Breakdown</p>
+                                    <p class="d6 col-md-4">Aborted Of Emergency</p>
+                                </div> 
+                            </mat-card-footer>
+                        </mat-card>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <mat-card class="mb-4">
+                                    <mat-card-header class="oemheader">
+                                        <mat-card-title class="t2">Alarm Details</mat-card-title>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="row">
+                                                    <table mat-table [dataSource]="ncuAlramData" matSort
+                                                        (matSortChange)="announceSortChange($event)"
+                                                        class="mat-elevation-z8">
+                                                        <ng-container matColumnDef="ticketid">
+                                                            <th mat-header-cell *matHeaderCellDef mat-sort-header
+                                                                sortActionDescription="Sort by ticketid">
+                                                                Ticket ID
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let element"> {{element.ticketid}}
+                                                            </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="ncuid">
+                                                            <th mat-header-cell *matHeaderCellDef mat-sort-header
+                                                                sortActionDescription="Sort by ncuid">
+                                                                NCU ID
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let element"> {{element.ncuid}}
+                                                            </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="date">
+                                                            <th mat-header-cell *matHeaderCellDef mat-sort-header
+                                                                sortActionDescription="Sort by date">
+                                                                Date
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let element"> {{element.date}}
+                                                            </td>
+                                                        </ng-container>
+
+                                                        <!-- Symbol Column -->
+                                                        <ng-container matColumnDef="time">
+                                                            <th mat-header-cell *matHeaderCellDef mat-sort-header
+                                                                sortActionDescription="Sort by time">
+                                                                Time
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let element"> {{element.time}}
+                                                            </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="component">
+                                                            <th mat-header-cell *matHeaderCellDef mat-sort-header
+                                                                sortActionDescription="Sort by component">
+                                                                Component
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let element">
+                                                                {{element.component}} </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="description">
+                                                            <th mat-header-cell *matHeaderCellDef mat-sort-header
+                                                                sortActionDescription="Sort by description">
+                                                                Description
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let element">
+                                                                {{element.description}} </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="expectedtat">
+                                                            <th mat-header-cell *matHeaderCellDef mat-sort-header
+                                                                sortActionDescription="Sort by expectedtat">
+                                                                Expected TAT
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let element">
+                                                                {{element.expectedtat}} </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="nodata">
+                                                            <td mat-footer-row *matFooterCellDef [colSpan]="displayedColumns.length" 
+                                                            style="text-align: center;">No Data Available</td>
+                                                          </ng-container>
+                                                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                                        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                                                        </tr>
+                                                        <tr mat-footer-row 
+                                        [hidden]="ncuAlramData.data.length >0"
+                                       *matFooterRowDef="['nodata']">
+                                      </tr>
+                                                    </table>
+                                                    <mat-paginator #paginator [pageSize]="10"
+                                                        [pageSizeOptions]="[5, 10, 20,50]" [showFirstLastButtons]="true">
+                                                    </mat-paginator>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <mat-card class="mb-4">
+                                    <mat-card-header class="oemheader">
+                                        <mat-card-title class="t3">Notification Details</mat-card-title>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="row">
+                                                    <table mat-table [dataSource]="ncuNotificationData" matSort
+                                                        (matSortChange)="announceSortChange($event)"
+                                                        class="mat-elevation-z8">
+                                                        <ng-container matColumnDef="ticketid">
+                                                            <th mat-header-cell *matHeaderCellDef mat-sort-header
+                                                                sortActionDescription="Sort by ticketid">
+                                                                Ticket ID
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let element"> {{element.ticketid}}
+                                                            </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="ncuid">
+                                                            <th mat-header-cell *matHeaderCellDef mat-sort-header
+                                                                sortActionDescription="Sort by ncuid">
+                                                                NCU ID
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let element"> {{element.ncuid}}
+                                                            </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="date">
+                                                            <th mat-header-cell *matHeaderCellDef mat-sort-header
+                                                                sortActionDescription="Sort by date">
+                                                                Date
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let element"> {{element.date}}
+                                                            </td>
+                                                        </ng-container>
+
+                                                        <!-- Symbol Column -->
+                                                        <ng-container matColumnDef="time">
+                                                            <th mat-header-cell *matHeaderCellDef mat-sort-header
+                                                                sortActionDescription="Sort by time">
+                                                                Time
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let element"> {{element.time}}
+                                                            </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="component">
+                                                            <th mat-header-cell *matHeaderCellDef mat-sort-header
+                                                                sortActionDescription="Sort by component">
+                                                                Component
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let element">
+                                                                {{element.component}} </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="description">
+                                                            <th mat-header-cell *matHeaderCellDef mat-sort-header
+                                                                sortActionDescription="Sort by description">
+                                                                Description
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let element">
+                                                                {{element.description}} </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="expectedtat">
+                                                            <th mat-header-cell *matHeaderCellDef mat-sort-header
+                                                                sortActionDescription="Sort by expectedtat">
+                                                                Expected TAT
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let element">
+                                                                {{element.expectedtat}} </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="nodata">
+                                                            <td mat-footer-row *matFooterCellDef [colSpan]="displayedColumns1.length" 
+                                                            style="text-align: center;">No Data Available</td>
+                                                          </ng-container>
+                                                        <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+                                                        <tr mat-row *matRowDef="let row; columns: displayedColumns1;">
+                                                        </tr>
+                                                        <tr mat-footer-row 
+                                                        [hidden]="ncuNotificationData.data.length >0"
+                                                       *matFooterRowDef="['nodata']">
+                                                      </tr>
+                                                    </table>
+                                                    <mat-paginator #paginator [pageSize]="10"
+                                                        [pageSizeOptions]="[5, 10, 20,50]" [showFirstLastButtons]="true">
+                                                    </mat-paginator>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,135 @@
+
+.mat-form-field {
+    width: 12vw;
+    padding: 5px 5px;
+}
+.c-subheader {
+    background: #F7F9FC;
+    box-shadow: none;
+}
+@media(max-width:800px) {
+
+   /*  .thcss{
+        max-width: 50px !important;
+    } */
+    }
+// replacementNotification css strted
+
+.replacementNotification .mat-form-field {
+    width: 13vw;
+    padding: 5px 5px;
+}
+.replacementNotification .title{
+    font: normal normal bold 24px/29px Lato;
+    letter-spacing: 1.2px;
+    font-family: 'Lato', sans-serif;
+    font-size: 24px;
+    color: #2D3047;
+}
+.replacementNotification .generateReport {
+    float: right;
+    background: #0575E6;
+    color: #fff;
+    border: none;
+    border: 1px solid #0575E6;
+    box-shadow: none;
+    outline: none;
+    -webkit-appearance: none;
+    border-radius: 20px;
+    padding: 9px 35px;
+    font-size: 14px;
+}
+.replacementNotification .smallDesc {
+    font: normal normal bold 16px/19px Lato;
+    letter-spacing: 0.8px;
+    color: #74819E;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+}
+.replacementNotification {
+    background: #F7F9FC;
+    width: 100%;
+}
+.replacementNotification .reset {
+    padding-left: 10px;
+    position: absolute;
+    top: -10px;
+}
+@media (max-width: 1199px) {
+    .replacementNotification .mat-form-field {
+        width: 16vw;
+        padding: 5px 5px;
+    }
+}
+@media (max-width: 991px) {
+    .replacementNotification .mat-form-field {
+        width: 20vw;
+        padding: 5px 5px;
+    }
+}
+@media (max-width: 767px) {
+    .replacementNotification .mat-form-field {
+        width: 50%;
+        padding: 5px 5px;
+    }
+    .replacementNotification .title {
+        font-size: 19px;
+    }
+    .replacementNotification .generateReport {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+// replacementNotification css ends
+ 
+::ng-deep .mat-sort-header-arrow[style] {
+    // Hide default arrow stem
+    .mat-sort-header-stem {
+      display: none;
+    }
+    .mat-sort-header-indicator {
+      opacity: 1;
+      color: black;
+      font-weight: bold;
+  
+      // Hide default arrow as its composed of left, right and middle
+      .mat-sort-header-pointer-left,
+      .mat-sort-header-pointer-right,
+      .mat-sort-header-pointer-middle {
+        display: none;
+      }
+    }
+  }
+  
+  // My custom ascending arrow
+  [aria-sort='ascending'] {
+    ::ng-deep .mat-sort-header-arrow {
+      .mat-sort-header-indicator {
+        &::before {
+          content: '\25B4';
+          top: -0em;
+          position: absolute;
+          color: #004e87;
+          font-size: 20px;
+          line-height: 10px;
+        }
+      }
+    }
+  }
+  
+  // My custom descending arrow
+  [aria-sort='descending'] {
+    ::ng-deep .mat-sort-header-arrow {
+      .mat-sort-header-indicator {
+        &::before {
+          content: '\25BE';
+          top: -15px;
+          position: absolute;
+          color: #004e87;
+          font-size: 20px;
+        }
+      }
+    }
+  }
+  

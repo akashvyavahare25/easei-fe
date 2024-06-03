@@ -1,0 +1,100 @@
+<div class="card col-md-12 min-card-height">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="text-grey-6 font-size-16 mb-3">
+        <strong *ngIf="!paramaterId">Create New Field</strong>
+        <strong *ngIf="paramaterId">Edit Parameter Field</strong>
+      </div>
+    </div>
+    <div class="col-md-6 text-right padding-right30">
+      <nz-form-item class="margin-bottom0">
+        <nz-form-control>
+          <button *ngIf="!paramaterId" (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+            <strong>Submit</strong>
+          </button>
+          <button *ngIf="paramaterId" (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+            <strong>Update</strong>
+          </button>
+          <button *ngIf="!paramaterId" (click)="clearForm()" nz-button nzType="light" [nzSize]="'small'"
+            class="margin-left5">
+            <strong>Clear</strong>
+          </button>
+          <button *ngIf="paramaterId" (click)="cancelEdit()" nz-button nzType="light" [nzSize]="'small'"
+            class="margin-left5">
+            <strong>Cancel</strong>
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <form nz-form [nzLayout]="'vertical'" [formGroup]="profileForm" role="form">
+      <div class="row">
+        <div class="col-md-3">
+          <nz-form-item>
+            <nz-form-label class="labels" nzFor="name">Parameter Name</nz-form-label>
+            <nz-form-control>
+              <!-- nzErrorTip="Please input parameter name!" -->
+              <input type="text" nz-input formControlName="name" nzSize="medium" placeholder="Parameter Name" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-md-3">
+          <nz-form-item>
+            <nz-form-label class="labels" nzFor="name">External Code</nz-form-label>
+            <nz-form-control>
+              <!-- nzErrorTip="Please input parameter name!" -->
+              <input type="text" nz-input formControlName="externalCode" nzSize="medium" placeholder="External Code" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-md-3">
+          <nz-form-item>
+            <nz-form-label class="labels" nzFor="status">Parameter Status</nz-form-label>
+            <nz-form-control>
+              <!-- nzErrorTip="Please select status!" -->
+              <nz-select nzSize="medium" nzPlaceHolder="Parameter Status" formControlName="status">
+                <nz-option nzValue="Active" nzLabel="Active"></nz-option>
+                <nz-option nzValue="Inactive" nzLabel="Inactive"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-md-3">
+          <nz-form-item>
+            <nz-form-label class="labels" nzFor="category">Parameter Category</nz-form-label>
+            <nz-form-control>
+              <nz-select nzSize="medium" formControlName="category" nzMode="tags" nzPlaceHolder="Parameter category">
+                <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label" [nzValue]="option.value">
+                </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card col-md-12">
+  <div class="text-grey-6 font-size-16 mb-3">
+    <strong>Field Configuration</strong>
+  </div>
+  <form-builder *ngIf="showConfiguration" [form]="form" [options]="options" (change)="onChange($event)"></form-builder>
+</div>
+
+<nz-modal [(nzVisible)]="isModalVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"
+  (nzOnCancel)="handleCancel()">
+  <ng-template #modalTitle>
+    <h5>Instruction Message</h5>
+  </ng-template>
+  <ng-template #modalContent>
+    <div>
+      <div><span>You can not update this parameter because of this parameter is used on {{pCollectionData.length}}
+          screens or masters</span></div>
+    </div>
+  </ng-template>
+  <ng-template #modalFooter>
+    <button nz-button nzType="primary" (click)="handleCancel()" [nzLoading]="isConfirmLoading">Ok</button>
+  </ng-template>
+</nz-modal>

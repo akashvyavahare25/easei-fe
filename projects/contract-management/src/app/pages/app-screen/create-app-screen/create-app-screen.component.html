@@ -1,0 +1,770 @@
+<div *ngIf="isContact" class="mt-4">
+    <div class="col-md-12 ml-5 p-2">
+        <h3>
+            <strong>Customer Support</strong>
+        </h3>
+    </div>
+    <div class="col-md-12 row">
+        <div class="col-md-6 ml-5">
+            <div class="col-md-7 card p-0">
+                <div class="card-header bg-primary text-white py-4">
+                    <strong>Inquiry</strong>
+                </div>
+                <div class="card-body">
+                    <form class="text-center" style="color: #757575;" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                        <div class="col-md-12">
+                            <nz-form-item>
+                                <!-- <nz-form-label class="labels" nzFor="name">Name</nz-form-label> -->
+                                <nz-form-control>
+                                    <input type="text" formControlName="name" nz-input nzSize="medium"
+                                        placeholder="Name" />
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-12">
+                            <nz-form-item>
+                                <!-- <nz-form-label class="labels" nzFor="email">Emal</nz-form-label> -->
+                                <nz-form-control>
+                                    <input type="text" formControlName="email" nz-input nzSize="medium"
+                                        placeholder="Email" />
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-12">
+                            <nz-form-item>
+                                <!-- <nz-form-label class="labels" nzFor="email">Emal</nz-form-label> -->
+                                <nz-form-control>
+                                    <input type="text" formControlName="subject" nz-input nzSize="medium"
+                                        placeholder="Subject" />
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-12">
+                            <nz-form-item>
+                                <!-- <nz-form-label class="labels" nzFor="email">Emal</nz-form-label> -->
+                                <nz-form-control>
+                                    <textarea formControlName="message" nz-input nzSize="medium"
+                                        placeholder="Message" style="min-height:110px;"></textarea>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-muted bg-light">
+                    <div class="col-md-12 text-center">
+                        <nz-form-item>
+                            <nz-form-control>
+                                <button *ngIf="isContact" class="submit" (click)="onSubmit()" nz-button nzType="primary"
+                                    [nzSize]="'small'" >
+                                    <strong>SUBMIT DETAILS</strong>
+                                </button>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <p class="card-text">By clicking above link,you agree to the terms and conditions in our <span
+                                class="text-info">privacy policy</span></p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 border-left">
+            <div>
+                <strong style="font-size:1.6rem;">Address</strong>
+
+            </div>
+            <div>
+                <h6 class="card-text p-1 m-0">Transunion Limited,</h6>
+                <h6 class="card-text p-1 m-0">Kabula House,Ground Floor Suite 3,</h6>
+                <h6 class="card-text p-1 m-0">Chilembwe / Hannover Avenue,</h6>
+                <h6 class="card-text p-1 m-0">P.O. Box 2766, Blantyre</h6>
+                <h6 class="card-text p-1 m-0">Tel; 01832324 / 0888325377</h6>
+                <!-- <p class="card-text p-0 m-0">999970885</p> -->
+            </div>
+            <div class="pt-1">
+                <strong style="font-size:1.6rem;">Email</strong>
+            </div>
+            <div>
+                <p class="card-text p-0 m-0">E-mail:<span class="text-info">rodgers.lungu@transunion.com</span></p>
+                <!-- <p class="card-text p-0 m-0"><span class="text-info">nfo@mw.collectionafrica.com</span></p> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="!isContact" class="permission-height">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-2 text-grey-6 font-size-16 mb-3">
+                <strong>{{appScreenName}}</strong>
+            </div>
+            <div class="col-md-10 text-right padding-right30">
+                <nz-form-item class="margin-bottom0" *ngIf="screenResponse && screenResponse.type !== 'search'">
+                    <nz-form-control>
+                        <button (click)="showTrigger()"  *ngIf="!isHideButton" nz-button nzType="primary" [nzSize]="'small'">
+                            <strong>Triggers</strong>
+                        </button>
+                        <button (click)="showModal()" class="margin-left5" *ngIf="!isHideButton" nz-button nzType="primary" [nzSize]="'small'">
+                            <strong>Add Filter</strong>
+                        </button>
+                        <button class="margin-left5"  *ngIf="!isHideButton" (click)="templateInstruction()" nz-button nzType="primary"
+                            [nzSize]="'small'">
+                            <strong>Fields Schema</strong>
+                        </button>
+                        <button (click)="generateFile()" nz-button nzType="primary" [nzSize]="'small'"
+                            class="margin-left5">
+                            <strong>Generate template</strong>
+                        </button>
+                        <button (click)="uploadFile()" nz-button nzType="light" [nzSize]="'small'" class="margin-left5">
+                            <strong>Upload</strong>
+                        </button>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12" *ngIf="isShow">
+        <formio [form]="form" (submit)="submitForm($event)" (customEvent)="cancelEdit()" (change)="onChangeFOrm($event)" [refresh]="refreshForm"></formio>
+    </div>
+    <div class=" col-md-12">
+        <nz-form-item class="margin-bottom0">
+            <nz-form-control>
+                <nz-modal [(nzVisible)]="isVisible" nzTitle="Add filter for screen" (nzOnCancel)="handleCancelModal()"
+                    (nzOnOk)="handleCancelModal()" nzWidth='700px'>
+                    <ng-container>
+                        <div class="row">
+                            <div class="col-md-4" *ngFor="let item of screenSchemaConfig">
+                                <label nz-checkbox (change)="selectFilter($event,item)"
+                                    (click)="selectFilter($event,item)" [nzLabel]="item" [nzValue]="item"></label><span
+                                    class="margin-left5">{{trimpValue(item)}}</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                </nz-modal>
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+    <div class=" col-md-12">
+        <nz-form-item class="margin-bottom0">
+            <nz-form-control>
+                <nz-modal [(nzVisible)]="isTriggerVisible" nzTitle="Choose/Select Triggers field" (nzOnCancel)="handleCancelTrigger()"
+                     nzWidth='700px' [nzFooter]="triggerFooter" >
+                    <ng-container>
+                        <div class="row">
+                            <div class="col-md-12">
+                            <nz-radio-group class="diplayblock" [(ngModel)]="trigger" (ngModelChange)="isradio($event)">
+                                
+                                <div class="mb-2">
+                                    <label nz-radio nzValue="triggerSchedule" class="btn-check"  [checked]="toggleradio" >Do you want to define triggers schedule?
+                                        
+                                    </label>
+                                </div>
+                                    <div class="container" *ngIf="triggerSchedule">
+                                        <form nz-form [formGroup]="triggerForm" role="form">
+                                            <div class="row ">
+                                                <div class="col-md-6  padding-bottom10">
+                                                    <nz-form-item>
+                                                        <nz-form-label class="labels"nzFor="startdate" >Start Date</nz-form-label>
+                                                        <nz-form-control>
+                                                            <nz-select  nzPlaceHolder="Choose start Date" formControlName="startdate"  >
+                                                                <nz-option *ngFor="let item of triggerDate" nzContent="item" [nzLabel]="item" [nzValue]="item"></nz-option>
+                                                            </nz-select>
+                                                        </nz-form-control>
+                                                    </nz-form-item>   
+                                                </div>
+                                                <div class="col-md-6 " >
+                                                <nz-form-item>
+                                                    <nz-form-control>
+                                                        <nz-select  nzSize="medium"  formControlName="paymentSchedule"  nzPlaceHolder="Payment Schedule" >
+                                                            <nz-option nzLabel="Once" nzValue="Once"></nz-option>
+                                                            <nz-option nzLabel="Monthly"nzValue="Monthly"></nz-option>
+                                                            <nz-option nzLabel="Quaterly" nzValue="Quaterly"></nz-option>
+                                                            <nz-option nzLabel="Yearly" nzValue="Yearly"></nz-option>
+                                                        </nz-select>
+                                                    </nz-form-control>
+                                                </nz-form-item>   
+                                                </div>
+                                                <div class="col-md-6 ">  
+                                                    <nz-form-item>
+                                                        <nz-form-label class="labels" nzFor="enddate" >End Date</nz-form-label>
+                                                        <nz-form-control>                                                        
+                                                            <nz-select formControlName="enddate" nzSize="medium" nzPlaceHolder="Choose End date" >
+                                                                <nz-option *ngFor="let item of triggerDate" [nzLabel]="item" [nzValue]="item"></nz-option>
+                                                            </nz-select>
+                                                        </nz-form-control>
+                                                    </nz-form-item>   
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                <div class="mb-2 btn-check">
+                                    <label nz-radio nzValue="paymentSchedule" ngModel>Do you have payment Schedule Defined?</label>
+                                </div>
+                                    <div class="row container" *ngIf="paymentSchedule">
+                                        <div class="col-md-12 ">
+                                         <nz-form-item>
+                                            <nz-form-control>
+                                                <nz-select  nzSize="medium" nzPlaceHolder="Choose" [(ngModel)]="selectedTypeValue">
+                                                    <nz-option *ngFor="let item of paymentDate" data-content="item" [nzLabel]="item" [nzValue]="item"></nz-option>
+                                                </nz-select>
+                                            </nz-form-control>
+                                        </nz-form-item>              
+                                        </div>
+                                    </div>
+                            </nz-radio-group>
+                            </div>                            
+                        </div>
+                    </ng-container>
+                
+                    <ng-template #triggerFooter>
+                        <button  nz-button nzType="primary" (click)="handleTriggerSave()"
+                           >Save</button>
+                    </ng-template>
+                </nz-modal>
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+    <div class="col-md-12" *ngIf="rowData.length > 0">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <ag-grid-angular style="width: 100%; height: 450px;" class="ag-theme-balham" [rowData]="rowData"
+                        [columnDefs]="columnDefs" (firstDataRendered)="onFirstDataRendered($event)"
+                        [gridOptions]="gridOptions">
+                    </ag-grid-angular>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nz-modal nzWidth='1080px' [(nzVisible)]="isModalVisible" [nzTitle]="modalTitle" [nzContent]="modalContent"
+        [nzFooter]="modalFooter" (nzOnCancel)="isFileUplaodModalVisible ? handleCancel() : handleInstructionOk()">
+        <ng-template #modalTitle>
+            <h5 *ngIf="isFileUplaodModalVisible">File Upload</h5>
+            <h5 *ngIf="isInstructionModal">Fields Schema</h5>
+        </ng-template>
+        <ng-template #modalContent>
+            <div class="row">
+                <div *ngIf="isFileUplaodModalVisible">
+                    <input #myInput type="file" accept=".csv" (change)=" onFileChange($event)" />
+                    <div *ngIf="csvUploadError != ''" style="color: brown;">{{csvUploadError}}</div>
+                </div>
+                <div class="col-md-4" *ngIf="isFileUplaodModalVisible">
+                    <strong>Select Type : </strong>
+                    <nz-select nzSize="medium" nzPlaceHolder="Select Type" [(ngModel)]="selectedTypeValue">
+                        <nz-option nzLabel="By columns" nzValue="By columns"></nz-option>
+                        <nz-option nzLabel="As Multiple Rows" nzValue="As Multiple Rows"></nz-option>
+                        <nz-option nzLabel="By Rows-Columns" nzValue="By Rows-Columns"></nz-option>
+                    </nz-select>
+                    <div *ngIf="csvUploadError1 != ''" style="color: brown;">{{csvUploadError1}}</div>
+                </div>
+
+                <!-- <div class="col-md-3" *ngIf="isFileUplaodModalVisible">
+                <nz-form-item>
+                  <nz-form-label class="labels" nzFor="type">Type</nz-form-label>
+                  <nz-form-control>
+                    <nz-select nzSize="medium" nzPlaceHolder="Choose Dataset" (ngModelChange)="addTypeInEditor($event)"
+                      formControlName="form">
+                      <nz-option nzValue="By columns" nzLabel="By columns"></nz-option>
+                      <nz-option nzValue="As Multiple Rows" nzLabel="As Multiple Rows"></nz-option>
+                     </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>            -->
+                <div *ngIf="isInstructionModal">
+                    <ag-grid-angular style="width: 100%; height: 300px;"
+                        (firstDataRendered)="onFirstDataRendered1($event)" class="ag-theme-balham"
+                        [rowData]="this.tblData" [columnDefs]="columnDefss" [gridOptions]="gridOptions">
+                    </ag-grid-angular>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template #modalFooter>
+            <button *ngIf="isFileUplaodModalVisible" nz-button nzType="default" (click)="handleCancel()">Cancel</button>
+            <button *ngIf="isFileUplaodModalVisible" nz-button nzType="primary" (click)="handleOk2()"
+                [nzLoading]="isConfirmLoading">Upload</button>
+            <button *ngIf="isInstructionModal" nz-button nzType="primary" (click)="handleInstructionOk()"
+                [nzLoading]="isConfirmLoading">Ok</button>
+            <button *ngIf="isInstructionModal" nz-button nzType="primary" (click)="generateCSVFile()"
+                [nzLoading]="isConfirmLoading">Generate CSV</button>
+        </ng-template>
+    </nz-modal>
+    <div class="col-md-12" *ngIf="listOfData">
+        <div class="card">
+            <div class="col-md-12 margin-top10 margin-bottom10">
+                <div class="col-md-12 table-title" *ngIf="!isClaimsSearch">
+                    POLICY DETAILS FOR - [ <span class="font-weight700">{{listOfData.title}}</span> :
+                    {{listOfData.titleValue}} ]
+                </div>
+                <div class="col-md-12" *ngIf="!isClaimsSearch">
+                    <div class="row table-data">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Policy No
+                                </div>
+                                <div class="col-md-5">
+                                    {{listOfData.policyNo}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Insurer
+                                </div>
+                                <div class="col-md-5">
+                                    {{listOfData.insurer}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row table-data">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Status
+                                </div>
+                                <div class="col-md-5">
+                                    {{listOfData.policyStatus}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Inception Date
+                                </div>
+                                <div class="col-md-5">
+                                    {{getDate(listOfData.policyInceptionDate)}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row table-data">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Cancellation Date
+                                </div>
+                                <div class="col-md-5">
+                                    {{getDate(listOfData.policyCancelDate)}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                    <div class="row table-data">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Policy Holder ForeName
+                                </div>
+                                <div class="col-md-5">
+                                    {{listOfData.forname1}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">a</div>
+                    </div>
+                    <div class="row table-data">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Policy Holder Surname
+                                </div>
+                                <div class="col-md-5">
+                                    {{listOfData.surname}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    RSA ID
+                                </div>
+                                <div class="col-md-5">
+                                    {{listOfData.rsaId}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row table-data">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Other ID
+                                </div>
+                                <div class="col-md-5">
+                                    {{listOfData.otherId}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Date of Birth
+                                </div>
+                                <div class="col-md-5">
+                                    {{getDate(listOfData.dob)}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 table-title" *ngIf="!isClaimsSearch">
+                    DETAILS OF CLAIMS ASSOCIATED WITH POLICY
+                </div>
+                <div class="col-md-12 table-title" *ngIf="isClaimsSearch">
+                    DETAILS OF CLAIMS
+                </div>
+                <div class="col-md-12" *ngFor="let item of listOfData.claims">
+                    <div class="row">
+                        <div class="col-md-6 client-no">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Claim No
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.claimNo}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                    <div class="row table-data">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Claimant Forename
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.forname1}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Supplier 
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.supplier}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row table-data">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Claimant Surename
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.surname}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Claimant Date of Birth
+                                </div>
+                                <div class="col-md-5">
+                                    {{getDate(item.dob)}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row table-data">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Claimant RSA Id
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.rsaId}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                    <div class="row table-data">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Claimant Details
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.details}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                    <div class="row table-data">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Claim No
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.claimNo}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Date of Loss
+                                </div>
+                                <div class="col-md-5">
+                                    {{getDate(item.dateOfLoss)}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row table-data">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Claim Status Date
+                                </div>
+                                <div class="col-md-5">
+                                    {{getDate(item.claimStatusDate)}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Claim Status Reputation Reason
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.claimStatusRepudationReason}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row table-data">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Claim Class_01
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.claimClass1}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Claim Cause of Loss_01
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.causeOfLoss1}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row table-data">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Claim Initial Amount_01
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.intitalAmount1}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Claim Final Amount_01
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.finalAmount1}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row table-data">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Claim Class_02
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.claimClass2}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Claim Cause of Loss_02
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.causeOfLoss2}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row table-data">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Claim Initial Amount_02
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.intitalAmount2}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Claim Final Amount_02
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.finalAmount2}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row table-data">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Claim Class_03
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.claimClass3}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Claim Cause of Loss_03
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.causeOfLoss3}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row table-data">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Claim Initial Amount_03
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.intitalAmount3}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Claim Final Amount_03
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.finalAmount3}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row table-data">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Vehicle Make
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.vehicleMake}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Vehicle Model
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.vehicleModel}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row table-data">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Vehicle Engine No
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.vehicleEngineNo}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Vehicle Color
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.vehicleColor}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row table-data">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Vehicle Registration No
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.vehicleRegNo}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Vehicle Year of Registration
+                                </div>
+                                <div class="col-md-5">
+                                    {{getDate(item.vehicleRegistrationYear)}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row table-data">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Vehicle VIN No
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.vehicleNo}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Vehicle MM Code
+                                </div>
+                                <div class="col-md-5">
+                                    {{item.mmCode}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

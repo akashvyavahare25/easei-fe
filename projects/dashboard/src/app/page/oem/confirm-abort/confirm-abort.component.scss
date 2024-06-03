@@ -1,0 +1,42 @@
+.mat-form-field {
+    display: block !important;
+    position: relative;
+    text-align: left;
+}
+ .cancel {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #057AE7;
+    border-radius: 20px;
+    font-size: 14px;
+    letter-spacing: 0.7px;
+    color: #057AE7;
+    font-family: 'Lato', sans-serif;
+    padding: 0 30px;
+    font-weight: 600;
+}
+ .cancel:focus {
+    outline: none;
+}
+.label{
+    margin-left: 8px !important;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400px;
+	color: #888888;
+    margin-top: 10px;
+}
+ .save {
+    background: #0575E6 0% 0% no-repeat padding-box;
+    border-radius: 20px;
+    letter-spacing: 0.7px;
+    font-size: 14px;
+    color: #FFFFFF;
+    font-family: 'Lato', sans-serif;
+    padding: 0 30px;
+    font-weight: 600;
+}
+ .save:focus {
+    outline: none;
+}
+.col-md-6{
+padding: 0 !important;
+}

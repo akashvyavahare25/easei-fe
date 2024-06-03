@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-md-10">
+       <h3><b>Help Details</b></h3>
+    <!--   <span *ngIf="updateBtnShow"><mat-slide-toggle  [(ngModel)]="checked" (change)="changed()">{{name}}</mat-slide-toggle></span>   
+   -->  </div>
+    <div class="col-md-2" style="display: flex;justify-content: right;">
+        <span class="material-icons-outlined"  mat-button mat-dialog-close >close</span> 
+    </div>
+</div>
+<div class="row">
+         <form>
+            <div class="row">
+                <div class="col-md-12" style="margin-top: 15px !important;">
+                        <mat-label class="label"> Email : {{header.email}} </mat-label>
+                        
+                </div>
+                <div class="col-md-12">
+                        <mat-label class="label">What's App : {{header.whatsapp}}</mat-label>
+                </div>
+                <div class="col-md-12">
+                        <mat-label class="label"> Telegram : {{header.telegram}}</mat-label>
+                </div>  
+                <div class="col-md-12">
+                    <mat-label class="label">Phone : {{header.phone}}</mat-label>
+                </div>  
+            </div>
+        </form>
+</div> 
+<div class="row" style="float:right"> 
+    <div class="col-md-6">
+        <button mat-button mat-dialog-close class="cancel">Close</button>
+    </div>
+   <!--  <div class="col-md-6" *ngIf="updateBtnShow">
+        <button mat-button  type="button"  cdkFocusInitial class="save" >Update</button>
+    </div>
+ -->
+</div>

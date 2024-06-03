@@ -1,0 +1,288 @@
+
+.mat-form-field {
+    width: 12vw;
+    padding: 5px 5px;
+}
+.c-subheader {
+    background: #F7F9FC;
+    box-shadow: none;
+}
+
+
+.reports .chartDiv {
+    padding: 0 20px;
+}
+
+
+
+
+// reports css started
+
+.reports .mat-form-field {
+    width: 13vw;
+    padding: 5px 5px;
+}
+.reports .title{
+    font: normal normal bold 24px/29px Lato;
+    letter-spacing: 1.2px;
+    font-family: 'Lato', sans-serif;
+    font-size: 24px;
+    color: #2D3047;
+}
+.reports .generateReport {
+    float: right;
+    background: #0575E6;
+    color: #fff;
+    border: none;
+    border: 1px solid #0575E6;
+    box-shadow: none;
+    outline: none;
+    -webkit-appearance: none;
+    border-radius: 20px;
+    padding: 9px 35px;
+    font-size: 14px;
+}
+.reports .smallDesc {
+    font: normal normal bold 16px/19px Lato;
+    letter-spacing: 0.8px;
+    color: #74819E;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+}
+.reports {
+    background: #F7F9FC;
+}
+.reports .reset {
+    padding-left: 10px;
+    position: absolute;
+    top: -10px;
+}
+
+
+// chart css started
+
+.reports .chart .row .mat-card {
+    box-shadow: 1px 2px 6px #00000019;
+    padding: 0 16px;
+}
+
+
+.reports .chart .mat-card-header .mat-card-title {
+    letter-spacing: 0.8px;
+    font: normal normal bold 16px/19px Lato;
+    color: #74819E;
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+    position: relative;
+}
+.reports .chart .mat-card-header .mat-card-title .fa-info-circle {
+    padding-left: 5px;
+}
+.t1:after {
+    content: '';
+    background: #057AE7;
+    width: 88%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+}
+.t2:after {
+    content: '';
+    background: #057AE7;
+    width: 85%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+}
+.reports .row.chart .mat-card {
+    margin-bottom: 10px !important;
+    box-shadow: 1px 2px 6px #00000019;
+}
+.reports .row.chart>div {
+    padding: 0px 5px;
+}
+.reports .chart .PortfolioDiv {
+    display: flex;
+    justify-content: space-between;
+}
+.reports .chart .mat-card .mat-card-header {
+    padding-bottom: 15px;
+}
+.reports .chart .PortfolioDiv .right {
+    display: flex;
+}
+.reports .chart .PortfolioDiv .right .subtitle {
+    margin: 0;
+}
+.reports .chart .PortfolioDiv .right .toggle {
+    list-style-type: none;
+    display: inherit;
+    margin: 0;
+    margin-top: -5px;
+    padding-inline-start: 15px;
+}
+.reports .chart .PortfolioDiv .right .toggle li {
+    padding: 5px 10px 0px 10px;
+    border: 1px solid #057AE7;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.reports .chart .PortfolioDiv .right .toggle li.active {
+    background: #E0EEFF 0% 0% no-repeat padding-box;
+    color: #057AE7;
+    font-weight: bold;
+}
+.reports .chart .PortfolioDiv .right .toggle li:nth-of-type(1) {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-right-width: 0px;
+}
+.reports .chart .PortfolioDiv .right .toggle li:nth-of-type(2) {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+// chart css ended
+
+
+
+@media (max-width: 1199px) {
+    .reports .mat-form-field {
+        width: 16vw;
+        padding: 5px 5px;
+    }
+}
+@media (max-width: 991px) {
+    .reports .mat-form-field {
+        width: 20vw;
+        padding: 5px 5px;
+    }
+}
+@media (max-width: 767px) {
+    .reports .mat-form-field {
+        width: 50%;
+        padding: 5px 5px;
+    }
+    .reports .title {
+        font-size: 19px;
+    }
+    .reports .generateReport {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+.overview .chart .mat-card-header .mat-card-title .countNo {
+    font-size: 10px;
+}
+.averageUptimeChart .desc {
+    position: absolute;
+    right: 20px;
+    margin-top: -20px;
+    z-index: 9;
+}
+.averageUptimeChart .desc .title {
+    font: normal normal bold 14px/20px Lato;
+    letter-spacing: 0.7px;
+    color: #2D3047;
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    font-size: 13px;
+}
+.averageUptimeChart .desc .d1 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+}
+.averageUptimeChart .desc .d1:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #F68D5D;
+    position: absolute;
+    border-radius: 10px;
+    top: 3px;
+    left: 0;
+}
+.averageUptimeChart .desc .d2 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+    padding-top: 5px;
+}
+.averageUptimeChart .desc .d2:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #9390F7;
+    position: absolute;
+    border-radius: 10px;
+    top: 8px;
+    left: 0;
+}
+
+// reports css ends
+
+::ng-deep .mat-sort-header-arrow[style] {
+    // Hide default arrow stem
+    .mat-sort-header-stem {
+      display: none;
+    }
+    .mat-sort-header-indicator {
+      opacity: 1;
+      color: black;
+      font-weight: bold;
+  
+      // Hide default arrow as its composed of left, right and middle
+      .mat-sort-header-pointer-left,
+      .mat-sort-header-pointer-right,
+      .mat-sort-header-pointer-middle {
+        display: none;
+      }
+    }
+  }
+  
+  // My custom ascending arrow
+  [aria-sort='ascending'] {
+    ::ng-deep .mat-sort-header-arrow {
+      .mat-sort-header-indicator {
+        &::before {
+            opacity: 0.54 !important;
+            transform: translateY(0px) !important;
+          content: '\25B4';
+          top: -0em;
+          position: absolute;
+          color: #004e87;
+          font-size: 20px;
+          line-height: 10px;
+        }
+      }
+    }
+  }
+  
+  // My custom descending arrow
+  [aria-sort='descending'] {
+    ::ng-deep .mat-sort-header-arrow {
+      .mat-sort-header-indicator {
+        &::before {
+          content: '\25BE';
+          top: -15px;
+          position: absolute;
+          color: #004e87;
+          font-size: 20px;
+        }
+      }
+    }
+  }
+  

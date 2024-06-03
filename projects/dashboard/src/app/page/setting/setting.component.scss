@@ -1,0 +1,100 @@
+.c-subheader {
+    background: #F7F9FC;
+    box-shadow: none;
+}
+ .title{
+    font: normal normal bold 24px/29px Lato;
+    letter-spacing: 1.2px;
+    font-family: 'Lato', sans-serif;
+    font-size: 24px;
+    color: #2D3047;
+}
+.settingPage {
+    display: flex !important;
+    align-items: center;
+    align-content: center;
+    background: #F7F9FC;
+    width: 100%;
+    height: 100%;
+    min-height: 595px;
+} 
+mat-card{
+    max-width: 700px !important;
+    height: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto !important; 
+    vertical-align: middle;
+}
+.settingPage .smallDesc {
+    font: normal normal bold 16px/19px Lato;
+    letter-spacing: 0.8px;
+    color: #74819E;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+}
+.centerTxt{
+    text-align: center;
+}
+
+
+
+.example-icon {
+    padding: 0 14px;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  
+  @mixin size($width, $height: null) {
+      width: $width;
+      height: if($height==null, $width, $height);
+  }
+  
+  .theme-selectors-container{
+      width: 190px;
+      margin: 0 8px;
+  }
+  
+  button.theme-selector {
+      @include size(80px);
+  }
+  
+  div.theme-primary {
+      @include size(70px);
+      border-radius: 50%;
+  }
+  
+  div.theme-accent {
+      @include size(25px);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+  }
+  
+  div.theme-warn {
+      @include size(15px);
+      position: absolute;
+      bottom: 7%;
+      left: 20%;
+      transform: rotate(45deg);
+  }
+  
+  .theme-check {
+      color: white;
+      font-size: 3.2em;
+  }
+  .theme-selector-is-dark {
+      font-weight: bold;
+      font-size: 1.2em;
+  }
+  .center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+  }
+  

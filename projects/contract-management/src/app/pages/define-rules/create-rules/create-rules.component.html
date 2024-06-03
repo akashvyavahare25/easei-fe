@@ -1,0 +1,99 @@
+<div>
+    <div class="col-md-12 card">
+        <div class="row">
+            <div class="col-md-6">
+              <div class="text-grey-6 font-size-16 mb-3">
+                <strong *ngIf="!rulesId">Define Rules</strong>
+                <strong *ngIf="rulesId">Edit Rules Field</strong> 
+              </div>
+            </div>
+            <div class="col-md-6 text-right padding-right30">
+              <nz-form-item >
+                <nz-form-control>
+                  <button  *ngIf="!rulesId" (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+                    <strong>Submit</strong>
+                  </button> 
+                  <button *ngIf="rulesId" (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+                    <strong>Update</strong>
+                  </button>                  
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+    
+        <div class="col-md-12">
+            <form nz-form [nzLayout]="'vertical'" [formGroup]="rulesForm" role="form">
+                <div class="row">
+                <div class="col-md-4">
+                    <nz-form-item>
+                    <nz-form-label class="labels" nzFor="name">Rules Name</nz-form-label>
+                    <nz-form-control>
+                        <input type="text" nz-input formControlName="name" nzSize="medium" placeholder="Report Name" />
+                    </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="col-md-4">
+                    <nz-form-item>
+                    <nz-form-label class="labels" nzFor="name">Choose Application</nz-form-label>
+                    <nz-form-control>
+                        <nz-select nzSize="medium" nzPlaceHolder="Choose Dataset" (ngModelChange)="selectApps($event)"
+                        formControlName="application">
+                        <nz-option *ngFor="let item of listOfApplicationMaste" [nzLabel]="item.name" [nzValue]="item">
+                        </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="col-md-4">
+                    <nz-form-item>
+                    <nz-form-label class="labels" nzFor="status">Choose Dataset</nz-form-label>
+                    <nz-form-control>
+                        <nz-select nzSize="medium" nzPlaceHolder="Choose Dataset" (ngModelChange)="addScreenConfig($event)" formControlName="screen">
+                        <nz-option *ngFor="let item of screenArray;let i = index" [nzLabel]="item.name" [nzValue]="item">
+                        </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                    </nz-form-item>
+                </div>              
+                </div>
+            </form>
+        </div>
+    </div>    
+    <div  class="col-md-12 card min-height300">   
+      <div class="row">
+        <div class="col-md-6">
+          <div class="text-grey-6 font-size-16 mb-3">
+            <strong >Query Builder</strong>
+          </div>
+        </div>
+        <div class="col-md-6 text-right padding-right30">
+          <button (click)="resetQuery()"  class="btn btn-warning reset">
+            <strong>Reset</strong>
+          </button>
+          <button (click)="testQuery()" class="btn btn-primary" >
+            <strong>Preview</strong>
+          </button>
+        </div> 
+      </div>       
+      <div id="builder" class="col-md-12 mt-2">
+      </div>
+    </div>
+    <div class="card" *ngIf="isVisibleGrid">
+      <div class="row col-md-12">
+        <div class="col-md-8 text-grey-6 font-size-16  mb-3">
+          <strong class="ml-3">Result</strong>
+        </div>
+        <div class="col-md-12" *ngIf="rowData.length > 0">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <ag-grid-angular style="width: 100%; height: 300px;" class="ag-theme-balham" [rowData]="rowData"
+                  [columnDefs]="columnDefs" (firstDataRendered)="onFirstDataRendered($event)" [gridOptions]="gridOptions">
+                </ag-grid-angular>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

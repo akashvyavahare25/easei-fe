@@ -1,0 +1,364 @@
+/* You can add global styles to this file, and also import other style files */
+@import "app/components/kit/vendors/antd/style";
+@import "app/components/kit/vendors/bootstrap/style";
+@import "app/components/kit/vendors/nprogress/style";
+@import "app/components/kit/vendors/perfect-scrollbar/style";
+@import "app/components/kit/vendors/nestable/style";
+
+@import "app/components/kit/core/style"; // Clean UI KIT core styles
+@import "app/components/cleanui/styles/style"; // Clean UI styles
+@import "../../../node_modules/ag-grid-community/dist/styles/ag-grid.css";
+@import "../../../node_modules/ag-grid-community/dist/styles/ag-theme-balham.css";
+@import "~font-awesome/css/font-awesome.css";
+
+/* inspire-tree */
+@import "../../../node_modules/inspire-tree-dom/dist/inspire-tree-dark.css";
+input.form-control.builder-sidebar_search {
+  display: none;
+}
+.formio.builder.row.formbuilder {
+  margin: 0;
+  margin-bottom: 15px;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: gray;
+}
+
+.float-right {
+  float: right;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.text-right {
+  text-align: right !important;
+}
+.margin-bottom0 {
+  margin-bottom: 0px !important;
+}
+.margin-top5 {
+  margin-top: 5px;
+}
+.margin-top10 {
+  margin-top: 10px;
+}
+.margin-bottom10 {
+  margin-bottom: 10px;
+}
+.margin-right15 {
+  margin-right: 15px;
+}
+.padding-right30 {
+  padding-right: 30px;
+}
+.padding-top5 {
+  padding-top: 5px;
+}
+.padding-top10 {
+  padding-top: 10px;
+}
+.padding-bottom5 {
+  padding-bottom: 5px;
+}
+.padding-bottom10 {
+  padding-bottom: 10px;
+}
+.padding-bottom20 {
+  padding-bottom: 20px;
+}
+.padding-left20 {
+  padding-left: 20px;
+}
+.margin-left5 {
+  margin-left: 5px;
+}
+hr {
+  margin: 3px !important;
+}
+.wight700 {
+  font-weight: 700;
+}
+.display-flex {
+  display: flex;
+}
+.display-none {
+  display: none;
+}
+.display-block {
+  display: block !important;
+}
+.margin-auto {
+  margin: auto;
+}
+
+.builder-components.drag-container.formio-builder-form {
+  min-height: calc(100vh - 335px) !important;
+}
+.cui__utils__content {
+  padding: 10px 10px 0px 10px !important;
+}
+.component-edit-container {
+  .float-right {
+    display: none;
+  }
+  /* height: calc(100vh - 299px) !important;
+  overflow-y: auto !important; */
+}
+
+.card-body.tab-pane.active {
+  overflow: auto;
+  height: calc(100vh - 390px);
+}
+
+.ant-form-item {
+  margin-bottom: 20px !important;
+}
+
+.formio-dialog-content {
+  position: absolute !important;
+  right: 25px !important;
+  bottom: 70px !important;
+  width: calc(100vw - 530px) !important;
+  padding-bottom: 0px !important;
+}
+div#heading-basic {
+  padding: 0px !important;
+}
+
+.card-header {
+  padding-top: 5px !important;
+  padding: 0.75rem 1.25rem !important;
+}
+
+.menuNoCollaps {
+  position: absolute !important;
+  right: 20px !important;
+  bottom: 60px !important;
+  width: calc(100vw - 530px) !important;
+}
+
+.menuCollaps {
+  position: absolute !important;
+  right: 20px !important;
+  bottom: 60px !important;
+  width: calc(100vw - 380px) !important;
+}
+
+@media only screen and (min-width: 1650px) and (max-width: 1800px) {
+  .menuNoCollaps {
+    width: calc(100vw - 540px) !important;
+  }
+
+  .menuCollaps {
+    width: calc(100vw - 390px) !important;
+  }
+}
+
+@media only screen and (min-width: 1549px) and (max-width: 1649px) {
+  .menuNoCollaps {
+    width: calc(100vw - 515px) !important;
+  }
+
+  .menuCollaps {
+    width: calc(100vw - 370px) !important;
+  }
+}
+
+@media only screen and (min-width: 1400px) and (max-width: 1548px) {
+  .menuNoCollaps {
+    width: calc(100vw - 500px) !important;
+  }
+
+  .menuCollaps {
+    width: calc(100vw - 360px) !important;
+  }
+}
+
+@media only screen and (min-width: 1300px) and (max-width: 1399px) {
+  .menuNoCollaps {
+    width: calc(100vw - 480px) !important;
+  }
+
+  .menuCollaps {
+    width: calc(100vw - 340px) !important;
+  }
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1299px) {
+  .menuNoCollaps {
+    width: calc(100vw - 460px) !important;
+  }
+
+  .menuCollaps {
+    width: calc(100vw - 320px) !important;
+  }
+}
+
+@media only screen and (min-width: 1150px) and (max-width: 1199px) {
+  .menuNoCollaps {
+    width: calc(100vw - 430px) !important;
+  }
+
+  .menuCollaps {
+    width: calc(100vw - 300px) !important;
+  }
+}
+
+@media only screen and (min-width: 1100px) and (max-width: 1149px) {
+  .menuNoCollaps {
+    width: calc(100vw - 420px) !important;
+  }
+
+  .menuCollaps {
+    width: calc(100vw - 290px) !important;
+  }
+}
+
+.width-red {
+  background: red !important;
+}
+
+.formio-dialog.formio-dialog-theme-default.component-settings {
+  background: none !important;
+}
+
+.no-click-backdrop {
+  pointer-events: none;
+}
+
+.formio-dialog {
+  position: inherit !important;
+}
+[data-kit-theme="default"] .ant-picker {
+  display: block !important;
+}
+
+.card {
+  padding-top: 5px;
+  margin-bottom: 1rem;
+}
+
+.margin-bottom-20 {
+  margin-bottom: -20px;
+}
+.ant-form-item {
+  margin-bottom: 10px !important;
+}
+/* .formio-dialog-close::before {
+  background: #f0f0f0 !important ;
+  padding: 0px !important;
+  margin-right: -5px !important;
+  margin-top: -5px !important;
+} */
+
+.time-show {
+  background: #c8cabf;
+  margin-left: 5px;
+  padding: 1px 4px 2px 5px;
+  border-radius: 20px;
+  font-size: 10px;
+}
+
+.ant-form-item-label > label {
+  height: 20px !important;
+}
+
+.div-disable {
+  pointer-events: none;
+  opacity: 0.4;
+}
+.alert.alert-success,
+.formio-component-htmlelement {
+  display: none !important;
+}
+
+.diasabledButton a#wdr-btn-open-fields {
+  display: none !important;
+}
+
+#wdr-pivot-view .wdr-grid-layout .wdr-empty {
+  border-color: transparent !important;
+}
+
+#wdr-pivot-view .wdr-grid-layout #wdr-data-sheet {
+  border-color: transparent !important;
+}
+
+ul#wdr-toolbar {
+  text-align: right !important;
+}
+li#wdr-tab-export-print,
+li#wdr-tab-export-html,
+li#wdr-tab-export-pdf {
+  display: none !important;
+}
+.wdr-toolbar-group-right{
+  right: 60px !important;
+}
+.ag-cell-focus,
+.ag-cell-no-focus {
+  border: none !important;
+}
+
+.screen-notification {
+  .is-disabled {
+    .dropdown {
+      background: #f2f4f8 !important;
+      cursor: context-menu !important;
+    }
+  }
+
+  .btn {
+    display: none !important;
+  }
+}
+.firstCard {
+  .ant-form-item-explain {
+    color: red !important;
+  }
+}
+.ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-extra {
+  width: 900px;
+}
+.croneditor > ul.nav.nav-tabs.tab-nav li.ng-star-inserted {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.croneditor > div.cron-editor-container > .row > .col-xs-12 > .tab-content > .tab-pane > .well.well-small {
+  padding-top: 1rem;
+}
+
+.croneditor
+  > div.cron-editor-container
+  > .row
+  > .col-xs-12
+  > .tab-content
+  > .tab-pane
+  > .well.well-small
+  > .advanced-cron-editor-label {
+  visibility: hidden;
+  opacity: 0;
+  display: none;
+}
+.query-builder > .rules-group-container {
+  min-width: 100% !important;
+}
+
+.set-trasform {
+  padding: 1px;
+  font-size: 11px;
+}

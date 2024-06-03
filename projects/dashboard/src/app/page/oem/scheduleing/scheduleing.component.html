@@ -1,0 +1,86 @@
+<div class="c-subheader sticky-top justify-content-between px-3 c-header-shadow">
+  <div class="plantDashboard">
+    <div class="row">
+      <div class="col-md-8" style="margin-top:20px;">
+        <mat-form-field appearance="fill" class="plants">
+          <mat-label>Plant</mat-label>
+          <mat-select [(ngModel)]="plantIdReset" matNativeControl #select5
+            (selectionChange)="selectPlantId($event.value)" selectPlantId>
+            <mat-option *ngFor="let plant of plantList" [value]="plant.id">
+              {{plant.name}}
+            </mat-option>
+          </mat-select>
+
+        </mat-form-field>
+        <mat-form-field appearance="fill" appearance="fill" class="allKnu">
+          <mat-label> NCU ID </mat-label>
+          <mat-select [(ngModel)]="ncuIdReset" matNativeControl multiple (selectionChange)="selectNcuId($event.value)">
+            <!-- <mat-select-trigger>
+                {{allkpis.value ? allkpis.value[0] : ''}}
+                <span *ngIf="allkpis.value?.length > 1" class="example-additional-selection">
+                    +{{allkpis.value.length - 1}}
+                </span>
+            </mat-select-trigger> -->
+            <!-- <div class="select-all">
+                <mat-checkbox [(ngModel)]="allSelected5" [ngModelOptions]="{standalone: true}"
+                    (change)="toggleAllSelection5()">All KPIs</mat-checkbox>
+            </div> -->
+            <mat-option *ngFor="let ncu of ncuList" [value]="ncu.id">
+              {{ncu.name}}
+            </mat-option>
+          </mat-select>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="allBot">
+          <mat-label> BCU ID</mat-label>
+          <mat-select matNativeControl [(ngModel)]="bcuIdReset" #select5 multiple (selectionChange)="selectBcuId($event.value)">
+            <!-- <mat-select-trigger>
+              {{allkpis.value ? allkpis.value[0] : ''}}
+              <span *ngIf="allkpis.value?.length > 1" class="example-additional-selection">
+                  +{{allkpis.value.length - 1}}
+              </span>
+          </mat-select-trigger> -->
+            <!-- <div class="select-all">
+              <mat-checkbox [(ngModel)]="allSelected5" [ngModelOptions]="{standalone: true}"
+                  (change)="toggleAllSelection5()">All KPIs</mat-checkbox>
+          </div> -->
+            <mat-option *ngFor="let bcu of bcuList" [value]="bcu.id" bc [matTooltip]="bcu.name">
+              {{bcu.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <span style="position: relative;">
+          <button type="button" class="btn btn-link resetBtn" (click)="reset()">Reset</button>
+        </span>
+      </div>
+      <div class="col-md-2">
+        <button mat-button class="cancel"  (click)="ScheduleMultipleDays()"> cleaning Schedule</button>
+
+      </div>
+      <div class="col-md-2">
+        <button mat-button class="cancel" (click)="fullYear()">Full Year</button>
+
+      </div>
+
+    </div>
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="col-12" style="padding:0 !important;margin: 0 !important;">
+        <mat-card class="mb-4">
+          <mat-card-content>
+            <div class="row" *ngIf="visible">
+              <div class="col-md-6">
+                <full-calendar [options]="calendarOptionsCurrentMonth"></full-calendar>
+            </div>
+            <div class="col-md-6">
+                <full-calendar [options]="calendarOptionsNextMonth"></full-calendar>
+            </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+</div> 

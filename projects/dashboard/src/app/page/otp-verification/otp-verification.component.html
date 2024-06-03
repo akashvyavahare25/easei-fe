@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>OTP Verification</h1>
+<div mat-dialog-content>
+    <form class="form" [formGroup]="otpForm">
+        <label for="otp" class="form-label">OTP*</label>
+        <input type="text" class="form-control" formControlName="otp" id="otp"  placeholder="Enter OTP" name="otp">
+    </form>
+</div>
+<div mat-dialog-actions style="float:right !important">
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button class="btn btn-primary" (click)="virifyCode()" mat-button   cdkFocusInitial>Send</button>
+</div>

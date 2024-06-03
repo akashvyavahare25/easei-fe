@@ -1,0 +1,280 @@
+<div class="col-md-12 card create-master-height">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="text-grey-6 font-size-16 mb-3">
+                <strong *ngIf="!paramaterId">Create New Master</strong>
+                <strong *ngIf="paramaterId">Edit Master</strong>
+            </div>
+        </div>
+        <div class="col-md-6 text-right padding-right30">
+            <nz-form-item>
+                <nz-form-control>
+                    <button *ngIf="!paramaterId" (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+                        <strong>Submit</strong>
+                    </button>
+                    <button *ngIf="paramaterId" (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+                        <strong>Update</strong>
+                    </button>
+                    <button *ngIf="!paramaterId" (click)="clearForm()" nz-button nzType="light" [nzSize]="'small'"
+                        class="margin-left5">
+                        <strong>Clear</strong>
+                    </button>
+                    <button *ngIf="paramaterId" (click)="cancelEdit()" nz-button nzType="light" [nzSize]="'small'"
+                        class="margin-left5">
+                        <strong>Cancel</strong>
+                    </button>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+    <form nz-form [nzLayout]="'vertical'" [formGroup]="masterForm" role="form">
+        <nz-tabset nzType="card" [nzSize]="'small'">
+            <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab">
+                <div *ngIf="tab === 'Basic'" class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-label class="labels" nzFor="designation">Display Name</nz-form-label>
+                                <nz-form-control>
+                                    <!-- nzErrorTip="Please input master name!" -->
+                                    <input type="text" nz-input formControlName="name" nzSize="medium"
+                                        placeholder="Master Name" />
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <!-- <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-label class="labels" nzFor="version">Master Version</nz-form-label>
+                                <nz-form-control>
+                                    <input type="text" nz-input nzSize="medium" formControlName="version"
+                                        placeholder="Master Version" />
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-label class="labels" nzFor="type">Master Type</nz-form-label>
+                                <nz-form-control>
+                                    <input type="text" nz-input nzSize="medium" formControlName="type"
+                                        placeholder="Master Type" />
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div> -->
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-label class="labels" nzFor="description">Master Description</nz-form-label>
+                                <nz-form-control>
+                                    <!-- nzErrorTip="Please input master description!" -->
+                                    <input type="text" nz-input nzSize="medium" formControlName="description"
+                                        placeholder="Master Description" />
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-label class="labels" nzFor="dropdown">Table Category</nz-form-label>
+                                <nz-form-control>
+                                  
+                                    <nz-select nzSize="medium" nzPlaceHolder="Dropdown" formControlName="tableCategory">
+                                        <nz-option nzValue="tab_tm_dec" nzLabel="tab_tm_dec"></nz-option>
+                                        <nz-option nzValue="tab_tm_str" nzLabel="tab_tm_str"></nz-option>
+                                        <nz-option nzValue="tab_tm_jsn" nzLabel="tab_tm_jsn"></nz-option>
+                                        <nz-option nzValue="tab_has_img" nzLabel="tab_has_img"></nz-option>
+                                        <nz-option nzValue="tab_has_scatg" nzLabel="tab_has_scatg"></nz-option>
+
+                                    </nz-select>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-label class="labels" nzFor="name">External Code</nz-form-label>
+                                <nz-form-control>
+                                    <!-- nzErrorTip="Please input parameter name!" -->
+                                    <input type="text" nz-input formControlName="externalCode" nzSize="medium"
+                                        placeholder="External Code" />
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                    <div class="row">
+                    
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-label class="labels" nzFor="startDate">Effective Date</nz-form-label>
+                                <nz-form-control>
+                                    <!-- nzErrorTip="Please input master validity start date!" -->
+                                    <nz-date-picker [nzDisabledDate]="disabledStartDate" nzFormat="yyyy-MM-dd"
+                                        class="width100" formControlName="startDate" nzSize="medium"
+                                        nzPlaceHolder="Master Validity Start Date"></nz-date-picker>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-label class="labels" nzFor="endDate">End Date</nz-form-label>
+                                <nz-form-control>
+                                    <!-- nzErrorTip="Please input master validity end date!" -->
+                                    <nz-date-picker [nzDisabledDate]="disabledEndDate" nzFormat="yyyy-MM-dd"
+                                        class="width100" formControlName="endDate" nzSize="medium"
+                                        nzPlaceHolder="Master Validity End Date"></nz-date-picker>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-label class="labels" nzFor="status">Master Status</nz-form-label>
+                                <nz-form-control>
+                                    <!-- nzErrorTip="Please input master status!" -->
+                                    <nz-select nzSize="medium" nzPlaceHolder="Master Status" formControlName="status">
+                                        <nz-option nzValue="Active" nzLabel="Active"></nz-option>
+                                        <nz-option nzValue="Inactive" nzLabel="Inactive"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-3" *ngIf="!paramaterId">
+                            <nz-form-item>
+                                <nz-form-label class="labels" nzFor="labelName">Copy From Master</nz-form-label>
+                                <nz-form-control>
+                                    <nz-select nzSize="medium" nzPlaceHolder="Please Select Master" formControlName="master"(ngModelChange)="addMasterConfig($event)">
+                                        <nz-option *ngFor="let option of mastersData" [nzLabel]="option.name"
+                                            [nzValue]="option._id"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        
+                       
+                    </div>
+                    <div class="row py-2">
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-control>
+                                    <label nz-checkbox formControlName="tab_rp_enable">tab_rp_enable</label>
+                                    <!-- <nz-checkbox-group [(ngModel)]="data"></nz-checkbox-group> -->
+                                </nz-form-control>
+                            </nz-form-item>                      
+                        </div>
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-control>
+                                    <label nz-checkbox formControlName="tab_rp_disp_enable">tab_rp_disp_enable</label>
+                                  <!-- <nz-checkbox-group [(ngModel)]="data"></nz-checkbox-group> -->
+                                </nz-form-control>
+                            </nz-form-item>                      
+                        </div>
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-control>
+                                    <label nz-checkbox formControlName="tab_rp_dmp_enable">tab_rp_dmp_enable</label>
+                                    <!-- <nz-checkbox-group [(ngModel)]="data"></nz-checkbox-group> -->
+                                </nz-form-control>
+                            </nz-form-item>                      
+                        </div>
+                        <!-- <div class="col-md-3">
+                            <nz-form-item>
+                            <nz-checkbox-group  *ngFor="let item of data" [nzValue]="item.value" [nzLabel]="item.label"></nz-checkbox-group> 
+                        </nz-form-item>
+                        </div> -->
+                     </div>
+                </div>
+                <div *ngIf="tab === 'Unique Key'">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-label class="labels" nzFor="uniqueKey">Unique Key</nz-form-label>
+                                <nz-form-control>
+                                    <!-- nzErrorTip="Please select key!" -->
+                                    <nz-select nzMode="tags" nzSize="medium" nzPlaceHolder="Unique Key"
+                                        [nzDisabled]="paramaterId" formControlName="uniqueKey">
+                                        <nz-option *ngFor="let option of form.components" [nzLabel]="option.label"
+                                            [nzValue]="option.key"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-label class="labels" nzFor="labelName">Master Label Name</nz-form-label>
+                                <nz-form-control>
+                                    <!-- nzErrorTip="Please input master label name!" -->
+                                    <nz-select nzSize="medium" nzPlaceHolder="Label Name" formControlName="labelName">
+                                        <nz-option *ngFor="let option of form.components" [nzLabel]="option.label"
+                                            [nzValue]="option.key"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                </div>
+            </nz-tab>
+        </nz-tabset>
+    </form>
+</div>
+<div class="col-md-12 card">    
+    <div class="row">
+        <div class="col-md-10 text-grey-6 font-size-16 mb-3">
+            <strong>Master Configuration</strong>
+        </div>
+        <div class="col-md-2 text-right mb-3" *ngIf="!paramaterId">
+            <strong class="clear pr-3"(click)="clearScreenConfig()">clear all</strong>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6 first-half">
+                    <ag-grid-angular style="width: 100wh; height: calc(100vh - 450px)"
+                        (firstDataRendered)="onFirstDataRendered($event)" class="ag-theme-balham" [rowData]="rowData"
+                        [columnDefs]="columnDefs">
+                    </ag-grid-angular>
+                </div>
+                <div class="col-md-6 first-half">
+                    <span *ngIf="form.components.length > 0">
+                        <form-builder [form]="form" [options]="options"></form-builder>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nz-modal [(nzVisible)]="ismodelvisible"  nzTitle="{{modalTitle}}" (nzOnCancel)="cancelModal()" nzWidth='1000px' [nzFooter]="footer">
+        <ng-container>
+          <div class="card-body  card-overflow col-md-12">
+                <div class="col-md-12">
+                    <form nz-form [nzLayout]="'vertical'" class="row" [formGroup]="masterConfigForm" role="form">
+                        <div class="col-md-6 mb-3">
+                            <nz-form-item>
+                                <nz-form-label class="labels" nzFor="startDate">Effective Date</nz-form-label>
+                                <nz-form-control>
+                                    <nz-date-picker nzFormat="yyyy-MM-dd"
+                                        class="width100" formControlName="eff_date" nzSize="medium"
+                                        nzPlaceHolder="Effective Date"></nz-date-picker>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <nz-form-item>
+                                <nz-form-label class="labels" nzFor="endDate">End Date</nz-form-label>
+                                <nz-form-control>
+                                    <nz-date-picker nzFormat="yyyy-MM-dd"
+                                        class="width100" formControlName="end_date" nzSize="medium"
+                                        nzPlaceHolder="End Date"></nz-date-picker>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <ng-template #footer>
+                            <div class="col-md-12 ">
+                                <button nz-button nzType="primary" (click)="submit()" [nzSize]="'medium'">
+                                <strong >Submit</strong>
+                                </button>
+                            </div>
+                        </ng-template>
+                    </form>
+                </div>
+            
+          </div>
+        </ng-container>
+    </nz-modal>
+</div>

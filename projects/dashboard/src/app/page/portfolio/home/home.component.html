@@ -1,0 +1,342 @@
+<div class="c-subheader sticky-top justify-content-between px-3 c-header-shadow">
+    <div class="overview">
+             <div class="row" style="width: 100%;padding: 10px 0px;">
+                <div class="col-md-6">
+                    <h3 class="title">Portfolio Overview</h3>
+                </div>
+                <div class="col-md-6">
+                    <button class="generateReport" (click)="getReport()">Generate Report</button>
+                </div>
+                <div class="col-md-12" *ngIf="allDataSummary">
+                    <p class="smallDesc">{{allDataSummary.data['noofbots']}}  <span *ngIf="allDataSummary.data['noofbots'] == 1">BOT </span><span *ngIf="allDataSummary.data['noofbots'] > 1">BOTS </span>&nbsp;|&nbsp; {{allDataSummary.data['capacity']}}   &nbsp;|&nbsp; {{allDataSummary.data['noofplants']}} <span *ngIf="allDataSummary.data['noofplants'] == 1">Plant </span> <span *ngIf="allDataSummary.data['noofplants'] > 1">Plants </span> &nbsp;|&nbsp; Last
+                        Updated
+                        On {{allDataSummary.data['lastupdatedtime']}}</p>
+                </div>
+                <div class="col-md-12">
+                    <mat-form-field appearance="fill" class="calendar">
+                        <!-- <mat-label>Last 7 days</mat-label> -->
+                        <mat-select matNativeControl [(ngModel)]="calendar" (selectionChange)="selectedDate($event.value)">
+                            <mat-option value="7">Last 7 days</mat-option>
+                            <mat-option value="15">Last 15 days</mat-option>
+                            <mat-option value="30">Last 30 days</mat-option>
+                            <mat-option value="60">Last 60 days</mat-option>
+                            <mat-option value="180">Last 180 days</mat-option>
+                            <mat-option value="365">Last 1 year</mat-option>
+                            <mat-option value='custom'>Custom date</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="customDate" appearance="fill" *ngIf="calendar == 'custom'"> 
+                        <mat-label>Enter a date range</mat-label>
+                        <mat-date-range-input [rangePicker]="picker" [max]="maxDate">
+                          <input matStartDate placeholder="Start date" (dateChange)="selectedCustomDateStart($event)" (keyup)="selectedCustomDateStart($event)">
+                          <input matEndDate placeholder="End date" (dateChange)="selectedCustomDateEnd($event)" (keyup)="selectedCustomDateEnd($event)">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker ></mat-date-range-picker>
+                      </mat-form-field>
+                <mat-form-field  appearance="fill" class="plants">
+                    <mat-label>Plants</mat-label>
+                    <mat-select [formControl]="allPlants" [(ngModel)]="allPlants1" #select multiple  (selectionChange)="getIncharge($event.value)">
+                        <mat-select-trigger>
+                            {{allPlants.value?.length >0 ? allPlants.value[0].name : ''}}
+                            <span *ngIf="allPlants.value?.length > 1" class="example-additional-selection">
+                                +{{allPlants.value.length - 1}}
+                            </span>
+                        </mat-select-trigger>
+                        <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelection()">All Plants</mat-checkbox>
+                        </div>
+                        <mat-option (click)="optionClick()" *ngFor="let pl of allPlantsList" [value]="pl">
+                            {{pl.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                    <mat-form-field appearance="fill" class="incharge">
+                        <mat-label>Incharge</mat-label>
+                        <mat-select matNativeControl #select1 multiple [formControl]="allIncharge" [(ngModel)]="allIncharge1">
+                            <mat-select-trigger>
+                                {{allIncharge.value?.length >0 ? allIncharge.value[0].name : ''}}
+                                <span *ngIf="allIncharge.value?.length > 1" class="example-additional-selection">
+                                    +{{allIncharge.value.length - 1}}
+                                </span>
+                            </mat-select-trigger>
+                            <div class="select-all">
+                                <mat-checkbox [(ngModel)]="allSelected1" [ngModelOptions]="{standalone: true}"
+                                    (change)="toggleAllSelection1()">All Incharge</mat-checkbox>
+                            </div>
+                            <mat-option (click)="optionClick1()" *ngFor="let incharg of allInchargeList" [value]="incharg">
+                                {{incharg.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field> 
+                    <mat-form-field appearance="fill" class="region">
+                        <mat-label>Region</mat-label>
+                        <mat-select matNativeControl #select2 multiple [formControl]="allRegion" [(ngModel)]="allRegion1" (selectionChange)="getCountry($event.value)">
+                            <mat-select-trigger>
+                                {{allRegion.value?.length > 0 ? allRegion.value[0].name : ''}}
+                                <span *ngIf="allRegion.value?.length > 1" class="example-additional-selection">
+                                    +{{allRegion.value.length - 1}}
+                                </span>
+                            </mat-select-trigger>
+                            <div class="select-all">
+                                <mat-checkbox [(ngModel)]="allSelected2" [ngModelOptions]="{standalone: true}"
+                                    (change)="toggleAllSelection2()">All Region</mat-checkbox>
+                            </div>
+                            <mat-option (click)="optionClick2()" *ngFor="let region of jsonData.data" [value]="region">
+                                {{region.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="country">
+                        <mat-label>Country</mat-label>
+                        <mat-select matNativeControl #select3 multiple [formControl]="allCountry" [(ngModel)]="allCountry1"  (selectionChange)="getState($event.value)">
+                            <mat-select-trigger>
+                                {{allCountry.value?.length >0 ? allCountry.value[0].name : ''}}
+                                <span *ngIf="allCountry.value?.length > 1" class="example-additional-selection">
+                                    +{{allCountry.value.length - 1}}
+                                </span>
+                            </mat-select-trigger>
+
+                            <div class="select-all">
+                                <mat-checkbox [(ngModel)]="allSelected3" [ngModelOptions]="{standalone: true}"
+                                    (change)="toggleAllSelection3()">All Country</mat-checkbox>
+                            </div>
+                            <mat-option (click)="optionClick3()" *ngFor="let country of allCountryList"  [value]="country">
+                                {{country.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="state">
+                        <mat-label>State</mat-label>
+                        <mat-select matNativeControl #select4 multiple [formControl]="allState" [(ngModel)]="allState1"(selectionChange)="getPlant($event.value)">
+                            <mat-select-trigger>
+                                {{allState.value?.length > 0 ? allState.value[0].name : ''}}
+                                <span *ngIf="allState.value?.length > 1" class="example-additional-selection">
+                                    +{{allState.value.length - 1}}
+                                </span>
+                            </mat-select-trigger> 
+                            <div class="select-all">
+                                <mat-checkbox [(ngModel)]="allSelected4" [ngModelOptions]="{standalone: true}"
+                                    (change)="toggleAllSelection4()">All States</mat-checkbox>
+                            </div>
+                            <mat-option (click)="optionClick4()" *ngFor="let state of allStateList" [value]="state">
+                                {{state.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <span style="position: relative;">
+                        <button type="button" class="btn btn-link resetBtn" (click)="reset()">Reset</button>
+                    </span>
+                </div>
+            </div>
+        <div class="row chartDiv">
+            <div class="col-12">
+                <div class="row chart">
+                    <div class="col-lg-7">
+                        <mat-card class="mb-4">
+                            <mat-card-header class="PortfolioDiv">
+                                <mat-card-title class="t3">Portfolio</mat-card-title>
+                                <div class="right"> 
+                                    <div class="btn-group toggle" role="group" aria-label="Basic outlined example" *ngIf="overview == false || heatmap == true">
+                                      <span style="margin-right: 20px !important; margin-top: 10px !important;">
+                                        <p class="subtitle"><img class="srokeCircle" 
+                                            src="../../../assets/images/strokeCircle.png" />W/o AMC</p>
+                                        </span>  
+                                        <button type="button" class="btn btn-outline-primary"
+                                            (click)="btnClick('overview')">Overview</button>
+                                        <button type="button" class="btn btn-outline-primary active"
+                                            (click)="btnClick('heatmap')">Heatmap</button>
+                                        
+                                    </div>
+                                    <div class="btn-group toggle" role="group" aria-label="Basic outlined example" *ngIf="overview == true || heatmap == false">
+                                        <button type="button" class="btn btn-outline-primary active"
+                                        (click)="btnClick('overview')">Overview</button>
+                                        <button type="button" class="btn btn-outline-primary"
+                                            (click)="btnClick('heatmap')">Heatmap</button>
+                                    </div>
+                                </div>
+                            </mat-card-header>
+                            <mat-card-content *ngIf="overview == false || heatmap == true">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <div id="chart" class="treeChart porfolioChart">
+                                            <app-treemap [start]="startDate" [end]="endDate" [startDNotifier]="startDatechildNotifier" [endDNotifier]="endDatechildNotifier" [notifier]="childNotifier"  [daynotify]="daysNotifier"></app-treemap>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                            <mat-card-content *ngIf="overview == true || heatmap == false">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <div id="chart" class="averageUptimeChart">
+                                            <div class="desc1">
+                                                <p class="d1">With AMC</p>
+                                                <p class="d2">W/o AMC</p>
+                                            </div>
+                                            <app-worldmap [id]="plantsId" [start]="startDate" [end]="endDate" [startDNotifier]="startDatechildNotifier" [endDNotifier]="endDatechildNotifier" [notifier]="childNotifier"></app-worldmap>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                    <div class="col-lg-5" style="width:100% !important;height: 380px !important;">
+                        <mat-card class="mb-4">
+                            <mat-card-header>
+                                <mat-card-title class="t2">
+                                    Average Uptime
+                                    <a data-title="Bot uptime is the ratio of total operating time of the robot and the total expected operation time. Any down time resulting from rains, high wind, manual aborts for maintenance of any system apart from robot shall not be considered as down time.">
+                                        <i class="fa fa-info-circle"></i>
+                                    </a>
+                                </mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div class="row" *ngIf="chartOptions4">
+                                    <div class="col-sm">
+                                        <div id="chart1" class="averageUptimeChart">
+                                            <div class="desc" *ngIf="allAvgUptime.length > 1">
+                                                <p class="d1" *ngIf="allAvgUptime[0].name == 'With AMC'">Avg with AMC - {{allAvgUptime[0].average}} %</p>
+                                                <p class="d2" *ngIf="allAvgUptime[0].name == 'Without AMC'">Avg w/o AMC - {{allAvgUptime[0].average}} %</p>
+                                                <p class="d2" *ngIf="allAvgUptime[1].name">Avg w/o AMC - {{allAvgUptime[1].average}} %</p>
+                                            </div>
+                                            
+                                            <apx-chart [series]="chartOptions4.series" [chart]="chartOptions4.chart"
+                                                [xaxis]="chartOptions4.xaxis" [stroke]="chartOptions4.stroke"
+                                                [colors]="chartOptions4.colors" [dataLabels]="chartOptions4.dataLabels"
+                                                [legend]="chartOptions4.legend" [markers]="chartOptions4.markers"
+                                                [grid]="chartOptions4.grid" [yaxis]="chartOptions4.yaxis"[annotations]="chartOptions4.annotations" 
+                                                [title]="chartOptions4.title" [tooltip]="chartOptions4.tooltip" >
+                                            </apx-chart>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                    <div class="col-lg-5">
+                        <mat-card class="mb-4" >
+                            <mat-card-header>
+                                <mat-card-title class="t1">
+                                    Average Soiling Loss
+                                    <a data-title="Soiling loss is the loss of power generation due to deposition of contamination on solar modules resulting in a loss of light transmission to solar cells.">
+                                        <i class="fa fa-info-circle"></i>
+                                    </a>
+                                </mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div class="row" *ngIf="chartOptions3">
+                                    <div class="col-sm">
+                                        <div id="chart2" class="treeChart averageSollingLossChart">
+                                            <div class="desc" *ngIf="allAvgSoilloss.length >1">
+                                                <p class="d1" *ngIf="allAvgSoilloss[0].name == 'With AMC'">Avg with AMC- {{allAvgSoilloss[0].average}} %</p>
+                                                <p class="d2" *ngIf="allAvgSoilloss[0].name == 'Without AMC'">Avg w/o AMC - {{allAvgSoilloss[0].average}} %</p>
+                                                <p class="d2" *ngIf="allAvgSoilloss[1].name">Avg w/o AMC - {{allAvgSoilloss[1].average}} %</p>
+                                            </div>
+                                            <apx-chart [series]="chartOptions3.series" [chart]="chartOptions3.chart"
+                                                [yaxis]="chartOptions3.yaxis" [xaxis]="chartOptions3.xaxis"
+                                                [labels]="chartOptions3.labels" [stroke]="chartOptions3.stroke"
+                                                [title]="chartOptions3.title" [dataLabels]="chartOptions3.dataLabels"
+                                                [grid]="chartOptions3.grid" [fill]="chartOptions3.fill"
+                                                [tooltip]="chartOptions3.tooltip" [colors]="chartOptions3.colors"
+                                                [plotOptions]="chartOptions3.plotOptions" [annotations]="chartOptions3.annotations" 
+                                                [markers]="chartOptions3.markers" [legend]="chartOptions3.legend"  >
+                                            </apx-chart>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                    <div class="col-lg-4" >
+                        <mat-card class="mb-4" style="height: 380px;">
+                            <mat-card-header>
+                                <mat-card-title class="t4">
+                                    Latest BOT Operating Status
+                                </mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div class="row" *ngIf="chartOptions">
+                                    <div class="col-sm botOSChartOuter">
+                                        <div id="chart3" class="botOSChart">
+                                            <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
+                                                [plotOptions]="chartOptions.plotOptions" [stroke]="chartOptions.stroke"
+                                                [labels]="chartOptions.labels" [fill]="chartOptions.fill">
+                                            </apx-chart>
+                                        </div>
+                                        <div class="desc" *ngIf="botStatusArray.length >= 1">
+                                            <p class="title">With AMC - {{botStatusArray[0].total}} BOTs</p>
+                                            <p class="d1">{{botStatusArray[0].healthy}} Healthy BOTs</p>
+                                            <p class="d2">{{botStatusArray[0].unhealthy}} Unhealthy BOTs</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" *ngIf="chartOptions1">
+                                    <div class="col-sm botOSChartOuter2">
+                                        <div id="chart4" class="botOSChart2">
+                                            <apx-chart [series]="chartOptions1.series" [chart]="chartOptions1.chart"
+                                                [plotOptions]="chartOptions1.plotOptions" [fill]="chartOptions1.fill"
+                                                [stroke]="chartOptions1.stroke" [labels]="chartOptions1.labels">
+                                            </apx-chart>
+                                        </div>
+                                        <div class="desc"  *ngIf="botStatusArray.length >= 1">
+                                            <p class="title">W/O AMC - {{botStatusArray[1].total}} BOTs</p>
+                                            <p class="d1">{{botStatusArray[1].healthy}} Healthy BOTs</p>
+                                            <p class="d2">{{botStatusArray[1].unhealthy}} Unhealthy BOTs</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="row">
+                            <div class="col-12 ">
+                                <mat-card class="mb-4" style="height: 185px;" *ngIf="allDataSummary">
+                                    <mat-card-header>
+                                        <mat-card-title class="t5">
+                                            Water Saved
+                                            <a data-html="true" data-title="Shows the amount of water saved because of dry cleaning.Assuming an average consumption of 20,000 litres of water per MW per month, considering 2 cleaning cycles per month and 5 lit of water per module per cycle." >
+                                                <i class="fa fa-info-circle"></i>
+                                            </a>
+                                        </mat-card-title>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <p class="valueTitle">{{allDataSummary.data['water-saved']}}</p>
+                                                <img class="srokeCircle" src="../../../assets/images/water1.png" />
+                                            </div>
+                                        </div>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                            <div class="col-12">
+                                <mat-card class="mb-4" style="height: 185px;" *ngIf="allDataSummary">
+                                    <mat-card-header>
+                                        <mat-card-title class="t6">
+                                            CO<span class="countNo">2</span> Saved
+                                                <a data-title="Cleaning using water that is pumped using a tractor and pump consumes fossil fuels. The approximate value of CO2 emission that are saved by avoiding the use of diesel that is used for cleaning a solar power plant using water is given here. The value of CO2 is estimated assuming 2 cleaning cycles per month using a tanker of water and diesel pumps to use pressurised water to clean modules.">
+                                                <i class="fa fa-info-circle"></i>
+                                            </a>
+                                        </mat-card-title>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <p class="valueTitle">{{allDataSummary.data['co2-saved']}}</p>
+                                                <img class="srokeCircle" src="../../../assets/images/water2.png" />
+                                            </div>
+                                        </div>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,227 @@
+.c-subheader {
+    background: #F7F9FC;
+    display: block;
+    box-shadow: none;
+    border-bottom: 1px solid lightslategray;
+    border-bottom: 1px solid #d0d0d0;
+}
+.c-header.c-header-fixed {
+    z-index: 9999;
+}
+
+.checkbox{
+    margin-top: 3px;
+}
+
+.footer {
+    background: #fff;
+    padding: 10px 40px;
+}
+.footer .text1 {
+    font: normal normal normal 12px/15px Lato;
+    letter-spacing: 0.6px;
+    color: #626262;
+    font-family: "Lato", sans-serif;
+    font-weight: 600;
+    margin: 0px;
+}
+.footer .text2 {
+    font: normal normal normal 12px/15px Lato;
+    letter-spacing: 0.6px;
+    color: #626262;
+    font-family: "Lato", sans-serif;
+    font-weight: 600;
+    margin: 0px;
+    text-align: right;
+}
+
+
+
+
+// login css start
+.login .left {
+    background: #FAFAFA;
+    height: 100vh;
+    padding: 50px 70px;
+}
+.login .left .maintitle {
+    font: normal normal bold 32px/20px Muli;
+    letter-spacing: 0.58px;
+    color: #000000;
+    font-size: 32px;
+    text-transform: lowercase;
+    font-family: muli, sans-serif;
+}
+.login .left .title {
+    padding-top: 138px;
+    font: normal normal bold 32px/20px Muli;
+    letter-spacing: 0.58px;
+    color: #000000;
+    font-size: 32px;
+    text-transform: capitalize;
+    font-family: muli, sans-serif;
+}
+.login .left .desc {
+    font-size: 14px;
+    color: #888888;
+    font: normal normal bold 14px/20px Muli;
+    letter-spacing: 0.25px;
+    font-family: muli, sans-serif;
+    padding-top: 15px;
+}
+.login .left .form {
+    width: 70%;
+}
+.login .left .form .form-label {
+    padding-top: 10px;
+    color: #2D3047;
+    font: normal normal bold 14px/20px Muli;
+    letter-spacing: 0.25px;
+    font-family: muli, sans-serif;
+}
+.login .left .form .form-control {
+    border-color: #707070;
+    border-radius: 4px;
+    font-size: 14px;
+}
+.login .left .form .form-control::-webkit-input-placeholder {
+    color: #888888;
+    font-size: 14px;
+}
+.login .left .form .checkboxPassword {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 30px;
+}
+.login .left .form .checkboxPassword .form-check-label {
+    padding: 10px 0px;	
+    font: normal normal bold 14px/20px Muli;
+    letter-spacing: 0.25px;
+    font-family: muli, sans-serif;
+    padding-left: 20px;
+}
+.login .left .form .checkboxPassword .form-check-label {
+    margin-top: 0px;
+}
+.form-check-input[type=checkbox] {
+    border-radius: 2px;
+    // margin: 0;
+}
+.form-check-input:checked {
+    background-color: #057AE7;
+    border-color: #057AE7;
+    margin-top: 3px;
+}
+.login .left .form .checkboxPassword .ForgetPassword {
+    padding-top: 10px;
+    font: normal normal bold 14px/20px Muli;
+    letter-spacing: 0.25px;
+    font-size: 14px;
+    font-family: muli, sans-serif;
+    color: #057AE7;
+}
+.login .left .form .loginBtn {
+    width: 100%;
+    border-radius: 30px;
+    background: #057AE7;
+    border-color: #057AE7;
+    font-size: 16px;
+}
+.login .left .form .loginBtn:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+
+.login .right {
+    background: #2D3047;
+}
+.login .right .carousel {
+    padding-top: 5vh;
+    padding-bottom: 50px;
+}
+/* .login .right .carousel-indicators {
+    /*bottom: -50px; 
+} */
+.login .right .carousel-indicators .active {
+    outline: 2px solid #fff;
+}
+.login .right .carousel-indicators [data-bs-target] {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    bottom: -40px;
+    border: 3px solid transparent;
+    opacity: 1;
+}
+.login .right .carousel-item {
+    text-align: center;
+}
+.login .right .carousel-item img {
+    width: 70%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+.login .right .carousel-item .title{
+    width: 50%;
+    font: normal normal bold 32px/38px Muli;
+    letter-spacing: 0.58px;
+    color: #FFFFFF;
+    font-size: 32px;
+    font-family: muli, sans-serif;
+    margin: 0 auto;
+    padding: 20px 0px;
+}
+.login .right .carousel-item .title1{
+    width: 80%;
+    font: normal normal bold 32px/38px Muli;
+    letter-spacing: 0.58px;
+    color: #FFFFFF;
+    font-size: 32px;
+    font-family: muli, sans-serif;
+    margin: 0 auto;
+    padding: 20px 0px;
+}
+.login .right .carousel-item .desc{
+    width: 70%;
+    font: normal normal bold 16px/25px Muli;
+    letter-spacing: 0.29px;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-family: muli, sans-serif;
+    margin: 0 auto;
+}
+    
+@media (width: 768px) {
+    .login .left {
+        padding: 50px 30px;
+    }
+    .login .left .form {
+        width: 100%;
+    }
+
+}
+@media (max-width: 767px) {
+    .login .left {
+        height: auto;
+        padding: 30px 30px;
+    }
+    .login .left .form {
+        width: 100%;
+    }
+    .login .right .carousel-item .title {
+        width: 80%;
+    }
+    .login .right .carousel-item .desc {
+        width: 90%;
+    }
+    .login .left .title {
+        padding-top: 50px;
+    }
+
+
+}
+
+
+
+// login css end

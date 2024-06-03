@@ -1,0 +1,185 @@
+::ng-deep.btn-simple {
+    padding: 3px !important;
+    line-height: 0.9;
+    border-radius: 3px;
+    border: 1px solid;
+}
+.first-half {
+    border: 1px solid;
+    padding: 0px;
+    margin-bottom: 15px;
+    height: calc(100vh - 475px);
+    overflow: auto;
+}
+.attribute-title {
+    background: lightblue;
+    height: 40px;
+    display: flex;
+    font-weight: 700;
+    border-bottom: 1px solid black;
+}
+.attribute-field {
+    font-weight: 600;
+    padding: 5px;
+    border: 1px solid;
+    margin-top: 5px;
+    cursor: pointer;
+    border-radius: 20px;
+    text-align: center;
+    background: lightgray;
+}
+.margin-auto {
+    margin: auto;
+}
+::ng-deep.ant-form-item-explain {
+    position: absolute;
+    top: 37px;
+}
+::ng-deep.col-form-label {
+    width: 100%;
+}
+
+.screenPreview::ng-deep.formcomponents {
+    display: none;
+}
+.screenPreview::ng-deep.formarea {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+}
+.width100 {
+    width: 100%;
+}
+
+::ng-deep.ant-tabs-tab {
+    padding: 0px 5px !important;
+}
+::ng-deep.ant-tabs-nav .ant-tabs-tab {
+    margin-right: 0px !important;
+}
+
+.create-screen-height {
+    min-height: 110px;
+}
+
+.chipsMain {
+    // display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.chipsIn {
+    display: inline-table;
+    margin-bottom: 10px;
+}
+
+.chipsClass {
+    background-color: #f2f4f8;
+    margin: 0px 5px 0px 5px;
+    border-radius: 20px;
+    padding: 2px 10px;
+}
+.chipsCancelButton {
+    color: #595c97;
+    position: relative;
+    top: -2px;
+    left: 10px;
+    cursor: pointer;
+    float: right;
+    font-size: 10px;
+}
+
+.scroll-overflow {
+    overflow: auto;
+    height: calc(100vh - 160px);
+}
+
+.screen-preview {
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+.screen-preview-heading {
+    border-bottom: 1px solid #F2F4F8;
+}
+.margin-bottom10 {
+    margin-bottom: 10px;
+}
+.padding-top20 {
+    padding-top: 20px;
+}
+.clear:hover {
+    color:#4b7cf3;
+    cursor: pointer;
+}
+// 
+.padding-right40 {
+    padding-right: 33px;
+  }
+  
+  .min-height {
+    min-height: 100px;
+  }
+  .tableField .ant-table-pagination {
+    display: none;
+  }
+  .drag-data {
+    border-radius: 6px;
+    border: 1px solid lightgray;
+    display: inline-flex;
+    padding-left: 5px;
+    margin-right: 7px;
+    margin-top: 5px;
+    width: 210px;
+    font-weight: 600;
+  }
+  .margin-right10 {
+    margin-right: 10px
+  }
+  
+  .card-css {
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+    transition: 0.3s;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    height: 235px;
+    overflow: auto;
+  }
+  
+  .card-css2 {
+    height: 190px;
+    overflow: auto;
+  }
+  .padding-left15 {
+    padding-left: 15px;
+  }
+  .drop-data {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    background: #f9f9f9;
+  }
+  
+  .drop-heding {
+    border-bottom: 2px solid lightgray;
+      padding-bottom: 5px;
+      margin-bottom: 5px;
+      padding-top: 5px;
+  }
+  .chipsMain {
+    // display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+  }
+  
+  .close-icon {
+    position: absolute;
+    right: 5px;
+    top: -10px;
+    cursor: pointer;
+    color: gray;
+  }
+  

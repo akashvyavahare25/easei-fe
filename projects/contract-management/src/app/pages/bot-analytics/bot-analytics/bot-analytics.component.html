@@ -1,0 +1,88 @@
+<div class="col-md-12 card">
+    <div class="row">
+      <div class="col-md-10 text-grey-6 font-size-16 mb-3">
+        <strong>NCU Page Layout</strong>
+      </div>
+    </div>
+    <form nz-form [nzLayout]="'vertical'" [formGroup]="ncuLayoutForm" role="form">
+            <div class="row">
+                <div class="col-md-3">
+                  <nz-form-item>
+                      <nz-form-label class="labels" nzFor="dropdown">BOT Id</nz-form-label>
+                      <nz-form-control>
+                          <nz-select nzSize="medium" nzPlaceHolder="BOT Id" formControlName="botId">
+                            <nz-option nzValue="1" nzLabel="BOT1"></nz-option>
+                            <nz-option nzValue="2" nzLabel="BOT2"></nz-option>
+                            <nz-option nzValue="3" nzLabel="BOT3"></nz-option>
+                          </nz-select>
+                      </nz-form-control>
+                  </nz-form-item>
+                </div>
+                <div class="col-md-3">
+                    <nz-form-item>
+                      <nz-form-label class="labels" nzFor="designation">Last Updated Date</nz-form-label>
+                      <nz-form-control>
+                        <!-- nzErrorTip="Please input master name!" -->
+                        <nz-date-picker nz-input formControlName="date" nzSize="medium"></nz-date-picker>
+                       </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div class="col-md-3">
+                    <nz-form-item>
+                      <nz-form-label class="labels" nzFor="designation">Last Updated Time</nz-form-label>
+                      <nz-form-control>
+                        <nz-time-picker  nz-input formControlName="time" nzSize="medium"></nz-time-picker>
+                           </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div class="col-md-3">
+                    <nz-form-item>
+                      <nz-form-label class="labels" nzFor="designation">BOT KM travelled</nz-form-label>
+                      <nz-form-control>
+                        <!-- nzErrorTip="Please input master name!" -->
+                        <input type="text" nz-input formControlName="botTravelled" nzSize="medium" placeholder="BOT KM travelled" />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div class="col-md-3">
+                    <nz-form-item>
+                        <nz-form-label class="labels" nzFor="dropdown">BOT Type</nz-form-label>
+                        <nz-form-control>
+                            <nz-select nzSize="medium" nzPlaceHolder="BOT Type" formControlName="bot_type">
+                              <nz-option nzValue="Pick" nzLabel="Pick"></nz-option>
+                              <nz-option nzValue="place" nzLabel="place"></nz-option>
+                              <nz-option nzValue="automatic" nzLabel="automatic"></nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="col-md-3">
+                    <nz-form-item>
+                      <nz-form-label class="labels" nzFor="designation">Bot Comissioned on</nz-form-label>
+                      <nz-form-control>
+                        <!-- nzErrorTip="Please input master name!" -->
+                        <input type="text" nz-input formControlName="botComissioned" nzSize="medium" placeholder="Bot Comissioned on" />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div class="col-md-3">
+                    <nz-form-item>
+                      <nz-form-label class="labels" nzFor="designation">Table/array no.</nz-form-label>
+                      <nz-form-control>
+                        <!-- nzErrorTip="Please input master name!" -->
+                        <input type="text" nz-input formControlName="tableNo" nzSize="medium" placeholder="Table/array no." />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <nz-form-item>
+                        <nz-form-label class="labels" nzFor="dropdown">Separate Bot Alarm and Notification Lists</nz-form-label>
+                    </nz-form-item>
+                </div>
+                <ag-grid-angular style="width: 100%; height: 250px;" class="ag-theme-balham" [rowData]="rowData"  [columnDefs]="columnDefs">
+                </ag-grid-angular>        
+            </div>
+    </form>
+</div>

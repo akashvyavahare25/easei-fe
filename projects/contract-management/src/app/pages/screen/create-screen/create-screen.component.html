@@ -1,0 +1,222 @@
+<div [hidden]="isFormVisible">
+    <div class="col-md-12 card create-screen-height">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="text-grey-6 font-size-16 mb-3">
+                    <strong *ngIf="!screenId">Create New Screen</strong>
+                    <strong *ngIf="screenId">Edit Screen</strong>
+                </div>
+            </div>
+            <div class="col-md-6 text-right padding-right30">
+                <nz-form-item>
+                    <nz-form-control>
+                        <button *ngIf="!screenId" (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+                            <strong>Submit</strong>
+                        </button>
+                        <button *ngIf="screenId" (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+                            <strong>Update</strong>
+                        </button>
+                        <button *ngIf="!screenId" (click)="clearForm()" nz-button nzType="light" [nzSize]="'small'"
+                            class="margin-left5">
+                            <strong>Clear</strong>
+                        </button>
+                        <button *ngIf="screenId" (click)="cancelEdit()" nz-button nzType="light" [nzSize]="'small'"
+                            class="margin-left5">
+                            <strong>Cancel</strong>
+                        </button>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <form nz-form [nzLayout]="'vertical'" [formGroup]="screenForm" role="form">
+                <nz-tabset nzType="card" [nzSize]="'small'">
+                    <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab">
+                        <div *ngIf="tab === 'Basic'" class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <nz-form-item>
+                                        <nz-form-label class="labels" nzFor="name">Screen Name</nz-form-label>
+                                        <nz-form-control>
+                                            <!-- nzErrorTip="Please input screen name!" -->
+                                            <input type="text" nz-input formControlName="name" nzSize="medium"
+                                                placeholder="Screen Name" />
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                                <div class="col-md-3">
+                                    <nz-form-item>
+                                        <nz-form-label class="labels" nzFor="name">External Code</nz-form-label>
+                                        <nz-form-control>
+                                            <!-- nzErrorTip="Please input parameter name!" -->
+                                            <input type="text" nz-input formControlName="externalCode" nzSize="medium"
+                                                placeholder="External Code" />
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                                <div class="col-md-3">
+                                    <nz-form-item>
+                                        <nz-form-label class="labels" nzFor="description">Screen Description</nz-form-label>
+                                        <nz-form-control>
+                                            <!-- nzErrorTip="Please input screen description!" -->
+                                            <input type="text" nz-input nzSize="medium" formControlName="description"
+                                                placeholder="Screen Description" />
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                                <div class="col-md-3">
+                                    <nz-form-item>
+                                        <nz-form-label class="labels" nzFor="screenLayout">Screen Layout</nz-form-label>
+                                        <nz-form-control>
+                                            <!-- nzErrorTip="Please input screen layout!" -->
+                                            <nz-select nzSize="medium" nzPlaceHolder="Screen layout" formControlName="screenLayout"
+                                                (ngModelChange)="screenLayoutChange(screenForm.value.screenLayout)">
+                                                <nz-option nzValue="1" nzLabel="1 field per row"></nz-option>
+                                                <nz-option nzValue="2" nzLabel="2 fields per row"></nz-option>
+                                                <nz-option nzValue="3" nzLabel="3 fields per row"></nz-option>
+                                                <nz-option nzValue="4" nzLabel="4 fields per row"></nz-option>
+                                            </nz-select>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                                <div class="col-md-3">
+                                    <nz-form-item>
+                                        <nz-form-label class="labels" nzFor="applicationMaster">Application Master
+                                        </nz-form-label>
+                                        <nz-form-control>
+                                            <nz-select nzSize="medium" formControlName="applicationMaster"
+                                                nzPlaceHolder="Application Master"(ngModelChange)="selectScreen($event)">
+                                                <nz-option *ngFor="let item of listOfApplicationMaste" [nzLabel]="item.name"
+                                                    [nzValue]="item._id">
+                                                </nz-option>
+                                            </nz-select>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                                <div class="col-md-3" *ngIf="!screenId">
+                                    <nz-form-item>
+                                        <nz-form-label class="labels" nzFor="applicationMaster">Copy From Screen
+                                        </nz-form-label>
+                                        <nz-form-control>
+                                            <!-- nzErrorTip="Please input application master!" -->
+                                            <nz-select nzSize="medium" formControlName="screen"
+                                                nzPlaceHolder="Please select Screen"(ngModelChange)="getScreenData($event)">
+                                                <nz-option *ngFor="let item of screenArray" [nzLabel]="item.name"
+                                                    [nzValue]="item._id">
+                                                </nz-option>
+                                            </nz-select>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                                <div class="col-md-3">
+                                    <nz-form-item>
+                                        <nz-form-label class="labels" nzFor="screenLayout">Screen Type</nz-form-label>
+                                        <nz-form-control>
+                                            <!-- nzErrorTip="Please input screen layout!" -->
+                                            <nz-select nzSize="medium" nzPlaceHolder="Screen Type" formControlName="type">
+                                                <nz-option nzValue="screen" nzLabel="Screen"></nz-option>
+                                                <nz-option nzValue="search" nzLabel="Search"></nz-option>
+                                            </nz-select>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="tab === 'Unique Key'">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <nz-form-item>
+                                        <nz-form-label class="labels" nzFor="uniqueKey">Unique Key</nz-form-label>
+                                        <nz-form-control>
+                                            <!-- nzErrorTip="Please input master label name!" -->
+                                            <nz-select nzMode="tags" nzSize="medium" nzPlaceHolder="Unique Key" 
+                                                [nzDisabled]="screenId" formControlName="uniqueKey">
+                                                <nz-option *ngFor="let column of this.item[0].columns" [nzLabel]="column.components[0].label"
+                                                    [nzValue]="column.components[0].key"></nz-option>
+                                            </nz-select>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                            </div>
+                        </div>
+                    </nz-tab>
+                </nz-tabset>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-12 card">
+        <div class="row">
+            <div class="col-md-10 text-grey-6 font-size-16 mb-3">
+                <strong>Screen Configuration</strong>
+            </div>
+            <div class="col-md-2 text-right mb-3" *ngIf="!screenId">
+                <strong class="clear pr-3"(click)="clearScreenConfig()">clear all</strong>
+            </div>
+        </div>
+        <div class="dndPlaceholder col-md-12"
+        #placeholder></div>
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6 first-half">
+                        <ag-grid-angular style="width: 100wh; height: calc(100vh - 477px);"
+                            (firstDataRendered)="onFirstDataRendered($event)" class="ag-theme-balham"
+                            [rowData]="rowData" [columnDefs]="columnDefs">
+                        </ag-grid-angular>
+                    </div>
+                    <div class="col-md-6 first-half chipsMain">
+                        <div class="card-css2" [dndList] [dndModel]="draggableList">
+                            <div *ngFor="let sitem of draggableList;let i = index" class="col-md-12" [dndType]="'sitem.type'"
+                            (dndMoved)="removeItem(sitem, draggableList)" [dndDraggable]  [dndObject]="sitem">
+                                <div class="row drop-data">
+                                <div class="col-md-12">
+                                    <div *ngIf="sitem && sitem.components && sitem.components.length >0">
+                                        <span>{{sitem.components[0].label}}</span>
+                                        <span class="fe fe-x chipsCancelButton" (click)="removeItem(sitem, draggableList)"></span>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button (click)="screenPreview()" nz-button nzType="primary" [nzSize]="'small'">
+        <strong>Screen Preview</strong>
+    </button>
+</div>
+<!-- <nz-modal nzWidth={1000} [(nzVisible)]="isFormVisible" nzTitle="Screen Preview" (nzOnCancel)="handleCancel()"
+    (nzOnOk)="handleOk()">
+</nz-modal> -->
+
+<div class="screenPreview screen-preview" [hidden]="!isFormVisible">
+    <div class="screen-preview-heading">
+        <div class="col-md-12">
+            <div class="text-grey-6 font-size-16 margin-bottom10">
+                <strong>Screen Preview</strong>
+            </div>
+        </div>
+    </div>
+    <div class="scroll-overflow padding-top20">
+        <div class="col-md-12">
+            <span *ngIf="form.components.length > 0 ">
+                <form-builder [form]="previewForm" [options]="options"></form-builder>
+            </span>
+            <div class="col-md-12 padding-right30">
+                <nz-form-item>
+                    <nz-form-control>
+                        <button (click)="handleCancel()" nz-button nzType="primary" [nzSize]="'small'">
+                            <strong>Ok</strong>
+                        </button>
+                        <button (click)="handleCancel()" nz-button nzType="light" [nzSize]="'small'"
+                            class="margin-left5">
+                            <strong>Cancel</strong>
+                        </button>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </div>
+</div>

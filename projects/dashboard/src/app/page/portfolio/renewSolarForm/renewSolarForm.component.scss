@@ -1,0 +1,505 @@
+.c-subheader {
+    background: #F7F9FC;
+    box-shadow: none;
+}
+
+
+
+
+
+
+// renewSolarForm css started
+.renewSolarForm .mat-form-field {
+    width: 12vw;
+    padding: 5px 5px;
+}
+
+.renewSolarForm .title{
+    font: normal normal bold 24px/29px Lato;
+    letter-spacing: 1.2px;
+    font-family: 'Lato', sans-serif;
+    font-size: 24px;
+    color: #2D3047;
+}
+.renewSolarForm .generateReport {
+    float: right;
+    background: #0575E6;
+    color: #fff;
+    border: none;
+    border: 1px solid #0575E6;
+    box-shadow: none;
+    outline: none;
+    -webkit-appearance: none;
+    border-radius: 20px;
+    padding: 9px 35px;
+    font-size: 14px;
+}
+.renewSolarForm .smallDesc {
+    font: normal normal bold 16px/19px Lato;
+    letter-spacing: 0.8px;
+    color: #74819E;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+}
+.renewSolarForm {
+    background: #F7F9FC;
+}
+.renewSolarForm .reset {
+    padding-left: 10px;
+    position: absolute;
+    top: -10px;
+}
+
+// chart css started
+
+.renewSolarForm .chart .row .mat-card {
+    box-shadow: 1px 2px 6px #00000019;
+    // padding: 0 16px;
+}
+
+
+.renewSolarForm .chart .mat-card-header .mat-card-title {
+    letter-spacing: 0.8px;
+    font: normal normal bold 16px/19px Lato;
+    color: #74819E;
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+    position: relative;
+}
+.renewSolarForm .chart .mat-card-header .mat-card-title .fa-info-circle {
+    padding-left: 5px;
+}
+/* .renewSolarForm .chart .mat-card-header .mat-card-title:after {
+    content: '';
+    background: #057AE7;
+    width: 60px;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+} */
+.t1:after {
+    content: '';
+    background: #057AE7;
+    width: 88%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+}
+.t2:after {
+    content: '';
+    background: #057AE7;
+    width: 85%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+}
+.t3:after {
+    content: '';
+    background: #057AE7;
+    width: 100%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+}
+.t4:after {
+    content: '';
+    background: #057AE7;
+    width: 100%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+}
+.t5:after {
+    content: '';
+    background: #057AE7;
+    width: 100%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+}
+.t6:after {
+    content: '';
+    background: #057AE7;
+    width: 85%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+}
+.t7:after {
+    content: '';
+    background: #057AE7;
+    width: 75%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+}
+.renewSolarForm .row.chart .mat-card {
+    margin-bottom: 10px !important;
+    box-shadow: 1px 2px 6px #00000019;
+}
+.renewSolarForm .row.chart>div {
+    padding: 0px 5px;
+}
+.renewSolarForm .chart .PortfolioDiv {
+    display: flex;
+    justify-content: space-between;
+}
+.renewSolarForm .chart .mat-card .mat-card-header {
+    padding-bottom: 15px;
+}
+.renewSolarForm .chart .PortfolioDiv .right {
+    display: flex;
+}
+.renewSolarForm .chart .PortfolioDiv .right .subtitle {
+    margin: 0;
+}
+.renewSolarForm .chart .PortfolioDiv .right .toggle {
+    list-style-type: none;
+    display: inherit;
+    margin: 0;
+    margin-top: -5px;
+    padding-inline-start: 15px;
+}
+.renewSolarForm .chart .PortfolioDiv .right .toggle li {
+    padding: 5px 10px 0px 10px;
+    border: 1px solid #057AE7;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.renewSolarForm .chart .PortfolioDiv .right .toggle li.active {
+    background: #E0EEFF 0% 0% no-repeat padding-box;
+    color: #057AE7;
+    font-weight: bold;
+}
+.renewSolarForm .chart .PortfolioDiv .right .toggle li:nth-of-type(1) {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-right-width: 0px;
+}
+.renewSolarForm .chart .PortfolioDiv .right .toggle li:nth-of-type(2) {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+// chart css ended
+.renewSolarForm .chart .mat-card .mat-card-content .valueTitle {
+    font: normal normal bold 24px/29px Lato;
+    letter-spacing: 1.2px;
+    color: #2D3047;
+    font-family: 'Lato', sans-serif;
+}
+.renewSolarForm .chart .mat-card .mat-card-content .srokeCircle {
+    width: 100%; 
+    min-height: 65px;
+} 
+.overview .chart .PortfolioDiv .right .subtitle .srokeCircle {
+    margin-top: -5px;
+    margin-right: 5px;
+}
+.treeChart {
+    width: 100%;
+    height: 300px;
+}
+
+#multilineChart {
+    width: 100%;
+    height: 315px;
+}
+
+// #chart {
+//     width: 100%;
+//     height: 315px;
+// }
+.botOSChartOuter {
+    display: flex;
+}
+.botOSChartOuter2 {
+    display: flex;
+}
+.botOSChartOuter2 .row {
+    padding-left: 15px;
+}
+.botOSChartOuter2 .row .mark {
+    background: #EAEFF5;
+    padding: 10px;
+    border-radius: 4px;
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+}
+.botOSChartOuter2 .row .mark b {
+    font: normal normal normal 14px/17px Lato;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+}
+
+.botOSChartOuter2:before {
+    content: '';
+    border-top: 1px solid #CCCCCC;
+    width: 90%;
+    position: absolute;
+    top: -10px;
+}
+.porfolioChart {
+    width: 100%;
+    height: 315px;
+}
+.averageUptimeChart {
+    width: 100%;
+    height: 305px;
+    position: relative;
+}
+.averageSollingLossChart {
+    width: 100%;
+    height: 350px;
+}
+.botOSChart {
+    width: 50%;
+    height: 320px;
+    margin-top: -30px;
+}
+.botOSChart2 {
+    width: 50%;
+    height: 200px;
+}
+.botOSChartOuter .desc {
+    padding-left: 60px;
+    padding-top: 100px;  
+}
+.botOSChartOuter2 .desc {
+    padding-top: 50px;
+}
+.botOSChartOuter .desc .title,
+.botOSChartOuter2 .desc .title {
+    font: normal normal bold 14px/20px Lato;
+    letter-spacing: 0.7px;
+    color: #2D3047;
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    font-size: 13px;
+    padding-bottom: 5px;
+}
+.material-icons-outlined {
+    font-family: "Material Icons Outlined";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 22px !important; 
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "liga";
+}
+.botOSChartOuter .desc .d1,
+.botOSChartOuter2 .desc .d1 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+    padding-top: 5px;
+}
+.botOSChartOuter .desc .d1:before,
+.botOSChartOuter2 .desc .d1:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #26A69A;
+    position: absolute;
+    border-radius: 10px;
+    top: 8px;
+    left: 0;
+}
+.botOSChartOuter .desc .d2, 
+.botOSChartOuter2 .desc .d2 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+    padding-top: 5px;
+}
+.botOSChartOuter .desc .d2:before,
+.botOSChartOuter2 .desc .d2:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #EE2A41;
+    position: absolute;
+    border-radius: 10px;
+    top: 8px;
+    left: 0;
+}
+ 
+.averageUptimeChart .desc {
+    position: absolute;
+    right: 0;
+    top: -10px;
+    z-index: 9;
+}
+.averageUptimeChart .desc .title {
+    font: normal normal bold 14px/20px Lato;
+    letter-spacing: 0.7px;
+    color: #2D3047;
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    font-size: 13px;
+}
+.averageUptimeChart .desc .d1 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+}
+.averageUptimeChart .desc .d1:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #F68D5D;
+    position: absolute;
+    border-radius: 10px;
+    top: 3px;
+    left: 0;
+}
+.averageUptimeChart .desc .d2 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+    padding-top: 5px;
+}
+.averageUptimeChart .desc .d2:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #9390F7;
+    position: absolute;
+    border-radius: 10px;
+    top: 8px;
+    left: 0;
+}
+
+.averageSollingLossChart .desc {
+    position: absolute;
+    right: 15px;
+    top: -10px;
+    z-index: 9;
+}
+.averageSollingLossChart .desc .title {
+    font: normal normal bold 14px/20px Lato;
+    letter-spacing: 0.7px;
+    color: #2D3047;
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    font-size: 13px;
+}
+.averageSollingLossChart .desc .d1 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+}
+.averageSollingLossChart .desc .d1:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #F68D5D;
+    position: absolute;
+    border-radius: 10px;
+    top: 3px;
+    left: 0;
+}
+.averageSollingLossChart .desc .d2 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+    padding-top: 5px;
+}
+.averageSollingLossChart .desc .d2:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #9390F7;
+    position: absolute;
+    border-radius: 10px;
+    top: 8px;
+    left: 0;
+}
+
+
+@media (max-width: 1300px) {
+    .renewSolarForm .chart .mat-card .mat-card-content .valueTitle {
+        font-size: 15px;
+    }
+}
+@media (max-width: 1199px) {
+    .renewSolarForm .mat-form-field {
+        width: 15vw;
+        padding: 5px 5px;
+    }
+    .renewSolarForm .chart .mat-card .mat-card-content .valueTitle {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 991px) {
+    .renewSolarForm .mat-form-field {
+        width: 19vw;
+        padding: 5px 5px;
+    }
+}
+
+@media (max-width: 767px) {
+    .renewSolarForm .mat-form-field {
+        width: 49%;
+        padding: 5px 5px;
+    }
+    .renewSolarForm .title {
+        font-size: 19px;
+    }
+    .renewSolarForm .generateReport {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+// renewSolarForm css ends

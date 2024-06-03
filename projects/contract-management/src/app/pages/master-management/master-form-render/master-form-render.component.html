@@ -1,0 +1,67 @@
+<div>
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-2 text-grey-6 font-size-16 mb-3">
+          <strong>{{masterData.name}}</strong>
+        </div>
+
+        <div class="col-md-10 text-right padding-right30">
+          <nz-form-item class="margin-bottom0">
+            <nz-form-control>
+              <button (click)="templateInstruction()" nz-button nzType="primary" [nzSize]="'small'">
+                <strong>Instructions</strong>
+              </button>
+              <button (click)="generateFile()" nz-button nzType="primary" [nzSize]="'small'" class="margin-left5">
+                <strong>Generate template</strong>
+              </button>
+              <button (click)="uploadFile()" nz-button nzType="light" [nzSize]="'small'" class="margin-left5">
+                <strong>Upload</strong>
+              </button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <!-- <div class="row" style="margin-bottom: 20px;">
+        <div class="col-9">
+          <h5>
+            <strong>{{masterData.name}}</strong>
+          </h5>
+        </div>
+      </div> -->
+      <div class="col-md-12">
+        <formio [form]="selectedData" (submit)="submitForm($event)" (customEvent)="goBack()"></formio>
+      </div>
+      <div class="col-md-12">
+        <button (click)="goBack()" nz-button nzType="light" [nzSize]="'medium'"><strong>Cancel</strong>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nz-modal [(nzVisible)]="isModalVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"
+  (nzOnCancel)="isFileUplaodModalVisible ? handleCancel() : handleInstructionOk()">
+  <ng-template #modalTitle>
+    <h5 *ngIf="isFileUplaodModalVisible">File Upload</h5>
+    <h5 *ngIf="isInstructionModal">Template Instructions</h5>
+  </ng-template>
+  <ng-template #modalContent>
+    <div *ngIf="isFileUplaodModalVisible">
+      <input #myInput type="file" accept=".csv" (change)=" onFileChange($event)" />
+      <div *ngIf="csvUploadError != ''" style="color: brown;">{{csvUploadError}}</div>
+    </div>
+    <div *ngIf="isInstructionModal">
+      <div><span>*</span>Instruction text</div>
+      <div><span>*</span>Instruction text</div>
+      <div><span>*</span>Instruction text</div>
+    </div>
+  </ng-template>
+  <ng-template #modalFooter>
+    <button *ngIf="isFileUplaodModalVisible" nz-button nzType="default" (click)="handleCancel()">Cancel</button>
+    <button *ngIf="isFileUplaodModalVisible" nz-button nzType="primary" (click)="handleOk()"
+      [nzLoading]="isConfirmLoading">Upload</button>
+    <button *ngIf="isInstructionModal" nz-button nzType="primary" (click)="handleInstructionOk()"
+      [nzLoading]="isConfirmLoading">Ok</button>
+  </ng-template>
+</nz-modal>

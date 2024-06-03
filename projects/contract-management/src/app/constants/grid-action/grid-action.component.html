@@ -1,0 +1,21 @@
+<div class="text-center">
+    <div class="row">
+        <div class="col-md-6">
+            <i  (click)="edit()" class="fa fa-pencil-square-o"
+                aria-hidden="true" title="Edit" style="cursor: pointer;font-size: 18px; color: rgba(0,0,0,.69)"></i>
+        </div>
+        <div class="col-md-6" *ngIf="!(parentData.tabName == 'hiearachySearch')">
+            <i *ngIf="parentData.tabName === 'define-screen'" class="fa fa-eye" (click)="show()" aria-hidden="true"
+                title="preview" style="cursor: pointer;font-size: 18px; color: rgba(0,0,0,.69);margin-right: 19px;
+                margin-left: -20px;"></i>
+            <i *ngIf="parentData.tabName === 'all-job'" class="fa fa-eye" (click)="show1()" aria-hidden="true"
+            title="preview" style="cursor: pointer;font-size: 18px; color: rgba(0,0,0,.69);margin-right: 19px;
+            margin-left: -20px;"></i>
+            <i *ngIf=" parentData.tabName === 'all-template' || parentData.tabName === 'all-upload'" class="fa fa-download" (click)="download()" aria-hidden="true"
+            title="download" style="cursor: pointer;font-size: 18px; color: rgba(0,0,0,.69);margin-right: 19px;
+            margin-left: -20px;"></i>
+            <i *ngIf="!(parentData.tabName == 'all-user')" (click)="delete()" class="fa fa-trash"
+                aria-hidden="true" title="Delete" style="cursor: pointer;font-size: 18px; color: rgba(0,0,0,.69)"></i>
+        </div>
+    </div>
+</div>

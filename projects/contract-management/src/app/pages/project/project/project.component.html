@@ -1,0 +1,576 @@
+<!-- <div class="project">
+  <div class="row">
+    <div class="col-md-12 text-right padding-right30">
+      <nz-form-item class="margin-bottom0">
+        <nz-form-control>
+          <button (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+            <strong>Submit</strong>
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-select nzSize="medium" nzPlaceHolder="Choose Dataset" [(ngModel)]='screens'
+            (ngModelChange)="selectScreens($event)">
+            <nz-option *ngFor="let item of screenData" [nzLabel]="item.name" [nzValue]="item">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="mb-2 col-md-4">
+      <input #myInput type="file" accept=".csv" class="btn btn-outline-primary"
+        (change)="onFileSelect($event.target)" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="margin-bottom10 col-md-12">
+          <div class="col-md-6 p-1">
+            <span class="fe fe-download"></span>
+            <strong class="card-title mx-1">Parameters</strong>
+            <span>{{parameterNumber}} Total</span>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <nz-form-item>
+            <nz-form-control>
+              <input type="text" nz-input id="searchParams" [(ngModel)]="searchParameters"
+                (ngModelChange)="searchParameter()" placeholder="search">
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-md-12 card-overflow">
+          <nz-radio-group [(ngModel)]="radioValue" (ngModelChange)="mapDataset($event)"
+            class="col-md-12 border-bottom padding7" *ngFor="let item of dataset;let itemIndex = index">
+            <div class="row margin-top3">
+              <div class="col-md-6 margin-top2">
+                <label nz-radio [nzValue]="item">{{item.name}} </label>
+                <span class="chipsClass" *ngIf="item.map">{{item.map}} <span class="fe fe-x chipsCancelButton"
+                    (click)="removeItem(itemIndex)"></span></span>
+              </div>
+              <div class="col-md-6 mb-1 text-right">
+                <button class="btn btn-primary" (click)="setTransform(item)" nz-button nzType="primary"
+                  [nzSize]="'small'">
+                  <strong>Set Rule</strong>
+                </button>
+              </div>
+            </div>
+          </nz-radio-group>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="margin-bottom10 col-md-12 margin-top5">
+          <div class="row">
+            <div class="col-md-6">
+              <span class="fe fe-upload"></span>
+              <strong class="card-title mx-1">File Field</strong>
+              <span>{{fileNumber}} Total</span>
+            </div>
+            <div class="col-md-6 text-right">
+              <button class="btn btn-primary margin-right15" (click)="dropFields()" nz-button [nzSize]="'small'">
+                <strong>Drop</strong>
+              </button>
+              <button class="btn btn-primary" (click)="add()" nz-button [nzSize]="'small'">
+                <strong>filter</strong>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <nz-form-item>
+            <nz-form-control>
+              <input type="text" nz-input id="search" [(ngModel)]="searchText" (ngModelChange)="searchFile()"
+                placeholder="search">
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-md-12 card-overflow">
+          <nz-radio-group [(ngModel)]="radioValue1" class="col-md-12 border-bottom padding10"
+            *ngFor="let item of rowData" (ngModelChange)="mapping($event)">
+            <label nz-radio [nzValue]="item.name">{{item.name}}</label>
+          </nz-radio-group>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isShowFilter">
+    <div class="text-grey-6 font-size-16 mb-3">
+      <strong class="ml-3">Define Filter</strong>
+    </div>
+    <div id="filter" class="col-md-12"> </div>
+  </div>
+  <div class="col-md-12" *ngIf="isShowDrop">
+    <div class="text-grey-6 font-size-16 mb-3">
+      <strong class="ml-3">Define Drop Fields</strong>
+    </div>
+    <div class="row">
+      <div class="col-md-2" *ngFor="let item of dropFileData">
+        <label nz-checkbox [(ngModel)]="item.checked">{{item.name}}</label>
+      </div>
+      <div class="col-md-12 text-right">
+        <button class="btn btn-primary" (click)="dropFile()">
+          <strong>Ok</strong>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12" *ngIf="!isShowFilter && !isShowDrop">
+    <nz-tabset nzType="card" [nzSize]="'small'" [(nzSelectedIndex)]="selectedIndex"
+      (nzSelectChange)="log([$event],val)">
+      <nz-tab nzTitle="Editor">
+        <div class="col-md-12">
+          <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="value" (ngModelChange)="onchange($event,val)">
+          </ngx-monaco-editor>
+        </div>
+      </nz-tab>
+      <nz-tab nzTitle="Query builder">
+        <div class="col-md-12 text-right">
+          <button class="btn" (click)="saveRule(val)">
+            <strong>Add Rule</strong>
+          </button>
+        </div>
+        <div id="builder" class="col-md-12">
+        </div>
+        <div class="row" *ngIf="isShowQueryBuilder">
+          <div class="col-md-6 card">
+            <span>This(True)</span>
+            <div class="col-md-12">
+              <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="value1">
+              </ngx-monaco-editor>
+            </div>
+          </div>
+          <div class="col-md-6 card">
+            <span>This(false)</span>
+            <div class="col-md-12">
+              <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="value2"></ngx-monaco-editor>
+            </div>
+          </div>
+        </div>
+      </nz-tab>
+      <nz-tab nzTitle='Configuration'>
+        <div class="col-md-4">
+          <nz-form-item>
+            <nz-form-label class="labels" nzFor="default">Defualt Value</nz-form-label>
+            <nz-form-control>
+              <input nz-input placeholder="Defualt Value" [(ngModel)]="defultValue" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-md-5 mt-4 padding-right30">
+          <button class="btn col-md-4 btn-primary" (click)="setDefultValue()" [nzSize]="'small'" nz-button>
+            <strong>Save</strong>
+          </button>
+          <button class="ml-2 col-md-4 btn btn-outline-primary" [nzSize]="'small'" nz-button>
+            <strong>Cancel</strong>
+          </button>
+        </div>
+      </nz-tab>
+    </nz-tabset>
+    <div id="filter" class="col-md-12"> </div>
+  </div>
+</div> -->
+<div class="row">
+  <div class="col-md-12">
+    <nz-tabset [(nzSelectedIndex)]="selectedIndex" (nzSelectChange)="tabSetLog([$event])">
+      <nz-tab nzTitle="Step 1 : Choose File" nzDisabled="true">
+        <ng-template nz-tab>
+          <div class="row padding-bottom10">
+            <div class="col-md-12 text-right">
+              <button (click)="nextStep(1)" nz-button nzType="primary" [nzSize]="'small'">
+                <strong>Go to Next Step</strong>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row margin-bottom10">
+                <div class="col-md-12">
+                  <input #myInput type="file" accept=".csv" class="btn btn-outline-primary"
+                    (change)="onFileSelect($event.target)" />
+                </div>
+              </div>
+              <div class="card col-md-12" *ngIf="rowData.length > 0">
+                <div class="row">
+                  <div class="text-grey-6 font-size-16 mb-3">
+                    <strong class="ml-3">{{fileName}}</strong>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="margin-right15 padding-bottom10" style="display: inline;" *ngFor="let item of rowData">
+                      <label>{{item.name}},</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </nz-tab>
+      <nz-tab nzTitle="Step 2 : Choose Dataset" nzDisabled="true">
+        <ng-template nz-tab>
+          <div class="row padding-bottom10">
+            <div class="col-md-6">
+              <button (click)="previousStep(0)" nz-button nzType="primary" [nzSize]="'small'">
+                <strong>Go To Previous Step</strong>
+              </button>
+            </div>
+            <div class="col-md-6 text-right">
+              <button (click)="nextStep(2)" nz-button nzType="primary" [nzSize]="'small'">
+                <strong>Go To Next Step</strong>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-4">
+                  <nz-form-item>
+                    <nz-form-control>
+                      <nz-select nzSize="medium" nzPlaceHolder="Choose Dataset" [(ngModel)]='screens'
+                        (ngModelChange)="onScreenChange()">
+                        <nz-option *ngFor="let item of screenData" [nzLabel]="item.name" [nzValue]="item">
+                        </nz-option>
+                      </nz-select>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card col-md-12" *ngIf="dataSet.length > 0">
+            <div class="row">
+              <div class="text-grey-6 font-size-16 mb-3">
+                <strong class="ml-3">{{screens.name}}</strong>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="margin-right15 padding-bottom10" style="display: inline;" *ngFor="let item of dataSet">
+                  <label>{{item.name}},</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </nz-tab>
+      <nz-tab nzTitle="Step 3 : Filter" nzDisabled="true">
+        <ng-template nz-tab>
+          <div class="row padding-bottom10">
+            <div class="col-md-6">
+              <button (click)="previousStep(1)" nz-button nzType="primary" [nzSize]="'small'">
+                <strong>Go To Previous Step</strong>
+              </button>
+            </div>
+            <div class="col-md-6 text-right">
+              <button (click)="nextStep(3)" nz-button nzType="primary" [nzSize]="'small'">
+                <strong>Go To Next Step</strong>
+              </button>
+            </div>
+          </div>
+          <div class="text-grey-6 font-size-16 mb-3">
+            <strong>Define Filter</strong>
+          </div>
+          <div id="filter"> </div>
+        </ng-template>
+      </nz-tab>
+      <nz-tab nzTitle="Step 4 : Drop Fields" nzDisabled="true">
+        <ng-template nz-tab>
+          <div class="row padding-bottom10">
+            <div class="col-md-6">
+              <button (click)="previousStep(2)" nz-button nzType="primary" [nzSize]="'small'">
+                <strong>Go To Previous Step</strong>
+              </button>
+            </div>
+            <div class="col-md-6 text-right">
+              <button (click)="nextStep(4)" nz-button nzType="primary" [nzSize]="'small'">
+                <strong>Go To Next Step</strong>
+              </button>
+            </div>
+          </div>
+          <div class="text-grey-6 font-size-16 mb-3">
+            <strong>Define Drop Fields</strong>
+          </div>
+          <div class="row">
+            <div class="col-md-2" *ngFor="let item of dropFileData">
+              <label nz-checkbox [(ngModel)]="item.checked">{{item.name}}</label>
+            </div>
+          </div>
+        </ng-template>
+      </nz-tab>
+      <nz-tab nzTitle="Step 5 : Apply Mapping" nzDisabled="true">
+        <ng-template nz-tab>
+          <div class="row padding-bottom10">
+            <div class="col-md-6">
+              <button (click)="previousStep(3)" nz-button nzType="primary" [nzSize]="'small'">
+                <strong>Go To Previous Step</strong>
+              </button>
+            </div>
+            <div class="col-md-6 text-right">
+              <button (click)="nextStep(5)" nz-button nzType="primary" [nzSize]="'small'">
+                <strong>Go To Next Step</strong>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card">
+                <div class="margin-bottom10 col-md-12">
+                  <div class="col-md-6 p-1">
+                    <span class="fe fe-download"></span>
+                    <strong class="card-title mx-1">Parameters</strong>
+                    <span>{{tempDataSet.length}} Total</span>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-10">
+                      <nz-form-item>
+                        <nz-form-control>
+                          <input type="text" nz-input [(ngModel)]="dataSetSearch" placeholder="search">
+                        </nz-form-control>
+                      </nz-form-item>
+                    </div>
+                    <div class="col-md-2">
+                      <button class="button-extra" (click)="searchParameter(dataSetSearch)" nz-button nzType="primary"
+                        [nzSize]="'small'">
+                        <strong>search</strong>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 card-overflow">
+                  <nz-radio-group class="col-md-12" nzSize="large" [(ngModel)]="radioValue" nzButtonStyle="solid"
+                    *ngFor="let item of tempDataSet;let itemIndex = index">
+                    <label class="col-md-12" nz-radio-button [nzValue]="item">{{item.name}}</label>
+                    <span class="chipsClass" *ngIf="item.map">{{item.map}} <span class="fe fe-x chipsCancelButton"
+                        (click)="removeItem(itemIndex)"></span></span>
+                  </nz-radio-group>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card">
+                <div class="margin-bottom10 col-md-12">
+                  <div class="col-md-6 p-1">
+                    <span class="fe fe-download"></span>
+                    <strong class="card-title mx-1">File Field</strong>
+                    <span>{{rowData.length}} Total</span>
+                  </div>
+                </div>
+                <!--   <div class="col-md-12">
+                  <nz-form-item>
+                    <nz-form-control>
+                      <input type="text" nz-input (ngModelChange)="searchFile()" placeholder="search">
+                    </nz-form-control>
+                  </nz-form-item>
+                </div> -->
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-10">
+                      <nz-form-item>
+                        <nz-form-control>
+                          <input type="text" nz-input [(ngModel)]="fileSearch" placeholder="search">
+                        </nz-form-control>
+                      </nz-form-item>
+                    </div>
+                    <div class="col-md-2">
+                      <button class="button-extra" (click)="searchFile(fileSearch)" nz-button nzType="primary"
+                        [nzSize]="'small'">
+                        <strong>search</strong>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 card-overflow">
+                  <nz-radio-group class="col-md-12" nzSize="large" [(ngModel)]="radioValue1" nzButtonStyle="solid"
+                    (ngModelChange)="mapping($event)" *ngFor="let item of tempUndropedFileData;let itemIndex = index">
+                    <label class="col-md-12" nz-radio-button [nzValue]="item">{{item.name}}</label>
+                  </nz-radio-group>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </nz-tab>
+      <nz-tab nzTitle="Step 6 : Set Rules" nzDisabled="true">
+        <ng-template nz-tab>
+          <div class="row padding-bottom10">
+            <div class="col-md-6">
+              <button (click)="previousStep(4)" nz-button nzType="primary" [nzSize]="'small'">
+                <strong>Go To Previous Step</strong>
+              </button>
+            </div>
+            <div class="col-md-6 text-right">
+              <button (click)="submit()" nz-button nzType="primary" [nzSize]="'small'">
+                <strong>Submit</strong>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <nz-form-item>
+                <nz-form-control>
+                  <nz-select nzSize="medium" nzPlaceHolder="Choose Rule" [(ngModel)]='ruleTransform'
+                    (ngModelChange)="setTransform()">
+                    <nz-option *ngFor="let item of dataSet" [nzLabel]="item.name" [nzValue]="item">
+                    </nz-option>
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12" *ngIf="ruleTransform">
+              <nz-tabset nzType="card" [nzSize]="'small'" (nzSelectChange)="subLog([$event],editorValue)"
+                [(nzSelectedIndex)]="subSelectedIndex">
+                <nz-tab nzTitle="Editor" nzDisabled="true">
+                  <div class="col-md-12" *ngIf="isShowEditor">
+                    <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="monocoValue">
+                    </ngx-monaco-editor>
+                  </div>
+                  <div class="col-md-12 text-right" *ngIf="isShowEditor">
+                    <button (click)="saveEditorValue('rule', 1)" nz-button nzType="primary" [nzSize]="'small'">
+                      <strong>Save & next</strong>
+                    </button>
+                  </div>
+                </nz-tab>
+                <nz-tab nzTitle="Query builder" nzDisabled="true">
+                  <!-- <div class="col-md-12 text-right">
+                    <button class="btn" (click)="addRule()">
+                      <strong>Add Rule</strong>
+                    </button>
+                  </div> -->
+                  <div id="builder" class="col-md-12"></div>
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="card">
+                          <span>This(True)</span>
+                          <div class="col-md-12">
+                            <nz-form-item>
+                              <nz-form-control>
+                                <textarea rows="4" [(ngModel)]="value1" nz-input></textarea>
+                              </nz-form-control>
+                            </nz-form-item>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="card">
+                          <span>This(false)</span>
+                          <div class="col-md-12">
+                            <nz-form-item>
+                              <nz-form-control>
+                                <textarea rows="4" [(ngModel)]="value2" nz-input></textarea>
+                              </nz-form-control>
+                            </nz-form-item>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 text-right" nzDisabled="true">
+                      <button (click)="saveEditorValue('builder', 2)" nz-button nzType="primary" [nzSize]="'small'">
+                        <strong>Save & next</strong>
+                      </button>
+                    </div>
+                  </div>
+                </nz-tab>
+                <nz-tab nzTitle='Configuration'>
+                  <div class="col-md-4">
+                    <nz-form-item>
+                      <nz-form-label class="labels" nzFor="default">Defualt Value</nz-form-label>
+                      <nz-form-control>
+                        <input nz-input placeholder="Defualt Value" [(ngModel)]="subDefultValue" />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div class="col-md-12 text-right">
+                    <button (click)="saveEditorValue('defult', 3)" nz-button nzType="primary" [nzSize]="'small'">
+                      <strong>Save & next</strong>
+                    </button>
+                  </div>
+                </nz-tab>
+              </nz-tabset>
+            </div>
+            <div class="col-md-12 text-center" *ngIf="!ruleTransform">
+              <strong>Not select any Transform</strong>
+            </div>
+          </div>
+          <!-- <ag-grid-angular style="width: 100wh; height: calc(100vh - 300px);"
+            (firstDataRendered)="onFirstDataRendered($event)" class="ag-theme-balham" [rowData]="dataSet"
+            [columnDefs]="columnDefs" [gridOptions]="gridOptions">
+          </ag-grid-angular> -->
+        </ng-template>
+      </nz-tab>
+    </nz-tabset>
+  </div>
+</div>
+<!-- 
+<nz-modal [(nzVisible)]="isVisible" nzWidth="70%" nzTitle="Set Transform" (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()">
+  <ng-container>
+    <div class="row">
+      <div class="col-md-12">
+        <nz-tabset nzType="card" [nzSize]="'small'" (nzSelectChange)="subLog([$event],editorValue)"
+          [(nzSelectedIndex)]="subSelectedIndex">
+          <nz-tab nzTitle="Editor">
+            <div class="col-md-12" *ngIf="isShowEditor">
+              <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="editorValue.rule">
+              </ngx-monaco-editor>
+            </div>
+          </nz-tab>
+          <nz-tab nzTitle="Query builder">
+            <div class="col-md-12 text-right">
+              <button class="btn" (click)="addRule()">
+                <strong>Add Rule</strong>
+              </button>
+            </div>
+            <div id="builder" class="col-md-12"></div>
+            <div class="row">
+              <div class="col-md-6 card">
+                <span>This(True)</span>
+                <div class="col-md-12">
+                  <nz-form-item>
+                    <nz-form-control>
+                      <textarea rows="4" [(ngModel)]="value1" nz-input></textarea>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+              </div>
+              <div class="col-md-6 card">
+                <span>This(false)</span>
+                <div class="col-md-12">
+                  <nz-form-item>
+                    <nz-form-control>
+                      <textarea rows="4" [(ngModel)]="value2" nz-input></textarea>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+              </div>
+            </div>
+          </nz-tab>
+          <nz-tab nzTitle='Configuration'>
+            <div class="col-md-4">
+              <nz-form-item>
+                <nz-form-label class="labels" nzFor="default">Defualt Value</nz-form-label>
+                <nz-form-control>
+                  <input nz-input placeholder="Defualt Value" [(ngModel)]="editorValue.defultValue" />
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </nz-tab>
+        </nz-tabset>
+      </div>
+    </div>
+  </ng-container>
+</nz-modal> -->

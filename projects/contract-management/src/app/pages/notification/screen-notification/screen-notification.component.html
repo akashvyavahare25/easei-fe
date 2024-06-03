@@ -1,0 +1,133 @@
+<div class="permission-height" *ngIf="!loading">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-2 text-grey-6 font-size-16 mb-3">
+                <strong>{{appScreenName}}</strong>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 screen-notification">
+        <formio [form]="form" (submit)="submitForm($event)" (change)="onChangeFOrm($event)" (customEvent)="cancelEdit()"></formio>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6" [hidden]="isCompleted">
+                <div class="col-md-12 card" id="firstCard">
+                    <form nz-form [nzLayout]="'vertical'" [formGroup]="screenForm" role="form" class="firstCard">
+                        <div class="padding-top20 padding-bottom20">
+                            <nz-form-control nzErrorTip="*Please select action!">
+                                <nz-form-label class="labels" nzFor="roles" style="display: flex;">Action
+                                </nz-form-label>
+                                <nz-radio-group nzName="radiogroup" formControlName="action"
+                                    (ngModelChange)="changeAction()">
+                                    <label nz-radio nzValue="approve"
+                                        [nzDisabled]="isAskQuestion || isReject">Approve</label>
+                                    <label nz-radio nzValue="reject"
+                                        [nzDisabled]="isAskQuestion || isReject">Reject</label>
+                                    <label nz-radio nzValue="delegate"
+                                        [nzDisabled]="isReviewAndApproved || isAskQuestion || isReject">Delegate</label>
+                                </nz-radio-group>
+                            </nz-form-control>
+                        </div>
+                        <nz-form-item *ngIf="screenForm.get('action').value === 'delegate'">
+                            <nz-form-label class="labels" nzFor="category">User List</nz-form-label>
+                            <nz-form-control>
+                                <nz-select nzSize="medium" formControlName="delegateUserId" nzPlaceHolder="Select user">
+                                    <nz-option *ngFor="let user of userList"
+                                        [nzLabel]="user.firstName +' '+ user.lastName" [nzValue]="user._id">
+                                    </nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item *ngIf="screenForm.get('action').value === 'delegate'">
+                            <nz-form-label class="labels" nzFor="category">Statement</nz-form-label>
+                            <nz-form-control>
+                                <nz-form-item>
+                                    <nz-form-control [nzSm]="24" [nzXs]="24">
+                                        <nz-select formControlName="delegateType"
+                                            nzPlaceHolder="Select a delegate type">
+                                            <nz-option nzLabel="Review and Approved" nzValue="Review and Approved">
+                                            </nz-option>
+                                            <nz-option nzLabel="Only Review/Ask a question?"
+                                                nzValue="Only Review/Ask a question?"></nz-option>
+                                        </nz-select>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item style="display: block;">
+                            <nz-form-label class="labels" nzFor="roles">Remark</nz-form-label>
+                            <nz-form-control>
+                                <textarea nz-input placeholder="Enter remark" formControlName="remark"
+                                    [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
+                            <button nz-button><i nz-icon nzType="upload"></i>Select File</button>
+                        </nz-upload>
+                        <nz-form-item class="margin-bottom0 padding-top20 text-right">
+                            <nz-form-control>
+                                <button (click)="submit()" [disabled]="isReject" nz-button nzType="primary"
+                                    [nzSize]="'medium'">
+                                    <strong>Submit</strong>
+                                </button>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12 card" id='secondCard'>
+                    <div class="row border-bottom wight700">{{wfHistory[0].description}}</div>
+                    <div class="row history-height">
+                        <div class="col-md-12">
+                            <div *ngFor="let history of wfHistory">
+                                <div class="row padding-top5 padding-bottom5">
+                                    <div class="col-md-1 display-flex">
+                                        <div class="circle"
+                                            [ngClass]="{'approved': history.lastActionStatus === 'Approved',
+                            'rejected': history.lastActionStatus === 'Rejected', 'delegated': history.lastActionStatus === 'Delegated'}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-11">
+                                        <div class="row"
+                                            *ngIf="history.lastActionUser && history.lastActionUser.length > 0">
+                                            <div class="col-md-7"><span
+                                                    class="sky-color">{{history.lastActionUser[0].firstName}}&nbsp;{{history.lastActionUser[0].firstName}}</span>
+                                                made changes on </div>
+                                            <div class="col-md-5"><span
+                                                    class="time">{{getTime(history.createdAt)}}</span>
+                                            </div>
+
+                                        </div>
+                                        <div class="row padding-top20">
+                                            <div class="col-md-7"> Status :</div>
+                                            <div class="col-md-5"><span class="wight700">{{history.lastActionStatus ?
+                                                    history.lastActionStatus : 'In
+                                                    Progress'}}</span></div>
+                                        </div>
+                                        <div class="row padding-top20" *ngIf="history.lastActionStatus === 'Delegated'">
+                                            <div class="col-md-7"> Delegated Type :</div>
+                                            <div class="col-md-5"><span
+                                                    class="wight700">{{history.lastDelegateType}}</span></div>
+                                        </div>
+                                        <div class="row padding-top20">
+                                            <div class="col-md-7">Remark :</div>
+                                            <div class="col-md-5"><span class="wight700">{{history.remark ?
+                                                    history.remark : 'Not Submited'}}</span></div>
+                                        </div>
+                                        <div class="row padding-top20">
+                                            <div class="col-md-7">Files :</div>
+                                            <div class="col-md-5 files" style="display: inline-grid"><span class="wight700 pl-1" *ngFor="let item of history.files" (mouseenter)="item.hover=true"(mouseleave)="item.hover=false"(click)="download(item)">{{item.originalname}}</span><br></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

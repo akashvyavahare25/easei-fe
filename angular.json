@@ -1,0 +1,378 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "my-container": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "allowedCommonJsDependencies": [
+              "lodash",
+              "@firebase/database",
+              "angular2-chartjs",
+              "@ant-design/colors",
+              "@ant-design/icons-angular",
+              "@ant-design/icons-angular/icons"
+            ],
+            "outputPath": "dist/my-container",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+                      
+            ],
+            "styles": [
+              "./node_modules/ng-zorro-antd/style/entry.less",
+              "src/app/vendors/antd/themes/default.less",
+              "src/app/vendors/antd/themes/dark.less",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/jQuery-QueryBuilder/dist/css/query-builder.default.css",
+              "./node_modules/c3/c3.min.css",
+              "./node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css",         
+              "projects/contract-management/src/global.scss",
+              "projects/contract-management/src/styles.scss",
+              "node_modules/@coreui/icons/css/free.css",
+              "node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "projects/dashboard/src/styles/styles.scss",
+              "node_modules/ngx-toastr/toastr.css"
+              
+            ],
+            "scripts": [
+              "./node_modules/c3/c3.min.js",
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/moment/min/moment.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "./node_modules/jQuery-QueryBuilder/dist/js/query-builder.standalone.js",
+              "./node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/apexcharts/dist/apexcharts.min.js"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "styles"
+              ]
+            }
+           
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "my-container:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "my-container:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "my-container:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "tsconfig.app.json",
+              "tsconfig.spec.json",
+              "e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "my-container:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "my-container:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "contract-management": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "./projects/contract-management",
+      "sourceRoot": "./projects/contract-management/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            
+            "allowedCommonJsDependencies": [
+              "lodash",
+              "@firebase/database",
+              "angular2-chartjs",
+              "@ant-design/colors",
+              "@ant-design/icons-angular",
+              "@ant-design/icons-angular/icons"
+            ],
+            "outputPath": "dist/contract-management",
+            "index": "projects/contract-management/src/index.html",
+            "main": "projects/contract-management/src/main.ts",
+            "polyfills": "projects/contract-management/src/polyfills.ts",
+            "tsConfig": "projects/contract-management/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/contract-management/src/favicon.ico",
+              "projects/contract-management/src/assets"
+            ],
+            "styles": [
+              "./node_modules/ng-zorro-antd/style/entry.less",
+              "projects/contract-management/src/app/components/kit/vendors/antd/themes/default.less",
+              "projects/contract-management/src/app/components/kit/vendors/antd/themes/dark.less",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/jQuery-QueryBuilder/dist/css/query-builder.default.css",
+              "./node_modules/c3/c3.min.css",
+              "./node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css",
+              "projects/contract-management/src/global.scss",
+              "projects/contract-management/src/styles.scss"
+            ],
+            "scripts": [
+              "./node_modules/c3/c3.min.js",
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/moment/min/moment.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "./node_modules/jQuery-QueryBuilder/dist/js/query-builder.standalone.js",
+              "./node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "styles"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/contract-management/src/environments/environment.ts",
+                  "with": "projects/contract-management/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "10mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "contract-management:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "contract-management:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "contract-management:build"
+          }
+        }
+      }
+    },
+    "dashboard":{
+      "projectType": "application",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "scss"
+                },
+                "@schematics/angular:application": {
+                    "strict": true
+                }
+            },
+            "root": "./projects/dashboard",
+            "sourceRoot": "./projects/dashboard/src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/dashboard",
+                        "index": "projects/dashboard/src/index.html",
+                        "main": "projects/dashboard/src/main.ts",
+                        "polyfills": "projects/dashboard/src/polyfills.ts",
+                        "tsConfig": "projects/dashboard/tsconfig.app.json",
+                        "inlineStyleLanguage": "scss",
+                        "assets": [
+                            "projects/dashboard/src/favicon.ico",
+                            "projects/dashboard/src/assets",
+                            {
+                              "glob": "**/*",
+                              "input": "projects/dashboard/src/assets/",
+                              "ignore": [
+                                "**/styles/**/*"
+                              ],
+                              "output": "src/assets/"
+                            }    
+                        ],
+                        "styles": [
+                            "node_modules/@coreui/icons/css/free.css",
+                            "node_modules/font-awesome/css/font-awesome.css",
+                            "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                            "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+                            "projects/dashboard/src/styles/styles.scss"
+                        ],
+                        "scripts": [
+                            "node_modules/bootstrap/dist/js/bootstrap.min.js",
+                            "node_modules/apexcharts/dist/apexcharts.min.js"
+                        ]
+                    },
+                    "configurations": {
+                        "production": {
+                            "budgets": [{
+                                    "type": "initial",
+                                    "maximumWarning": "800kb",
+                                    "maximumError": "1.5mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "2kb",
+                                    "maximumError": "4kb"
+                                }
+                            ],
+                            "fileReplacements": [{
+                                "replace": "projects/dashboard/src/environments/environment.ts",
+                                "with": "projects/dashboard/src/environments/environment.prod.ts"
+                            }],
+                            "outputHashing": "all"
+                        },
+                        "development": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                      "browserTarget": "dashboard:build"
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "dashboard:build:production"
+                        },
+                        "development": {
+                            "browserTarget": "dashboard:build:development"
+                        }
+                    },
+                    "defaultConfiguration": "development"
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "dashboard:build"
+                    }
+                }
+                
+            }
+    }
+  },
+  "defaultProject": "my-container"
+}

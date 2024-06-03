@@ -1,0 +1,42 @@
+.permission-height {
+    height: calc(100vh - 122px);
+    overflow: auto;
+    margin-right: -10px;
+}
+.font-weight700 {
+    font-weight: 700;
+}
+::-webkit-input-placeholder {
+    color:#495057 !important;
+    font-family:'arial', sans-serif;
+}
+.table-title {
+    padding: 20px 20px 20px 10px;
+    background: #4585f4;
+    color: white;
+}
+.table-data {
+    padding: 20px 20px 20px 0px;
+    border-bottom: 1px solid lightgray;
+}
+.client-no {
+    background-color: #5bb6e5;
+    padding: 20px 20px 20px 15px;
+    margin-top: 2px;
+}
+.submit{
+    min-height: 40px;
+    ;min-width: 190px;
+}
+[nz-radio] {
+    display: block;
+    height: 32px;
+    line-height: 32px;
+  }
+  input {
+    width: 100px;
+    margin-left: 10px;
+  }
+  .diplayblock{
+      display: block !important;
+  }

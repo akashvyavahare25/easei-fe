@@ -1,0 +1,69 @@
+<nz-sider nzCollapsible [nzWidth]="leftMenuWidth" [nzCollapsible]="!isMobileView"
+  [(nzCollapsed)]="isMenuCollapsed && !isMobileView" (nzCollapsedChange)="onCollapse($event)" [ngClass]="{
+  menu: true,
+  white: menuColor === 'white',
+  gray: menuColor === 'gray',
+  dark: menuColor === 'dark',
+  unfixed: isMenuUnfixed,
+  shadow: isMenuShadow && !isMobileView
+}">
+  <div class="menuOuter" [ngStyle]="{
+    width: isMenuCollapsed && !isMobileView ? '80px' : leftMenuWidth + 'px',
+    height: isMobileView || isMenuUnfixed ? 'calc(100% - 64px)' : 'calc(100% - 110px)'}">
+    <div class="logoContainer">
+      <img [src]='logoImage' class="imgheight" [ngClass]="{'logo': !isMenuCollapsed, 'main-logo' : isMenuCollapsed }" />
+      <div class="name"></div>
+    </div>
+    <perfect-scrollbar>
+      <ul nz-menu class="navigation" [nzInlineIndent]="15" [nzMode]="'inline'"
+        [nzInlineCollapsed]="isMenuCollapsed && !isMobileView">
+        <ng-container *ngTemplateOutlet="menuTpl; context: {$implicit: menuDataActivated, level: 0}"></ng-container>
+        <ng-template #menuTpl let-menuDataActivated let-level="level">
+          <ng-container *ngFor="let item of menuDataActivated">
+            <ng-container>
+              <ng-template #tooltipTpl>
+                {{ item.title }}
+              </ng-template>
+              <!-- group title item -->
+              <li nz-menu-group [nzTitle]="item.title" *ngIf="item.category"></li>
+              <!-- disabled item -->
+              <li nz-menu-item *ngIf="item.disabled" [nzSelected]="item.selected" [nzDisabled]="true" nz-tooltip
+                nzTooltipPlacement="right" [nzTooltipTitle]="isMenuCollapsed && level === 0 ? tooltipTpl : ''">
+                <span [ngStyle]="{'padding-left.px': isMenuCollapsed ? '0' : level * 15}">
+                  <span class="title">{{item.title}}</span>
+                  <!-- <span *ngIf="item.count" class="badge badge-success ml-2">{{ item.count }}</span> -->
+                  <i *ngIf="item.icon" [ngClass]="[item.icon, 'icon']"></i>
+                </span>
+              </li>
+              <!-- main item -->
+              <span >
+                <li (click)="closeModal()" nz-menu-item *ngIf="!item.children && item.url" routerLink={{item.url}}
+                  [nzSelected]="item.selected" [nzDisabled]="item.disabled" nz-tooltip nzTooltipPlacement="right"
+                  [nzTooltipTitle]="isMenuCollapsed && level === 0 ? tooltipTpl : ''">
+                  <span [ngStyle]="{'padding-left.px': isMenuCollapsed ? '0' : level * 15}">
+                    <span class="title">{{item.title}}</span>
+                    <i *ngIf="item.icon" [ngClass]="[item.icon, 'icon']"></i>
+                  </span>
+                </li>
+              </span>
+              <!-- submenu item with recursive template -->
+              <span >
+                <li nz-submenu *ngIf="item.children" [nzOpen]="item.open && !isMenuCollapsed">
+                  <span title [ngStyle]="{'padding-left.px': isMenuCollapsed ? '0' : level * 15}">
+                    <span class="title">{{item.title}}</span>
+                    <i *ngIf="item.icon" [ngClass]="[item.icon, 'icon']"></i>
+                  </span>
+                  <ul>
+                    <span *ngIf="isMenuCollapsed" class="title title-2">{{item.title}}</span>
+                    <ng-container *ngTemplateOutlet="menuTpl; context: {$implicit: item.children, level: level + 1}">
+                    </ng-container>
+                  </ul>
+                </li>
+              </span>
+            </ng-container>
+          </ng-container>
+        </ng-template>
+      </ul>
+    </perfect-scrollbar>
+  </div>
+</nz-sider>

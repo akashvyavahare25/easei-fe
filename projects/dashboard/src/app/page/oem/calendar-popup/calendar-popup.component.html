@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-md-10">
+        <h3><b>{{header.dateStr}}</b></h3>
+     <span *ngIf="updateBtnShow"><mat-slide-toggle  [(ngModel)]="checked" (change)="changed()">{{name}}</mat-slide-toggle></span>   
+    </div>
+    <div class="col-md-2" style="display: flex;justify-content: right;">
+        <span class="material-icons-outlined"  mat-button mat-dialog-close >close</span> 
+    </div>
+</div>
+<div class="row" *ngIf="visible">
+         <form  [formGroup]="cleaningForm"   autocomplete="off">  <!-- (ngSubmit)="openConfirmabort()" -->
+            <div class="row">
+
+                <div class="col-md-12" style="margin-top: 15px !important;" *ngIf="visibleMultipleDays">
+                    <mat-label class="label"> Enter a date range :</mat-label>
+                    <mat-form-field  appearance="fill" > 
+                        <!-- <mat-label  class="label">Enter a date range</mat-label> -->
+                        <mat-date-range-input [rangePicker]="picker" [min]="maxDate">
+                          <input matStartDate placeholder="Start date" (dateChange)="selectedCustomDateStart($event)" (keyup)="selectedCustomDateStart($event)">
+                          <input matEndDate placeholder="End date" (dateChange)="selectedCustomDateEnd($event)" (keyup)="selectedCustomDateEnd($event)">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker ></mat-date-range-picker>
+                      </mat-form-field>
+            </div>
+                <div class="col-md-12" style="margin-top: 8px !important;" >
+                        <mat-label class="label"> Cleaning :</mat-label>
+                        <mat-form-field appearance="fill">
+                        <mat-select formControlName="cleaning" placeholder="Cleaning" matNativeControl style="width: 100% !important;"> 
+                            <mat-option value="Yes"> Yes</mat-option>
+                            <mat-option value="No">No</mat-option>
+                        </mat-select>
+                       <!--  <mat-error>  
+                            <span *ngIf="!cleaningForm.get('cleaning').valid && cleaningForm.get('cleaning').touched">Please select Cleaning !!!</span>  
+                        </mat-error>  -->
+                    </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                        <mat-label class="label"> Cleaning Start Time</mat-label>
+                        <mat-form-field appearance="fill">
+                        <input matInput placeholder="Select Cleaning Start Time" step="1" type="time" formControlName="cleaningStartTime" matNativeControl style="width: 100% !important;">
+                        <!-- <mat-error>  
+                            <span *ngIf="!abortpopupForm.get('requestPerson').valid && abortpopupForm.get('requestPerson').touched">Please select person requesting abort !!!</span>  
+                        </mat-error>  -->
+                    </mat-form-field> 
+                </div>
+                <div class="col-md-12">
+                        <mat-label class="label"> Cleaning Mode</mat-label>
+                        <mat-form-field appearance="fill">
+                        <mat-select formControlName="cleaningMode" matNativeControl style="width: 100% !important;"> 
+                            <mat-option value="Normal">Normal</mat-option>
+                            <mat-option value="Deep Cleaning">Deep Cleaning</mat-option>
+                        </mat-select>
+                        <!-- <mat-error>  
+                            <span *ngIf="!abortpopupForm.get('abortReason').valid && abortpopupForm.get('abortReason').touched">Please enter Reason for abort !!!</span>  
+                        </mat-error> --> 
+                    </mat-form-field>
+                </div>  
+            </div>  
+        </form>
+</div>
+<div class="col-md-12 py-3" *ngIf="!visible">
+    <mat-radio-group [(ngModel)]="scheduletype">
+        <mat-radio-button value="skip">Skip</mat-radio-button>
+        <mat-radio-button value="pause">Pause</mat-radio-button>
+      </mat-radio-group>
+</div>
+<div class="row" style="float:right"> 
+    <div class="col-md-6">
+        <button mat-button mat-dialog-close class="cancel">Cancel</button>
+    </div>
+    <div class="col-md-6" *ngIf="updateBtnShow">
+        <button mat-button  type="button" (click)="submitform()"  cdkFocusInitial class="save" >Update</button>
+    </div>
+
+</div>

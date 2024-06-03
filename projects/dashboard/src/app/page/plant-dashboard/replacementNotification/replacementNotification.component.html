@@ -1,0 +1,185 @@
+
+<div class="c-subheader sticky-top justify-content-between px-3 c-header-shadow">
+    <div class="replacementNotification">
+        <div class="row" style="width: 100%;padding: 10px 0px;">
+            <div class="col-md-6">
+                <h3 class="title">Replacement Notification</h3>
+            </div>    
+            <div class="col-md-6">
+                <button class="generateReport" (click)="downloadPdf()">Download Summary</button>
+            </div>
+            <div class="col-md-12">
+                <mat-form-field appearance="fill" class="calendar">
+                    <!-- <mat-label>Last 7 days</mat-label> -->
+                    <mat-select matNativeControl [(ngModel)]="calendar" (selectionChange)="filterByDate($event.value)">
+                        <mat-option value="7">Last 7 days</mat-option>
+                        <mat-option value="15">Last 15 days</mat-option>
+                        <mat-option value="30">Last 30 days</mat-option>
+                        <mat-option value="60">Last 60 days</mat-option>
+                        <mat-option value="180">Last 180 days</mat-option>
+                        <mat-option value="365">Last 1 year</mat-option>
+                        <mat-option value='custom'>Custom date</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="customDate" appearance="fill" *ngIf="calendar == 'custom'"> 
+                    <mat-label>Enter a date range</mat-label>
+                    <mat-date-range-input [rangePicker]="picker" [max]="maxDate">
+                      <input matStartDate placeholder="Start date" (dateChange)="selectedCustomStartDate($event)">
+                      <input matEndDate placeholder="End date" (dateChange)="selectedCustomEndDate($event)">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="priority">
+                    <mat-label>Priority</mat-label>
+                    <mat-select matNativeControl #select multiple [formControl]="allPriority" (selectionChange)="filterByPriority($event.value)" [(ngModel)]="priority">
+                        <mat-select-trigger>
+                            {{allPriority.value ? allPriority.value[0] : ''}}
+                            <span *ngIf="allPriority.value?.length > 1" class="example-additional-selection">
+                               +{{allPriority.value.length - 1}}
+                            </span>
+                        </mat-select-trigger> 
+                    <div class="select-all">
+                        <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}" (change)="toggleAllSelection()">All Priority</mat-checkbox>
+                    </div>
+                    <mat-option (click)="optionClick()" *ngFor="let food of allPriorityList" [value]="food.value">
+                        {{food.value}}
+                    </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="status">
+                    <mat-label>Status</mat-label>
+                    <mat-select matNativeControl #select1 multiple [formControl]="allStatus" (selectionChange)="filterByStatus($event.value)" [(ngModel)]="status">
+                        <mat-select-trigger>
+                            {{allStatus.value ? allStatus.value[0] : ''}}
+                            <span *ngIf="allStatus.value?.length > 1" class="example-additional-selection">
+                                +{{allStatus.value.length - 1}}
+                            </span>
+                        </mat-select-trigger> 
+                        <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelected1" [ngModelOptions]="{standalone: true}" (change)="toggleAllSelection1()">All BOT Status</mat-checkbox>
+                        </div>
+                        <mat-option (click)="optionClick1()" *ngFor="let s of allStatusList" [value]="s.value">
+                            {{s.value}}
+                        </mat-option>
+                       </mat-select>
+                </mat-form-field>
+                <span style="position: relative;">
+                    <button type="button" class="btn btn-link resetBtn" (click)="reset()">Reset</button>
+                </span>
+            </div>
+        </div>    
+        
+
+        <div class="row">
+            <div class="col-12">
+                <div class="row chart">
+                    <div class="col-sm-12">
+                        <mat-card class="mb-4">
+                            <mat-card-content>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        Chart
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <mat-card class="mb-4">
+                                    <mat-card-content>
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="row">
+                                                    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+                                                    class="mat-elevation-z8"> 
+                                                  <ng-container matColumnDef="bot_id">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by bot_id">
+                                                   BOT ID
+                                                    </th>
+                                                    <td mat-cell *matCellDef="let element"> {{element.bot_id}} </td>
+                                                  </ng-container> 
+                                               <!--    <ng-container matColumnDef="knu_ip">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by knu_ip">
+                                                      Resp. KNU No.
+                                                    </th>
+                                                    <td mat-cell *matCellDef="let element"> {{element.knu_ip}} </td>
+                                                  </ng-container>  -->
+                                                  <ng-container matColumnDef="table_no">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by table_no">
+                                                        Table No.
+                                                    </th>
+                                                    <td mat-cell *matCellDef="let element"> {{element.table_no}} </td>
+                                                  </ng-container>
+                                                
+                                                  <!-- Symbol Column -->
+                                                  <ng-container matColumnDef="replacement_of">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by replacement_of">
+                                                        Replacement Of
+                                                    </th>
+                                                    <td mat-cell *matCellDef="let element"> {{element.replacement_of}} </td>
+                                                  </ng-container>
+                                                  <ng-container matColumnDef="mat_code">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by mat_code">
+                                                        MAT Code
+                                                    </th>
+                                                    <td mat-cell *matCellDef="let element"> {{element.mat_code}} </td>
+                                                  </ng-container>
+                                                  <ng-container matColumnDef="priority">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by priority">
+                                                        Priority
+                                                    </th>
+                                                    <td mat-cell *matCellDef="let element"> {{element.priority}} </td>
+                                                  </ng-container>
+                                                  <ng-container matColumnDef="availability">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by availability">
+                                                        Availability
+                                                    </th>
+                                                    <td mat-cell *matCellDef="let element"> {{element.availability}} </td>
+                                                  </ng-container>
+                                                  <ng-container matColumnDef="quantity">
+                                                    <th class="quantity " mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by quantity">
+                                                        Quantity Required
+                                                    </th>
+                                                    <td mat-cell *matCellDef="let element" > {{element.quantity}} </td>
+                                                  </ng-container>
+                                                  <ng-container matColumnDef="ordered_by">
+                                                    <th class="wrapheader" mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by ordered_by">
+                                                       To Be Ordered By
+                                                    </th>
+                                                    <td mat-cell *matCellDef="let element"> {{element.ordered_by}} </td>
+                                                  </ng-container>
+                                                  <ng-container matColumnDef="status">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by status">
+                                                        Status
+                                                    </th>
+                                                    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                                                  </ng-container>
+                                                  <ng-container matColumnDef="nodata">
+                                                    <td mat-footer-row *matFooterCellDef [colSpan]="displayedColumns.length" 
+                                                    style="text-align: center;">No alarms for the next 45 Days</td>
+                                                  </ng-container>
+                                                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                                  <tr mat-footer-row 
+                                                  [hidden]="dataSource.data.length >0"
+                                                 *matFooterRowDef="['nodata']">
+                                                </tr>              </table>
+                                                <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20,50]" [showFirstLastButtons]="true">
+                                                </mat-paginator>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

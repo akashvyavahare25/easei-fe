@@ -1,0 +1,30 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row" style="margin-bottom: 20px;">
+      <div class="col-4">
+        <h5>
+          <strong>{{camelSentence()}} List</strong>
+        </h5>
+      </div>
+      <div class="col-8 addBtn">
+        <span>
+          <button type="button" nz-button (click)="templateWithData()" nzType="primary" [nzSize]="'medium'">
+            <strong> Generate Template with Data</strong>
+          </button>
+          <button type="button" nz-button (click)="addMasterDetails()" nzType="primary" [nzSize]="'medium'"
+            class="margin-left5">
+            <strong> Add {{camelSentence()}}</strong>
+          </button>
+        </span>
+        <button (click)="goToBack()" nz-button nzType="light" [nzSize]="'medium'"
+          class="margin-left5"><strong>Cancel</strong>
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <ag-grid-angular style="width: 100%; height: calc(100vh - 235px);" class="ag-theme-balham" 
+        [columnDefs]="columnDefs" (firstDataRendered)="onFirstDataRendered($event)" [gridOptions]="gridOptions">
+      </ag-grid-angular>
+    </div>
+  </div>
+</div>

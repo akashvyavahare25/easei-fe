@@ -1,0 +1,40 @@
+<div class="card col-md-12 min-card-height">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="text-grey-6 font-size-16 mb-3">
+          <strong>Create New Role</strong>         
+        </div>
+      </div>
+      <div class="col-md-6 text-right padding-right30">
+        <nz-form-item class="margin-bottom0">
+          <nz-form-control>
+            <button (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+              <strong>Submit</strong>
+            </button>           
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <form nz-form [nzLayout]="'vertical'" [formGroup]="roleForm" role="form">
+        <div class="row">
+          <div class="col-md-3">
+            <nz-form-item>
+              <nz-form-label class="labels" nzFor="name">Role Name</nz-form-label>
+              <nz-form-control>
+                <!-- nzErrorTip="Please input parameter name!" -->
+                <input type="text" nz-input formControlName="name" nzSize="medium" placeholder="Role Name" />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+         
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card col-md-12 min-card-height">
+    <ag-grid-angular style="width: 100wh; height: calc(100vh - 135px);" (firstDataRendered)="onFirstDataRendered($event)"
+    class="ag-theme-balham" [rowData]="rolesData" [columnDefs]="columnDefs" [gridOptions]="gridOptions">
+</ag-grid-angular>
+  </div>

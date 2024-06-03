@@ -1,0 +1,179 @@
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-2 image-section">
+            <div *ngFor="let imagePath of basicCharts">
+                <img class="images" (click)="getChart(imagePath)" src={{getImage(imagePath)}} />
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <div *ngIf="isShowGrap" style="min-height: 600px;">
+                    <plotly-plot [data]="graph.data" [layout]="graph.layout"></plotly-plot>
+                </div>
+                <span *ngIf="!isShowGrap">Please Select Graph</span>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="text-grey-6 col-md-6 font-size-16 mb-3">
+                    <strong>Configuration</strong>
+                </div>
+                <div class="col-md-6 text-right padding-right30">
+                    <nz-form-item class="margin-bottom0">
+                      <nz-form-control>
+                        <button *ngIf="!parameterId"(click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+                          <strong>Submit</strong>
+                        </button>
+                        <button *ngIf="parameterId" (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'" [disabled]="!disabledButton">
+                          <strong>Update</strong>
+                        </button>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                <form nz-form [nzLayout]="'vertical'" class="col-md-12 row" [formGroup]="chartForm" role="form">
+                    <div class="col-md-3">
+                        <nz-form-label class="labels" nzFor="name">Chart Name</nz-form-label>
+                        <nz-form-item>
+                            <nz-form-control>
+                                <input type="text" nz-input formControlName="name" nzSize="medium" placeholder="Chart Name" />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div class="col-md-3">
+                        <nz-form-label class="labels" nzFor="name">Choose Report</nz-form-label>
+                        <nz-form-item>
+                            <nz-form-control>
+                                <nz-select nzSize="medium" nzPlaceHolder="Choose Report" (ngModelChange)="changeReport($event)" formControlName="report">
+                                    <nz-option *ngFor="let item of reportData" [nzLabel]="item.name" [nzValue]="item">
+                                    </nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div class="col-md-3">
+                        <nz-form-label class="labels" nzFor="name">Choose X</nz-form-label>
+                        <nz-form-item>
+                            <nz-form-control>
+                                <nz-select nzSize="medium" nzPlaceHolder="Choose X" (ngModelChange)="chooseX($event)" formControlName="x">
+                                    <nz-option *ngFor="let item of xyKeys" [nzLabel]="item" [nzValue]="item">
+                                    </nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div class="col-md-3">
+                        <nz-form-label class="labels" nzFor="name">Choose Y</nz-form-label>
+                        <nz-form-item>
+                            <nz-form-control>
+                                <nz-select nzSize="medium" nzPlaceHolder="Choose Y" (ngModelChange)="chooseY($event)" formControlName="y">
+                                    <nz-option *ngFor="let item of xyKeys" [nzLabel]="item" [nzValue]="item" >
+                                    </nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>  
+                    <div class="col-md-3">
+                        <nz-form-label class="labels" nzFor="type">Choose Type</nz-form-label>
+                        <nz-form-item>
+                            <nz-form-control>
+                                <nz-select nzSize="medium" nzPlaceHolder="Choose Type" (ngModelChange)="chooseGraph($event)" formControlName="type">
+                                    <nz-option nzValue="bar" nzLabel="bar"></nz-option>
+                                    <nz-option nzValue="bubble" nzLabel="bubble"></nz-option>
+                                    <nz-option nzValue="line" nzLabel="line"></nz-option>
+                                    <nz-option nzValue="pie" nzLabel="pie"></nz-option>
+                                    <nz-option nzValue="scatter" nzLabel="scatter"></nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div> 
+                    <div class="col-md-3" *ngIf="isPie">
+                        <nz-form-label class="labels" nzFor="type">Choose Mode</nz-form-label>
+                        <nz-form-item>
+                            <nz-form-control>
+                                <nz-select nzSize="medium" nzPlaceHolder="Choose Type" (ngModelChange)="chooseMode($event)" formControlName="mode">
+                                    <nz-option *ngFor="let item of graphMode" [nzLabel]="item" [nzValue]="item" >
+                                    </nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>         
+                    <div class="col-md-3">
+                        <nz-form-label class="labels" nzFor="title">Title Of graph</nz-form-label>
+                        <nz-form-item>
+                            <nz-form-control>
+                                <input type="text" nz-input formControlName="title" nzSize="medium" placeholder="title of graph" (ngModelChange)="changeField()" />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div class="col-md-3" *ngIf="isPie">
+                        <nz-form-label class="labels" nzFor="xlable">Xlable</nz-form-label>
+                        <nz-form-item>
+                            <nz-form-control>
+                                <input type="text" nz-input formControlName="xlable" nzSize="medium" placeholder="Xlable" (ngModelChange)="changeField()" />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div class="col-md-3" *ngIf="isPie">
+                        <nz-form-label class="labels" nzFor="ylabel">Ylable</nz-form-label>
+                        <nz-form-item>
+                            <nz-form-control>
+                                <input type="text" nz-input formControlName="ylable" nzSize="medium" placeholder="Ylable" (ngModelChange)="changeField()"/>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div> 
+                    <div class="col-md-3" *ngIf="defineMarker">
+                        <nz-form-label class="labels" nzFor="size">size</nz-form-label>
+                        <nz-form-item>
+                            <nz-form-control>
+                                <input type="number" nz-input formControlName="size" nzSize="medium" (ngModelChange)="addSize()" placeholder="size" />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>          
+                    <div class="col-md-12 text-right">
+                        <nz-form-item>
+                            <nz-form-control>
+                                <button (click)="addNewStep()" nz-button nzType="primary" [nzSize]="'small'">
+                                    <strong>Add Field</strong>
+                                </button>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </form>
+                <div class="col-md-12" *ngFor="let item of chartForm.get('steps').controls let indexOfelement=index">
+                    <div >
+                        <form class="col-md-12" nz-form [nzLayout]="'vertical'" [formGroup]="item" role="form">
+                            <div class="row">
+                                <div class="col-md-6">Line {{indexOfelement + 1}}</div>
+                                <div class="col-md-2">
+                                    <nz-form-item>
+                                        <nz-form-label class="labels" nzFor="name">X</nz-form-label>
+                                        <nz-form-control>
+                                            <input type="text" formControlName="x" nz-input nzSize="medium"
+                                             placeholder="Enter X Co-ordinites" [disabled]="true" />
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                                <div class="col-md-2">
+                                    <nz-form-item>
+                                        <nz-form-label class="labels" nzFor="name">Y</nz-form-label>
+                                        <nz-form-control>
+                                            <input type="text" formControlName="y"  nz-input nzSize="medium"
+                                             placeholder="Enter Y Co-ordinites" />
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div> 
+                                <div class="col-md-2 text-right">
+                                    <nz-form-item>
+                                        <nz-form-label class="labels" nzFor="name"></nz-form-label>
+                                        <nz-form-control>                                      
+                                            <span class="fe fe-x" style="font-size:20px;" (click)="removeField(indexOfelement)"></span>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

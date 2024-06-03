@@ -1,0 +1,114 @@
+<div class="c-subheader sticky-top justify-content-between px-3 c-header-shadow">
+    <div class="row" style="width: 100%;padding: 5px 0px;">
+        <div class="col-md-6">
+            <h3 class="title">Help</h3>
+        </div>
+    </div>
+    <div class="settingPage view">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-card class="mb-2">
+                        <mat-card-content> 
+                            <form [formGroup]="helpForm">
+                                <div class="row cardcontent" style="width: 100%;padding: 10px 0px;">
+                                    <div class="col-md-3">
+                                        <p class="label">First Name</p>
+                                        <mat-form-field appearance="fill">
+                                            <input matInput placeholder="First Name" type="text"
+                                                formControlName="firstName" matNativeControl>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p class="label">Last Name</p>
+                                        <mat-form-field appearance="fill">
+                                            <input matInput placeholder="Last Name" type="text"
+                                                formControlName="lastName" matNativeControl>
+                                        </mat-form-field>
+                                    </div> 
+                                    <div class="col-md-6">
+                                        <p class="label">Phone No.</p>
+                                         <mat-form-field class="example-full-width" appearance="fill" style="width:25% !important;">
+                                            <input type="text" aria-label="Number" matInput [formControl]="countryCode" (ngModelChange)="helpfilter($event)" [matAutocomplete]="auto">
+                                            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                              <mat-option *ngFor="let option of country" [value]="option">
+                                               +{{option}}
+                                              </mat-option>
+                                            </mat-autocomplete>
+                                          </mat-form-field> 
+                                       <!--    <mat-form-field appearance="fill" class="help"  style="width:25% !important;">
+                                            <mat-select class="help" formControlName="countryCode">
+                                                <mat-option *ngFor="let item of counrtyCodedata" [value]="item.code">  {{item.code}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>  -->
+                                        <mat-form-field appearance="fill" style="width:75% !important;">
+                                            <input matInput placeholder="Phone No." type="text"
+                                                formControlName="phoneNo" matNativeControl>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="label">Email</p>
+                                        <mat-form-field appearance="fill">
+                                            <input matInput placeholder="Email" type="text" formControlName="email"
+                                                matNativeControl>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p class="label">Organization</p>
+                                        <mat-form-field appearance="fill">
+                                            <input matInput placeholder="Organization" type="text"
+                                                formControlName="organization" matNativeControl>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="label">Category</p>
+                                        <mat-form-field appearance="fill">
+                                            <mat-select matNativeControl formControlName="category"
+                                                (selectionChange)="getCategoryValue($event.value)">
+                                                <mat-option *ngFor="let item of categoryList" [value]="item.category">
+                                                    {{item.category}}
+                                                </mat-option>
+                                            </mat-select>
+
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="label">Sub Category</p>
+                                        <mat-form-field appearance="fill">
+                                            <mat-select matNativeControl formControlName="subcategory"
+                                                (selectionChange)="getSubCategoryValue($event.value)">
+                                                <mat-option *ngFor="let item of subcategoryList"
+                                                    [value]="item.subCategory">
+                                                    {{item.subCategory}}
+                                                </mat-option>
+                                            </mat-select>
+
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <p class="label">Description</p>
+                                        <mat-form-field appearance="fill">
+                                            <textarea matInput formControlName="description" rows="6" [maxlength]="250"  (keyup)="keyFunc($event)" 
+                                                placeholder=""></textarea>
+                                            <!-- <input matInput placeholder="Last Name" type="text" matNativeControl> -->
+                                        </mat-form-field>
+                                        <span>characters left {{count}}</span>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <mat-dialog-actions style="float:right">
+                                            <button mat-button mat-dialog-close (click)="cancel()" class="cancel">Cancel</button>
+                                            <button mat-button cdkFocusInitial class="save" (click)="submit()">Submit</button>
+                                        </mat-dialog-actions>
+                                    </div>
+                                </div>
+                            </form>
+                        </mat-card-content>
+
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

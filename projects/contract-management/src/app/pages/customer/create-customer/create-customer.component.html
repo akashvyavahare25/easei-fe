@@ -1,0 +1,64 @@
+<div class="card col-md-12 min-card-height">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="text-grey-6 font-size-16 mb-3">
+          <strong *ngIf="!customerId">Add Customer</strong>
+          <strong *ngIf="customerId">Edit Customer</strong>
+        </div>
+      </div>
+      <div class="col-md-6 text-right padding-right30">
+        <nz-form-item class="margin-bottom0">
+          <nz-form-control>
+            <button  *ngIf="!customerId" (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+              <strong>Submit</strong>
+            </button>
+            <button *ngIf="customerId" (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+              <strong>Update</strong>
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div class="col-md-12 py-2">
+      <form nz-form [nzLayout]="'vertical'" [formGroup]="customerForm" role="form">
+        <div class="row">
+          <div class="col-md-4 py-2">
+            <nz-form-item>
+              <nz-form-label class="labels" nzFor="name">Customer  Name</nz-form-label>
+              <nz-form-control>
+                <!-- nzErrorTip="Please input parameter name!" -->
+                <input type="text" nz-input formControlName="name" nzSize="medium" placeholder="Customer Name" />
+              </nz-form-control>
+            </nz-form-item>
+          </div>                   
+          <div class="col-md-4 py-2">
+            <nz-form-item>
+              <nz-form-label class="labels" nzFor="type">Company Tag Line</nz-form-label>
+              <nz-form-control>
+                <textarea nz-input placeholder="Tag Line" nzAutosize formControlName="tagLine"></textarea>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="col-md-4 py-2">
+            <nz-form-item>
+              <nz-form-label class="labels" nzFor="type">Welcome Message</nz-form-label>
+              <nz-form-control>
+                <textarea nz-input placeholder="Welcome Message" formControlName="welcomeMessage"></textarea>
+               
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="col-md-4 py-2">
+            <nz-form-item>
+              <nz-form-label class="labels" nzFor="logo">Choose Logo</nz-form-label>
+              <nz-form-control>
+                <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload" >
+                    <button nz-button><i nz-icon nzType="upload"></i>Select File</button>
+                </nz-upload>               
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>

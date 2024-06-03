@@ -1,0 +1,12 @@
+.images {
+    border: 1px solid black;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.image-section {
+    overflow: auto;
+    height: calc(100vh - 130px);
+}
+.half-height {
+    height: calc(100vh - 575px);
+}

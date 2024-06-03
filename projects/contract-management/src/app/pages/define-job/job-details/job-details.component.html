@@ -1,0 +1,16 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row" style="margin-bottom: 20px;">
+      <div class="col-4">
+        <h5>
+          <strong>{{jobName}}</strong>
+        </h5>
+      </div>
+    </div>
+    <div class="row">
+      <ag-grid-angular style="width: 100%; height: calc(100vh - 235px);" class="ag-theme-balham" [rowData]="rowData"
+        [columnDefs]="columnDefs" (firstDataRendered)="onFirstDataRendered($event)">
+      </ag-grid-angular>
+    </div>
+  </div>
+</div>

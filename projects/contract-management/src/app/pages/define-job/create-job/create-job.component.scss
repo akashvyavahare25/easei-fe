@@ -1,0 +1,47 @@
+.cron-editor-container .inline-block {
+    display: inline-block;
+}
+
+.cron-editor-container .minutes,
+.cron-editor-container .hours,
+.cron-editor-container .days,
+.cron-editor-container .seconds {
+    width: 70px;
+}
+
+.cron-editor-container .months {
+    width: 120px;
+}
+
+.cron-editor-container .month-days {
+    width: 130px;
+}
+
+.cron-editor-container .months-small {
+    width: 60px;
+}
+
+.cron-editor-container .day-order-in-month {
+    width: 95px;
+}
+
+.cron-editor-container .week-days {
+    width: 120px;
+}
+
+.cron-editor-container .advanced-cron-editor-input {
+    width: 200px;
+}
+
+.cron-editor-container .hour-types {
+    width: 70px;
+}
+
+.cron-editor-container .advanced-cron-editor-label {
+    font-weight: 200;
+}
+
+.nav-tabs li {
+    cursor: pointer;
+    margin: 15px;
+}

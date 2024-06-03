@@ -1,0 +1,1328 @@
+.c-subheader {
+    background: #F7F9FC;
+    box-shadow: none;
+    display: block;
+}
+
+
+
+.alarm {
+    display: flex;
+    justify-content: center;
+}
+
+.demo {
+    padding-left: 10px;
+    display: flex;
+    
+}
+.calendar{
+    width: auto;
+    margin-top: -15px;
+}
+.header-uptime{
+    margin-bottom: -49px;
+}
+// oemDashboard css started
+.oemDashboard .mat-form-field {
+    width: 23vw;
+    padding: 5px 5px;
+}
+.oemDashboard ul.days {
+    list-style-type: none;
+    display: inline-flex;
+    padding-inline-start: 15px;
+    margin: 0px;
+  //  position: absolute;
+    top: 50px;
+    z-index: 9;
+    left: 10px;
+}
+.oemDashboard ul.days li {
+    padding-right: 3px;
+}
+.oemDashboard ul.days li button {
+    background: #F2F2F2;
+    border: none;
+    border-radius: 16px;
+    padding: 5px 10px;
+    font: normal normal normal 12px/20px Lato;
+    letter-spacing: 0.22px;
+    color: #000000DE;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+}
+.oemDashboard ul.days li button.active {
+    background: #E2F1FF;
+    color: #057AE7;
+}
+.oemDashboard ul.dataValue {
+    list-style-type: none;
+    display: inline-flex;
+    padding-inline-start: 15px;
+    margin: 0px;
+    //position: absolute;
+    bottom: 20px;
+    letter-spacing: 0.8px;
+    font: normal normal bold 16px/19px Lato;
+    color: #74819E;
+    font-size: 15px;
+    font-family: 'Lato', sans-serif;
+    // position: relative;
+}
+.oemDashboard ul.dataValue li{
+    position: relative;
+    padding-left: 15px;
+    padding-right: 5px;
+}
+.oemDashboard ul.dataValue li:nth-of-type(1)::before{
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: #EE2A41;
+    position: absolute;
+    border-radius: 10px;
+    top: 5px;
+    left: 0;
+}
+.oemDashboard ul.dataValue li:nth-of-type(2)::before{
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: #FFD000;
+    position: absolute;
+    border-radius: 10px;
+    top: 5px;
+    left: 0;
+}
+.oemDashboard ul.dataValue li:nth-of-type(3)::before{
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: #26A69A;
+    position: absolute;
+    border-radius: 10px;
+    top: 5px;
+    left: 0;
+}
+
+.font{
+    font-size: 16px !important;
+    color: #000000 !important;
+}
+
+.activeAlarm {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin-top: -3px !important;
+    margin: 0;
+    position: relative;
+    padding-left: 17px;
+    font-size: 16px
+}
+ .activeAlarm:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    margin-top: -3px !important;
+    background:#26A69A;
+    position: absolute;
+    border-radius: 10px;
+    top: 6px;
+    left: 3px;
+}
+.InactiveAlarm {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    margin-top: -3px !important;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 17px;
+    font-size: 16px
+}
+ .InactiveAlarm:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    margin-top: -3px !important;
+    background:red;
+    position: absolute;
+    border-radius: 10px;
+    top: 6px;
+    left: 3px;
+}
+
+.oemDashboard .viewBtn {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    background: #fff;
+    border: 1px solid #057AE7;
+    border-radius: 20px;
+    padding: 5px 15px;
+    font: normal normal bold 12px/15px Lato;
+    letter-spacing: 0.6px;
+    color: #057AE7;
+    font-family: 'Lato', sans-serif;
+}
+.oemDashboard .extra {
+    background: #EAEFF5;
+    border-radius: 8px;
+    padding: 15px;
+}
+.oemDashboard .extra mark {
+    background: transparent;
+}
+.oemDashboard .title{
+    font: normal normal bold 24px/29px Lato;
+    letter-spacing: 1.2px;
+    font-family: 'Lato', sans-serif;
+    font-size: 24px;
+    color: #2D3047;
+}
+.oemDashboard .data {
+    padding-left: 15px;
+    height: 260px;
+}
+.oemDashboard .first {
+    text-transform: uppercase;
+    font: normal normal 600 14px/30px Lato;
+    letter-spacing: 0.7px;
+    color: #888888;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+}
+.oemDashboard .second {   
+    font: normal normal bold 22px/30px Lato;
+    letter-spacing: 1.1px;
+    color: #2D3047;
+    font-family: 'Lato', sans-serif;
+    font-size: 22px;
+}
+.oemDashboard .viewBtn {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    background: #fff;
+    border: 1px solid #057AE7;
+    border-radius: 20px;
+    padding: 5px 15px;
+    font: normal normal bold 12px/15px Lato;
+    letter-spacing: 0.6px;
+    color: #057AE7;
+    font-family: 'Lato', sans-serif;
+}
+.oemDashboard .raiseAlarm {
+    float: right;
+    background: #fff;
+    color: #0575E6;
+    border: none;
+    border: 1px solid #0575E6;
+    box-shadow: none;
+    outline: none;
+    -webkit-appearance: none;
+    border-radius: 20px;
+    padding: 10px 30px;
+    font-size: 14px;
+}
+.oemDashboard .resumeAbort {
+     color: #0575E6;
+     padding:0;
+    font-size: 14px;
+}
+.oemDashboard .smallDesc {
+    font: normal normal bold 16px/19px Lato;
+    letter-spacing: 0.8px;
+    color: #74819E;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+}
+.oemDashboard {
+    background: #F7F9FC;
+}
+.oemDashboard .reset {
+    padding-left: 10px;
+    position: absolute;
+    top: -10px;
+}
+
+// chart css started
+.row{
+    width: -webkit-fill-available;
+}
+.oemDashboard .chart .row .mat-card {
+    box-shadow: 1px 2px 6px #00000019;
+    // padding: 0 16px;
+   
+}
+
+
+.oemDashboard .chart .mat-card-header .mat-card-title {
+    letter-spacing: 0.8px;
+    font: normal normal bold 16px/19px Lato;
+    color: #74819E;
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+    position: relative;
+}
+.oemDashboard .chart .mat-card-header .mat-card-title .fa-info-circle {
+    padding-left: 5px;
+}
+/* .oemDashboard .chart .mat-card-header .mat-card-title:after {
+    content: '';
+    background: #057AE7;
+    width: 60px;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+} */
+.t1:after {
+    content: '';
+    background: #057AE7;
+    width: 100%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+}
+.t2:after {
+    content: '';
+    background: #057AE7;
+    width: 49%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+}
+.t3:after {
+    content: '';
+    background: #057AE7;
+    width: 100%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+}
+.t4:after {
+    content: '';
+    background: #057AE7;
+    width: 100%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+}
+.t5:after {
+    content: '';
+    background: #057AE7;
+    width: 100%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+}
+.t6:after {
+    content: '';
+    background: #057AE7;
+    width: 100%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+}
+.t7:after {
+    content: '';
+    background: #057AE7;
+    width: 100%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+}
+.t8:after {
+    content: '';
+    background: #057AE7;
+    width: 100%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+}
+.oemDashboard .row.chart .mat-card {
+    margin-bottom: 12px !important;
+    box-shadow: 1px 2px 6px #00000019;
+    height: 385px;
+}
+.stackbar{
+    max-height: 187px;
+}
+.oemDashboard .row.chart>div {
+    padding: 0px 5px;
+}
+.oemDashboard .chart .PortfolioDiv {
+    display: flex;
+    justify-content: space-between;
+}
+.oemDashboard .chart .mat-card .mat-card-header {
+    padding-bottom: 15px;
+}
+.oemDashboard .chart .PortfolioDiv .right {
+    display: flex;
+}
+.oemDashboard .chart .PortfolioDiv .right .subtitle {
+    margin: 0;
+}
+.oemDashboard .chart .PortfolioDiv .right .toggle {
+    list-style-type: none;
+    display: inherit;
+    margin: 0;
+    margin-top: -5px;
+    padding-inline-start: 15px;
+}
+.oemDashboard .chart .PortfolioDiv .right .toggle li {
+    padding: 5px 10px 0px 10px;
+    border: 1px solid #057AE7;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.oemDashboard .chart .PortfolioDiv .right .toggle li.active {
+    background: #E0EEFF 0% 0% no-repeat padding-box;
+    color: #057AE7;
+    font-weight: bold;
+}
+.oemDashboard .chart .PortfolioDiv .right .toggle li:nth-of-type(1) {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-right-width: 0px;
+}
+.oemDashboard .chart .PortfolioDiv .right .toggle li:nth-of-type(2) {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+// chart css ended
+.oemDashboard .chart .mat-card .mat-card-content .valueTitle {
+    font: normal normal bold 24px/29px Lato;
+    letter-spacing: 1.2px;
+    color: #2D3047;
+    font-family: 'Lato', sans-serif;
+}
+.oemDashboard .chart .mat-card .mat-card-content .srokeCircle {
+    width: 100%;
+    min-height: 115px;
+    max-height: 110px;
+}
+
+.treeChart {
+    width: 100%;
+    height: 300px;
+}
+
+#multilineChart {
+    width: 100%;
+    height: 315px;
+}
+
+// #chart {
+//     width: 100%;
+//     height: 315px;
+// }
+.botOSChartOuter {
+    display: flex;
+}
+.botOSChartOuter2 {
+    display: flex;
+}
+.botOSChartOuter2 .row {
+    padding-left: 15px;
+}
+.botOSChartOuter2 .row mark {
+    background: #EAEFF5;
+    padding: 10px;
+    border-radius: 4px;
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+}
+.botOSChartOuter2 .row mark b {
+    font: normal normal normal 14px/17px Lato;
+    font-family: 'Lato', sans-serif;
+}
+
+.botOSChartOuter2:before {
+    content: '';
+    border-top: 1px solid #CCCCCC;
+    width: 90%;
+    position: absolute;
+    top: -10px;
+}
+.porfolioChart {
+    width: 100%;
+    height: 260px;
+}
+.averageUptimeChart {
+    width: 100%;
+    height: 270px;
+    position: relative;
+}
+.averageSollingLossChart {
+    width: 100%;
+    height: 270px;
+}
+.botStatusChart {
+    width: 100%;
+    height: 100%;
+    max-height: 230px;
+}
+.botOSChart {
+    width: 50%;
+    height: 200px;
+}
+.botOSChart2 {
+    width: 50%;
+    height: 200px;
+}
+.botOSChartOuter .desc {
+    padding-top: 60px;
+}
+.botOSChartOuter2 .desc {
+    padding-top: 60px;
+}
+.serviceNotification {
+    height: 90px;
+    width: 100%;
+}
+.replacementNotification {
+    height: 90px;
+    width: 100%;
+}
+
+
+.botOSChartOuter .desc .title,
+.botOSChartOuter2 .desc .title {
+    font: normal normal bold 14px/20px Lato;
+    letter-spacing: 0.7px;
+    color: #2D3047;
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    font-size: 13px;
+}
+.botOSChartOuter .desc .d1,
+.botOSChartOuter2 .desc .d1 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+}
+.botOSChartOuter .desc .d1:before,
+.botOSChartOuter2 .desc .d1:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #26A69A;
+    position: absolute;
+    border-radius: 10px;
+    top: 3px;
+    left: 0;
+}
+.botOSChartOuter .desc .d2, 
+.botOSChartOuter2 .desc .d2 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+}
+.botOSChartOuter .desc .d2:before,
+.botOSChartOuter2 .desc .d2:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #EE2A41;
+    position: absolute;
+    border-radius: 10px;
+    top: 3px;
+    left: 0;
+}
+
+
+
+.averageUptimeChart .desc {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 9;
+}
+.averageUptimeChart .desc .title {
+    font: normal normal bold 14px/20px Lato;
+    letter-spacing: 0.7px;
+    color: #2D3047;
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    font-size: 13px;
+}
+.averageUptimeChart .desc .d1 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+}
+.averageUptimeChart .desc .d1:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #F68D5D;
+    position: absolute;
+    border-radius: 10px;
+    top: 3px;
+    left: 0;
+}
+.averageUptimeChart .desc .d2 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+}
+.averageUptimeChart .desc .d2:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #9390F7;
+    position: absolute;
+    border-radius: 10px;
+    top: 3px;
+    left: 0;
+}
+
+
+
+.plantDash .desc {
+    padding-left: 15px;
+}
+.plantDash .desc .title {
+    font: normal normal bold 14px/20px Lato;
+    letter-spacing: 0.7px;
+    color: #2D3047;
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    font-size: 13px;
+}
+
+//Start here
+.plantDash .desc .d1 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 30px;
+    font-size: 13px;
+    
+}
+.plantDash .desc .d1:before {
+    content: '';
+    width: 15px;
+    height: 15px;
+    background: #bcf0ec;
+    // position: absolute;
+    border-radius: 15px;
+    top: 3px;
+    left: 0;
+}
+.plantDash .desc .d2 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    // position: relative;
+    padding-left: 30px;
+    font-size: 13px;
+    padding-top: 5px;
+}
+.plantDash .desc .d2:before {
+    content: '';
+    width: 15px;
+    height: 15px;
+    background: #26a69a;
+    // position: absolute;
+    border-radius: 15px;
+    top: 8px;
+    left: 0;
+}
+.toppadding{
+    padding-top: 5px;
+}
+.plantDash .desc .d3 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    // position: relative;
+    padding-left: 30px;
+    font-size: 13px;
+    padding-top: 5px;
+}
+.plantDash .desc .d3:before {
+    content: '';
+    width: 15px;
+    height: 15px;
+    background: #ffd20a;
+    // position: absolute;
+    border-radius: 15px;
+    top: 8px;
+    left: 0;
+}
+.plantDash .desc .d4 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 30px;
+    font-size: 13px;
+    padding-top: 5px;
+}
+.plantDash .desc .d4:before {
+    content: '';
+    width: 15px;
+    height: 15px;
+    background: #e57373;
+    position: absolute;
+    border-radius: 15px;
+    top: 8px;
+    left: 0;
+}
+.mat-form-field{
+    display:unset;
+}
+.plantDash .desc .d5 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 30px;
+    font-size: 13px;
+    padding-top: 2px;
+}
+.plantDash .desc .d5:before {
+    content: '';
+    width: 15px;
+    height: 15px;
+    background: #ee2a41;
+    position: absolute;
+    border-radius: 15px;
+    top: 8px;
+    left: 0;
+}
+.plantDash .desc .d6 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 30px;
+    font-size: 13px;
+    padding-top: 5px;
+}
+.plantDash .desc .d6:before {
+    content: '';
+    width: 15px;
+    height: 15px;
+    background: #8e101f;
+    position: absolute;
+    border-radius: 15px;
+    top: 8px;
+    left: 0;
+}
+
+@media (max-width: 1199px) {
+    .oemDashboard .mat-form-field {
+        width: 15vw;
+        padding: 5px 5px;
+    }
+}
+
+@media (max-width: 991px) {
+    .oemDashboard .mat-form-field {
+        width: 19vw;
+        padding: 5px 5px;
+    }
+}
+
+@media (max-width: 767px) {
+    .oemDashboard .mat-card-content {
+        width: 49%;
+        padding: 5px 5px;
+    }
+    .oemDashboard .title {
+        font-size: 19px;
+    }
+    .oemDashboard .generateReport {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+ .d1 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+}
+  .d1:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #F68D5D;
+    position: absolute;
+    border-radius: 10px;
+    top: 20px;
+    left: 20px;
+}
+  .d2 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+    // padding-top: 5px;
+}
+ .d2:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #9390F7;
+    position: absolute;
+    border-radius: 10px;
+    top: 20px;
+    left: 20px;
+}
+ .d3 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+}
+  .d3:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #F68D5D;
+    position: absolute;
+    border-radius: 10px;
+    top: 20px;
+    left: 20px;
+}
+
+.d4 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+}
+  .d4:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #F68D5D;
+    position: absolute;
+    border-radius: 10px;
+    top: 20px;
+    left: 20px;
+}
+  .d5 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+    // padding-top: 5px;
+}
+ .d5:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #9390F7;
+    position: absolute;
+    border-radius: 10px;
+    top: 20px;
+    left: 20px;
+}
+ .d6 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+}
+  .d6:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #F68D5D;
+    position: absolute;
+    border-radius: 10px;
+    top: 20px;
+    left: 20px;
+}
+// th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type{
+//     color:#057AE7
+// }
+// oemDashboard css ends
+a{
+    color:#057AE7,
+   
+}
+a:link {
+    text-decoration: none;
+  }
+  
+  a:visited {
+    text-decoration: none;
+  }
+.redc{
+    color: #ee2a41
+}
+.yellowc{
+    color:  #ffd20a;
+}
+.pinkc{
+    color:  #e57373;
+}
+.brownc{
+    color: #8e101f;
+}
+.cyanc{
+    color:  #bcf0ec;
+}
+    
+.darkcyan{
+    color:  #26a69a;
+}
+.redbg{
+    background-color: #ee2a41
+}
+.yellowbg{
+    background-color: #ffd20a;
+}
+.pinkbg{
+    background-color:  #e57373;
+}
+.brownbg{
+    background-color: #8e101f;
+}
+.cyanbg{
+    background-color:  #bcf0ec;
+}
+.darkcyanbg{
+    background:  #26a69a;
+} 
+ .PortfolioDiv .right .toggle .btn:hover {
+    background: #E0EEFF 0% 0% no-repeat padding-box !important;
+    color: #057AE7;
+    // font-weight: bold;
+}
+ .PortfolioDiv .right .toggle .btn.active {
+    background: #E0EEFF 0% 0% no-repeat padding-box !important;
+    color: #057AE7;
+    font-weight: bold;
+}
+.calender{
+    right: 0;
+
+}
+.plantDash .desc .c1 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 35px;
+    font-size: 13px;
+    padding-top: 5px;
+}
+.plantDash .desc .c1:before {
+    content: '';
+    width: 25px;
+    height: 15px;
+    background:#bcf0ec;
+    position: absolute;
+    border-radius: 1px;
+    top: 8px;
+    left: 0;
+}
+.plantDash .desc .c2 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 35px;
+    font-size: 13px;
+    padding-top: 5px;
+}
+.plantDash .desc .c2:before {
+    content: '';
+    width: 25px;
+    height: 15px;
+    background: #fff0ad;
+    position: absolute;
+    border-radius: 1px;
+    top: 8px;
+    left: 0;
+}
+.plantDash .desc .c3 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 35px;
+    font-size: 13px;
+    padding-top: 5px;
+}
+.plantDash .desc .c3:before {
+    content: '';
+    width: 25px;
+    height: 15px;
+    background: #fac7cd;
+    position: absolute;
+    border-radius: 1px;
+    top: 8px;
+    left: 0;
+}
+.header-labels { 
+    width: min-content !important
+}
+.card-height{
+    height: 100% !important;
+    min-height: 362px !important;   //do not merge
+    margin-top: 10px !important;   //do not merge
+} 
+.abort-card-height{
+    height: 100% !important;
+    min-height: 374px !important;
+}
+.margin{
+    height: 95% !important;
+} 
+
+@media (max-width: 991px) {
+    .card-height{
+        height: 100% !important;
+        min-height: 362px !important;   //do not merge
+        margin-top: 10px !important;   //do not merge
+    } 
+    .botStatusChart {
+        width: 100%;
+        height: 100%;
+        max-height: 205px;
+        margin-top: -10px !important;
+    }
+    
+    .plantDash .desc .d1 {
+        font: normal normal bold 14px/17px Lato;
+        letter-spacing: 0.7px;
+        color: #74819E;
+        font-family: "Lato", sans-serif;
+        margin-top: -5px !important;
+        position: relative;
+        padding-left: 30px;
+        font-size: 11px !important;
+    }
+    .plantDash .desc .d2 {
+        font: normal normal bold 14px/17px Lato;
+        letter-spacing: 0.7px;
+        color: #74819E;
+        font-family: "Lato", sans-serif;
+        margin-top: -5px !important;
+        position: relative;
+        padding-left: 30px;
+        font-size: 11px !important;
+    }    .plantDash .desc .d3 {
+        font: normal normal bold 14px/17px Lato;
+        letter-spacing: 0.7px;
+        color: #74819E;
+        font-family: "Lato", sans-serif;
+        margin-top: -5px !important;
+        position: relative;
+        padding-left: 30px;
+        font-size: 11px !important;
+    }    .plantDash .desc .d4 {
+        font: normal normal bold 14px/17px Lato;
+        letter-spacing: 0.7px;
+        color: #74819E;
+        font-family: "Lato", sans-serif;
+        margin-top: -5px !important;
+        position: relative;
+        padding-left: 30px;
+        font-size: 11px !important;
+    }    .plantDash .desc .d5 {
+        font: normal normal bold 14px/17px Lato;
+        letter-spacing: 0.7px;
+        color: #74819E;
+        font-family: "Lato", sans-serif;
+        margin-top: -5px !important;
+        position: relative;
+        padding-left: 30px;
+        font-size: 11px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .card-height{
+        height: 100% !important;
+        min-height: 362px !important;   //do not merge
+        margin-top: 10px !important;   //do not merge
+    } 
+    .botStatusChart {
+        width: 100%;
+        height: 100%;
+        max-height: 205px;
+        margin-top: -10px !important;
+    }
+    .plantDash .desc .d1 {
+        font: normal normal bold 14px/17px Lato;
+        letter-spacing: 0.7px;
+        color: #74819E;
+        font-family: "Lato", sans-serif;
+        margin-top: -5px !important;
+        position: relative;
+        padding-left: 30px;
+        font-size: 11px !important;
+    }
+    .plantDash .desc .d2 {
+        font: normal normal bold 14px/17px Lato;
+        letter-spacing: 0.7px;
+        color: #74819E;
+        font-family: "Lato", sans-serif;
+        margin-top: -5px !important;
+        position: relative;
+        padding-left: 30px;
+        font-size: 11px !important;
+    }    .plantDash .desc .d3 {
+        font: normal normal bold 14px/17px Lato;
+        letter-spacing: 0.7px;
+        color: #74819E;
+        font-family: "Lato", sans-serif;
+        margin-top: -5px !important;
+        position: relative;
+        padding-left: 30px;
+        font-size: 11px !important;
+    }    .plantDash .desc .d4 {
+        font: normal normal bold 14px/17px Lato;
+        letter-spacing: 0.7px;
+        color: #74819E;
+        font-family: "Lato", sans-serif;
+        margin-top: -5px !important;
+        position: relative;
+        padding-left: 30px;
+        font-size: 11px !important;
+    }    .plantDash .desc .d5 {
+        font: normal normal bold 14px/17px Lato;
+        letter-spacing: 0.7px;
+        color: #74819E;
+        font-family: "Lato", sans-serif;
+        margin-top: -5px !important;
+        position: relative;
+        padding-left: 30px;
+        font-size: 11px !important;
+    }
+}
+
+
+@media (max-width: 1199px) {
+    .card-height{
+        height: 100% !important;
+        min-height: 362px !important;   //do not merge
+    margin-top: 10px !important;   //do not merge
+    } 
+    .botStatusChart {
+        width: 100%;
+        height: 100%;
+        max-height: 205px;
+        margin-top: -10px !important;
+    }
+    .plantDash .desc .d1 {
+        font: normal normal bold 14px/17px Lato;
+        letter-spacing: 0.7px;
+        color: #74819E;
+        font-family: "Lato", sans-serif;
+        margin-top: -5px !important;
+        position: relative;
+        padding-left: 30px;
+        font-size: 11px !important;
+    }
+    .plantDash .desc .d2 {
+        font: normal normal bold 14px/17px Lato;
+        letter-spacing: 0.7px;
+        color: #74819E;
+        font-family: "Lato", sans-serif;
+        margin-top: -5px !important;
+        position: relative;
+        padding-left: 30px;
+        font-size: 11px !important;
+    }    .plantDash .desc .d3 {
+        font: normal normal bold 14px/17px Lato;
+        letter-spacing: 0.7px;
+        color: #74819E;
+        font-family: "Lato", sans-serif;
+        margin-top: -5px !important;
+        position: relative;
+        padding-left: 30px;
+        font-size: 11px !important;
+    }    .plantDash .desc .d4 {
+        font: normal normal bold 14px/17px Lato;
+        letter-spacing: 0.7px;
+        color: #74819E;
+        font-family: "Lato", sans-serif;
+        margin-top: -5px !important;
+        position: relative;
+        padding-left: 30px;
+        font-size: 11px !important;
+    }    .plantDash .desc .d5 {
+        font: normal normal bold 14px/17px Lato;
+        letter-spacing: 0.7px;
+        color: #74819E;
+        font-family: "Lato", sans-serif;
+        margin-top: -5px !important;
+        position: relative;
+        padding-left: 30px;
+        font-size: 11px !important;
+    }
+.oemDashboard ul.dataValue li {
+    position: relative;
+    padding-left: 15px;
+    padding-right: 5px;
+    font-size: 10px;
+}
+.plantDash .desc .c2{
+    font-size: 8px;
+}
+.plantDash .desc .c1{
+    font-size: 8px;
+    // margin-top: -10px;
+}
+.plantDash .desc .c3{
+    font-size: 8px;
+}
+}
+
+@media (max-width: 1600px) {
+    .card-height{
+        height: 100% !important;
+        min-height: 362px !important;   //do not merge
+        margin-top: 10px !important;   //do not merge
+    } 
+}
+
+::ng-deep .mat-sort-header-arrow[style] {
+    // Hide default arrow stem
+    .mat-sort-header-stem {
+      display: none;
+    }
+    .mat-sort-header-indicator {
+      opacity: 1;
+      color: black;
+      font-weight: bold;
+  
+      // Hide default arrow as its composed of left, right and middle
+      .mat-sort-header-pointer-left,
+      .mat-sort-header-pointer-right,
+      .mat-sort-header-pointer-middle {
+        display: none;
+      }
+    }
+  }
+  
+  // My custom ascending arrow
+  [aria-sort='ascending'] {
+    ::ng-deep .mat-sort-header-arrow {
+      .mat-sort-header-indicator {
+        &::before {
+          content: '\25B4';
+          top: -0em;
+          position: absolute;
+          color: #004e87;
+          font-size: 20px;
+          line-height: 10px;
+        }
+      }
+    }
+  }
+  
+  // My custom descending arrow
+  [aria-sort='descending'] {
+    ::ng-deep .mat-sort-header-arrow {
+      .mat-sort-header-indicator {
+        &::before {
+          content: '\25BE';
+          top: -15px;
+          position: absolute;
+          color: #004e87;
+          font-size: 20px;
+        }
+      }
+    }
+  }
+  /* .plantDash[_ngcontent-nrf-c513] .desc[_ngcontent-nrf-c513] .d1[_ngcontent-nrf-c513] */
+    @media (max-width: 820px) and  (min-width:768px){
+    .stackbar{
+        max-height: 179px;
+    }
+    .demoMargin{
+        margin-bottom: 25px;
+    }
+  } 

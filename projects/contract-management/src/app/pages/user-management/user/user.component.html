@@ -1,0 +1,245 @@
+<div>
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-8">
+          <h5 class="mb-4">
+            <strong>User Details</strong>
+          </h5>
+        </div>
+        <div class="col-md-4" style="text-align: end;" *ngIf="isUpdate">
+          <span>Change Password : </span>
+          <nz-switch [(ngModel)]="editPassword" [nzDisabled]="isDisabled" (ngModelChange)="editCurrentPassword($event)"></nz-switch>
+        </div>
+      </div>
+      <form nz-form [nzLayout]="'vertical'" [formGroup]="validateForm1" (ngSubmit)="submitForm1()">
+        <div class="row">
+          <div class="col-md-4">
+            <nz-form-item>
+              <nz-form-label nzRequired nzFor="firstName">First Name</nz-form-label>
+              <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="Please enter first name!">
+                <input nz-input formControlName="firstName" placeholder="First Name" id="firstName" />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="col-md-4">
+            <nz-form-item>
+              <nz-form-label nzRequired nzFor="lastName">Last Name</nz-form-label>
+              <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="Please enter last name!">
+                <input nz-input formControlName="lastName" placeholder="Last Name" id="lastName" />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="col-md-4">
+            <nz-form-item>
+              <nz-form-label nzRequired class="labels" nzFor="roles">Roles</nz-form-label>
+              <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="Please select roles!">
+                <!-- (ngModelChange)="onSelectRole($event)" -->
+                <nz-select formControlName="roles" [nzMaxTagCount]="3" (ngModelChange)="onSelectRole($event)"   [nzMaxTagPlaceholder]="tagPlaceHolder"
+                  nzPlaceHolder="Please select">
+                  <nz-option *ngFor="let item of listOfOption" [nzLabel]="item.name" [nzValue]="item.roleId"></nz-option>
+                </nz-select>
+                <ng-template #tagPlaceHolder let-selectedList> and {{ selectedList.length }} more selected
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div *ngIf="Visible" class="col-md-4" >
+            <nz-form-item>
+              <nz-form-label nzRequired class="labels" nzFor="userRoles">User Roles</nz-form-label>
+              <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="Please select roles!">
+                <nz-select formControlName="userRoles" [nzMaxTagCount]="3" [nzMaxTagPlaceholder]="tagPlaceHolder"
+                  nzMode="multiple" nzPlaceHolder="Please select">
+                  <nz-option *ngFor="let item of authority" [nzLabel]="item.name" [nzValue]="item.roleId"></nz-option>
+                </nz-select>
+                <ng-template #tagPlaceHolder let-selectedList> and {{ selectedList.length }} more selected
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="col-md-4">
+            <nz-form-item>
+              <nz-form-label nzRequired nzFor="email">Email</nz-form-label>
+              <nz-form-control [nzSm]="24" [nzXs]="24" [nzErrorTip]="emailErrorTpl">
+                <input nz-input formControlName="email" placeholder="Email" id="email" />
+                <ng-template #emailErrorTpl let-control>
+                  <ng-container *ngIf="control.hasError('email')">
+                    The input is not valid E-mail!
+                  </ng-container>
+                  <ng-container *ngIf="control.hasError('required')">
+                    Please input your E-mail!
+                  </ng-container>
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="col-md-4">
+            <nz-form-item>
+              <nz-form-label nzRequired nzFor="password">Password</nz-form-label>
+              <nz-form-control [nzSm]="24" [nzXs]="24"
+                nzErrorTip="Password between 8 and 20 characters, must contain at least one letter, one numeric digit, and one special character">
+                <!--  <input nz-input [type]="'password'" formControlName="password" placeholder="Password" id="password" /> -->
+                <nz-input-group [nzSuffix]="suffixTemplateInfo">
+                  <input nz-input [type]="'password'" formControlName="password" placeholder="Password" id="password"
+                    maxlength="20" />
+                  <ng-template #suffixTemplateInfo><i nz-icon nz-tooltip
+                      nzTooltipTitle="Password between 8 and 20 characters, must contain at least one letter, one numeric digit, and one special character"
+                      nzType="info-circle"></i></ng-template>
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+         <!-- <div class="col-md-4">
+            <nz-form-item>
+              <nz-form-label nzRequired nzFor="owner">Owner Name</nz-form-label>
+              <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="Please select Owner Name!">
+                <nz-select formControlName="ownerName" [nzMaxTagCount]="3" [nzMaxTagPlaceholder]="tagPlaceHolder"
+                nzPlaceHolder="Please select owner name">
+                  <nz-option *ngFor="let item of ownerList.data" [nzLabel]="item" [nzValue]="item"></nz-option>
+                </nz-select>
+                <ng-template #tagPlaceHolder let-selectedList> and {{ selectedList.length }} more selected
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div *ngIf="Visible" class="col-md-4">
+            <nz-form-item>
+              <nz-form-label nzRequired class="labels" nzFor="plants">Assign Plants</nz-form-label>
+              <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="Please select Plants!">
+                <nz-select formControlName="plants" [nzMaxTagCount]="3" [nzMaxTagPlaceholder]="tagPlaceHolder"
+                  nzMode="multiple" nzPlaceHolder="Please select plants">
+                  <nz-option *ngFor="let item of plantList.data" [nzLabel]="item" [nzValue]="item"></nz-option>
+                </nz-select>
+                <ng-template #tagPlaceHolder let-selectedList> and {{ selectedList.length }} more selected
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+          </div> -->
+        <div class="col-md-4" *ngIf="ownerVisible">
+            <nz-form-item>
+              <nz-form-label nzRequired nzFor="owner">Owner Name</nz-form-label>
+              <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="Please select Owner Name!">
+                <nz-select formControlName="ownerName" [nzMaxTagCount]="3" [nzMaxTagPlaceholder]="tagPlaceHolder" (ngModelChange)="getPlantName($event)"  
+                nzPlaceHolder="Please select owner name">
+                  <nz-option *ngFor="let item of ownerList" [nzLabel]="item" [nzValue]="item"></nz-option>
+                </nz-select>
+                <ng-template #tagPlaceHolder let-selectedList> and {{ selectedList.length }} more selected
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="col-md-4" *ngIf="customerVisible">
+            <nz-form-item>
+              <nz-form-label nzFor="customername">Customer Name</nz-form-label>
+              <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="Please select Customer Name!">
+                <nz-select  formControlName="customerName" [nzMaxTagCount]="3" [nzMaxTagPlaceholder]="tagPlaceHolder"   
+                nzPlaceHolder="Please select customer name">
+                  <nz-option *ngFor="let item of customerList" [nzLabel]="item" [nzValue]="item"></nz-option>
+                </nz-select>
+                <ng-template #tagPlaceHolder let-selectedList> and {{ selectedList.length }} more selected
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <!-- <div class="col-md-4">
+            <nz-form-item>
+              <nz-form-label nzRequired nzFor="customername">Customer Group</nz-form-label>
+              <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="Please select Customer Group!">
+                <nz-select formControlName="customerGroup" [nzMaxTagCount]="3" [nzMaxTagPlaceholder]="tagPlaceHolder"   
+                nzPlaceHolder="Please select customer group">
+                  <nz-option *ngFor="let item of ownerList" [nzLabel]="item" [nzValue]="item"></nz-option>
+                </nz-select>
+                <ng-template #tagPlaceHolder let-selectedList> and {{ selectedList.length }} more selected
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+          </div> -->
+          <div *ngIf="VisibleRoles"  class="col-md-4">
+            <nz-form-item>
+              <nz-form-label nzRequired class="labels" nzFor="plants">Assign Plants</nz-form-label>
+              <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="Please select Plants!">
+                <nz-select formControlName="plants" [nzMaxTagCount]="3" [nzMaxTagPlaceholder]="tagPlaceHolder"
+                  nzMode="multiple" nzPlaceHolder="Please select plants" (ngModelChange)="selectPlant($event)">
+                  <nz-option *ngFor="let item of plantsIdName" [nzLabel]="item.name" [nzValue]="item"></nz-option>
+                </nz-select>
+                <ng-template #tagPlaceHolder let-selectedList> and {{ selectedList.length }} more selected
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+          </div>  
+        <!--    <div class="col-md-4">
+            <nz-form-item>
+              <nz-form-label nzFor="designation">Responsibility </nz-form-label>
+              <nz-form-control [nzSm]="24" [nzXs]="24">
+                <nz-select formControlName="designation" nzShowSearch nzAllowClear
+                  nzPlaceHolder="Select a responsibility">
+                  <nz-option nzLabel="Designation 1" nzValue="desi-1"></nz-option>
+                  <nz-option nzLabel="Designation 2" nzValue="desi-2"></nz-option>
+                  <nz-option nzLabel="Designation 3" nzValue="desi-3"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="col-md-4">
+            <nz-form-item>
+              <nz-form-label nzFor="department">Department</nz-form-label>
+              <nz-form-control [nzSm]="24" [nzXs]="24">
+                <nz-select formControlName="department" nzShowSearch nzAllowClear nzPlaceHolder="Select a department">
+                  <nz-option nzLabel="Department 1" nzValue="dept-1"></nz-option>
+                  <nz-option nzLabel="Department 2" nzValue="dept-2"></nz-option>
+                  <nz-option nzLabel="Department 3" nzValue="dept-3"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="col-md-4">
+            <nz-form-item>
+              <nz-form-label nzFor="address">Address</nz-form-label>
+              <nz-form-control [nzSm]="24" [nzXs]="24">
+                <input nz-input formControlName="address" placeholder="Address" id="address" />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="col-md-4">
+            <span *ngIf="userData.role === 'superadmin'">
+              <nz-form-item>
+                <nz-form-label nzFor="company">Select Company </nz-form-label>
+                <nz-form-control [nzSm]="24" [nzXs]="24">
+                  <nz-select formControlName="companyName" nzShowSearch nzAllowClear nzPlaceHolder="Select a Company">
+                    <nz-option *ngFor="let item of companyList" [nzLabel]="item.name" [nzValue]="item._id">
+                    </nz-option>
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+            </span>
+          </div>
+ -->          <div class="col-4">
+            <!-- <nz-form-item>
+              <nz-form-label nzFor="admin"></nz-form-label>
+              <nz-form-control [nzSm]="24" [nzXs]="24">
+                <label nz-checkbox formControlName="isAdmin">This user is Admin?</label>
+              </nz-form-control>
+            </nz-form-item> -->
+          </div>
+         
+        </div>
+        <div class="row float-right">
+          <div class="col-6 mt-4">
+            <nz-form-item>
+              <button type="button" (click)="goBack()" class="btn btn-light px-5">
+                Cancel
+              </button>
+            </nz-form-item>
+          </div>
+          <div class="col-6 mt-4">
+            <nz-form-item>
+              <button [disabled]="flag" type="button" (click)="submitForm1()" class="btn btn-light btn-sub px-5">
+                Submit
+              </button>
+            </nz-form-item>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

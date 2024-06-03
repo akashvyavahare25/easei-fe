@@ -1,0 +1,209 @@
+<div class="row approval-height" *ngIf="!loading">
+    <div class="col-md-12">
+        <div class="col-md-12 card">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="text-grey-6 font-size-16 mb-3">
+                        <strong>Create Workflow</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <form nz-form [nzLayout]="'vertical'" [formGroup]="approvalForm" role="form">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-label class="labels" nzFor="roles">Workflow Name</nz-form-label>
+                                <nz-form-control>
+                                    <input nz-input placeholder="Enter workflow name" formControlName="name" />
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-label class="labels" nzFor="category">Target Types</nz-form-label>
+                                <nz-form-control>
+                                    <nz-select nzSize="medium" formControlName="targetType"
+                                        (ngModelChange)="changeTarget()" nzPlaceHolder="Target Type">
+                                        <nz-option *ngFor="let tirget of tirgetTypes"
+                                            [nzLabel]="tirget" [nzValue]="tirget">
+                                        </nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-label class="labels" nzFor="category">Application</nz-form-label>
+                                <nz-form-control>
+                                    <nz-select nzSize="medium" formControlName="appName" [nzDisabled]="approvalForm.get('targetType').value !== 'screen'"
+                                        (ngModelChange)="selectScreens()" nzPlaceHolder="Select Application">
+                                        <nz-option *ngFor="let application of applicationList"
+                                            [nzLabel]="application.name" [nzValue]="application.name">
+                                        </nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-label class="labels" nzFor="category">Dataset</nz-form-label>
+                                <nz-form-control>
+                                    <nz-select nzSize="medium" formControlName="targetObject"
+                                        nzPlaceHolder="Parameter category" (ngModelChange)="selectRules($event)">
+                                        <nz-option *ngFor="let option of screenData" [nzLabel]="option.name"
+                                            [nzValue]="option.code">
+                                        </nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-label class="labels" nzFor="roles">Trigger</nz-form-label>
+                                <nz-form-control [nzSm]="24" [nzXs]="24">
+                                    <nz-select formControlName="triggerOn" nzSize="medium" nzMode="multiple"
+                                        nzPlaceHolder="Please select Workflow" [nzDisabled]="triggerFlag" (ngModelChange)="checkWorkflowDefineOnTrigger($event)">
+                                        <nz-option *ngFor="let item of triggerList" [nzLabel]="item" [nzValue]="item">
+                                        </nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-label class="labels" nzFor="wfType">Workflow Type</nz-form-label>
+                                <nz-form-control [nzSm]="24" [nzXs]="24">
+                                    <nz-select formControlName="wfType" nzSize="medium" (ngModelChange)="selcetWftype($event)"nzPlaceHolder="Please select Workflow type">
+                                        <nz-option  nzLabel="Rule" nzValue="Rule"></nz-option>
+                                        <nz-option  nzLabel="No-Rule" nzValue="No-Rule"></nz-option>                                        
+                                    </nz-select>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-3" *ngIf="isRule">
+                            <nz-form-item>
+                                <nz-form-label class="labels" nzFor="rule">Rules</nz-form-label>
+                                <nz-form-control [nzSm]="24" [nzXs]="24">
+                                    <nz-select formControlName="rule" nzSize="medium" (ngModelChange)="checkWorkflowDefine($event)"
+                                        nzPlaceHolder="Please select Rules">
+                                        <nz-option *ngFor="let item of rulesList" [nzLabel]="item.name" [nzValue]="item._id">
+                                        </nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="text-grey-6 font-size-16 mb-3">
+                <strong>Workflow steps and approvers</strong>
+            </div>
+            <div class="row" *ngFor="let item of approvalForm.get('steps').controls let indexOfelement=index">
+                <div class="col-md-1">
+                    <div class="circle">
+                        {{indexOfelement+1}}</div>
+                </div>
+                <div class="col-md-11 card">
+                    <form nz-form [nzLayout]="'vertical'" [formGroup]="item" role="form">
+                        <div class="col-md-12">
+                            <nz-form-item>
+                                <nz-form-label nzFor="designation">Step Name</nz-form-label>
+                                <nz-form-control>
+                                    <input type="text" nz-input formControlName="name" nzSize="medium"
+                                        placeholder="Step Name" />
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-12">
+                            <nz-form-item>
+                                <nz-form-label class="labels" nzFor="roles">Role(s)</nz-form-label>
+                                <nz-form-control [nzSm]="24" [nzXs]="24">
+                                    <nz-select formControlName="roles" [nzMaxTagCount]="3"
+                                        [nzMaxTagPlaceholder]="tagPlaceHolder" nzMode="multiple"
+                                        nzPlaceHolder="Please select"
+                                        (ngModelChange)="changeRole(item.value.roles, indexOfelement)">
+                                        <nz-option *ngFor="let item of listOfRoles" [nzLabel]="item" [nzValue]="item">
+                                        </nz-option>
+                                    </nz-select>
+                                    <ng-template #tagPlaceHolder let-selectedList> and {{ selectedList.length }} more
+                                        selected
+                                    </ng-template>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-12">
+                            <nz-form-item>
+                                <nz-form-label class="labels" nzFor="approvers">Approver(s)</nz-form-label>
+                                <nz-form-control [nzSm]="24" [nzXs]="24">
+                                    <nz-select formControlName="approvers" [nzMaxTagCount]="3"
+                                        [nzMaxTagPlaceholder]="tagPlaceHolder" nzMode="multiple"
+                                        nzPlaceHolder="Please select approvers">
+                                        <nz-option *ngFor="let item of listOfAprrovers[indexOfelement]"
+                                            [nzLabel]="item.firstName +' '+item.lastName" [nzValue]="item._id">
+                                        </nz-option>
+                                    </nz-select>
+                                    <ng-template #tagPlaceHolder let-selectedList> and {{ selectedList.length }} more
+                                        selected
+                                    </ng-template>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-12">
+                            <nz-form-item>
+                                <nz-form-label class="labels" nzFor="roles">Notification Type</nz-form-label>
+                                <nz-form-control [nzSm]="24" [nzXs]="24">
+                                    <nz-select formControlName="notificationType" nzSize="medium" nzMode="multiple"
+                                        nzPlaceHolder="Please select notification type">
+                                        <nz-option *ngFor="let item of notificationList" [nzLabel]="item"
+                                            [nzValue]="item">
+                                        </nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row" style="align-items: baseline;">
+                                <span class="requireApprovalText">Require approval from </span>
+                                <nz-form-item>
+                                    <nz-form-control [nzSm]="24" [nzXs]="24">
+                                        <nz-select formControlName="typeOfApprovers" nzPlaceHolder="Select a approver">
+                                            <nz-option nzLabel="Any" nzValue="Any"></nz-option>
+                                            <nz-option nzLabel="All" nzValue="All"></nz-option>
+                                        </nz-select>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <span class="requireApprovalRightText">of these approvers.</span>
+                            </div>
+
+
+                        </div>
+                    </form>
+                    <div *ngIf="indexOfelement" class="deleteIcon" (click)="removeNewStep(indexOfelement)">
+                        <i nz-icon nzType="delete" style="font-size: 16px;"></i>
+                    </div>
+                    <div style="height: 30px;"></div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row addCircleTextMain">
+                    <div class="addCircle" (click)="addNewStep()">
+                        <i nz-icon nzType="plus" style="color: white"></i>
+                    </div>
+                    <div (click)="addNewStep()">
+                        <span class="addAnotherStepText">Add Another Step</span>
+                    </div>
+                    <div style="padding-left: 50px;" (click)="finish()">
+                        <span class="addAnotherStepText">Finish</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nz-modal [(nzVisible)]="isVisible" nzTitle="Confirmation modal " (nzOnCancel)="handleCancel()"
+            (nzOnOk)="handleOk()">
+            <p>Are you sure you want to submit this workflow</p>
+        </nz-modal>
+    </div>
+</div>

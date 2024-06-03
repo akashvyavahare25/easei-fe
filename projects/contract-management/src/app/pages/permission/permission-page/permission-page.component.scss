@@ -1,0 +1,10 @@
+.card-overflow {
+    overflow: auto;
+    height: 350px;
+}
+
+.permission-height {
+    height: calc(100vh - 122px);
+    overflow: auto;
+    margin-right: -10px;
+}

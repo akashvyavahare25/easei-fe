@@ -1,0 +1,173 @@
+<form [formGroup]="permissonForm" *ngIf="!loading" class="permission-height">
+   <div class="col-md-12 card">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="text-grey-6 font-size-16 mb-3">
+               <strong>Roles Permissions</strong>
+            </div>
+         </div>
+         <div class="col-md-12">
+            <div class="row">
+               <div class="col-md-3 mb-3">
+                  <nz-form-item>
+                     <nz-form-control>
+                        <nz-select (ngModelChange)="changeRole()" nzSize="medium" nzPlaceHolder="Please Select Roles"
+                           formControlName="role">
+                           <nz-option nzLabel="User" nzValue="user">User </nz-option>
+                           <nz-option nzLabel="Role-1" nzValue="role-1">Role-1</nz-option>
+                           <!-- <nz-option nzLabel="Role-2" nzValue="role-2">Role-2</nz-option> -->
+                           <!-- <nz-option nzLabel="Admin" nzValue="admin">Admin</nz-option> -->
+                        </nz-select>
+                     </nz-form-control>
+                  </nz-form-item>
+               </div>
+               <div class="col-md-9 text-right padding-right30">
+                  <nz-form-item class="margin-bottom0">
+                     <nz-form-control>
+                        <button (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+                           <strong>Submit</strong>
+                        </button>
+                        <button (click)="clearForm()" nz-button nzType="light" [nzSize]="'small'" class="margin-left5">
+                           <strong>Clear</strong>
+                        </button>
+                     </nz-form-control>
+                  </nz-form-item>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-md-12 card padding-top10 padding-bottom10">
+      <div class="row">
+         <div class="col-md-12 text-grey-6 font-size-16 mb-3">
+            <strong>Configuration Permissions</strong>
+         </div>
+      </div>
+      <div class="col-md-12">
+         <div class="row">
+            <div class="col-md-2"><strong>Name</strong></div>
+            <div class="col-md-2"><strong>View</strong></div>
+            <div class="col-md-2"><strong>Create</strong></div>
+            <div class="col-md-2"><strong>List/All</strong></div>
+            <div class="col-md-2"><strong>Edit</strong></div>
+            <div class="col-md-2"><strong>Delete</strong></div>
+         </div>
+         <div class="row">
+            <div class="col-md-12">
+               <div *ngFor="let item of permissonForm.get('configPermission').controls">
+                  <form [formGroup]="item">
+                     <div class="row">
+                        <div class="col-md-2"><strong>{{getName(item.value.name)}}</strong></div>
+                        <div class="col-md-2"><label nz-checkbox formControlName="view"></label></div>
+                        <div class="col-md-2"><label nz-checkbox formControlName="create"></label></div>
+                        <div class="col-md-2"><label nz-checkbox formControlName="list"></label></div>
+                        <div class="col-md-2"><label nz-checkbox formControlName="edit"></label></div>
+                        <div class="col-md-2"><label nz-checkbox formControlName="delete"></label></div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+
+   <div class="col-md-12 card padding-top10 padding-bottom10">
+      <div class="row">
+         <div class="col-md-12 text-grey-6 font-size-16 mb-3">
+            <strong>Masters Permissions</strong>
+         </div>
+      </div>
+      <div class="col-md-12">
+         <div class="row">
+            <div class="col-md-2"><strong>Name</strong></div>
+            <div class="col-md-2"><strong>View</strong></div>
+            <div class="col-md-2"><strong>Create</strong></div>
+            <!-- <div class="col-md-2"><strong>List/All</strong></div> -->
+            <div class="col-md-2"><strong>Edit</strong></div>
+            <div class="col-md-2"><strong>Delete</strong></div>
+         </div>
+         <div class="row">
+            <div class="col-md-12">
+               <div *ngFor="let item of permissonForm.get('mastersPermissoin').controls">
+                  <form [formGroup]="item">
+                     <div class="row">
+                        <div class="col-md-2"><strong>{{getName(item.value.name)}}</strong></div>
+                        <div class="col-md-2"><label nz-checkbox formControlName="view"></label></div>
+                        <div class="col-md-2"><label nz-checkbox formControlName="create"></label></div>
+                      <!--   <div class="col-md-2"><label nz-checkbox formControlName="list"></label></div> -->
+                        <div class="col-md-2"><label nz-checkbox formControlName="edit"></label></div>
+                        <div class="col-md-2"><label nz-checkbox formControlName="delete"></label></div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-md-12 card padding-top10 padding-bottom10">
+      <div class="row">
+         <div class="col-md-12 text-grey-6 font-size-16 mb-3">
+            <strong>Application Permissions</strong>
+         </div>
+      </div>
+      <div class="col-md-12 padding-bottom10">
+         <div class="row">
+            <div class="col-md-12 padding-bottom10"><strong>Application List</strong></div>
+            <div class="col-md-2" *ngFor="let item of permissonForm.get('appsPermissoin').controls; let i = index">
+               <form [formGroup]="item" class="col-md-12">
+                  <label nz-checkbox formControlName="value" (change)="addApplicaton(item.value, i)"
+                     (click)="addApplicaton(item.value, i)">
+                     <strong>{{getName(item.value.name)}}</strong>
+                  </label>
+               </form>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-12 padding-top10">
+         <div class="card">
+            <div class="col-md-12">
+               <div class="row">
+                  <div class="col-md-12 padding-bottom10"><strong>Screen List</strong></div>
+                  <div class="col-md-12">
+                     <div class="col-md-12">
+                        <div class="row">
+                           <div class="col-md-2"><strong>Name</strong></div>
+                           <div class="col-md-2"><strong>View</strong></div>
+                           <div class="col-md-2"><strong>Create</strong></div>
+                           <div class="col-md-2"><strong>List/All</strong></div>
+                           <div class="col-md-2"><strong>Edit</strong></div>
+                           <div class="col-md-2"><strong>Delete</strong></div>
+
+                        </div>
+                     </div>
+                     <div class="card-overflow padding-bottom10">
+                        <div *ngFor="let item of permissonForm.get('appsPermissoin').controls">
+                           <div class="col-md-12" *ngFor="let screen of item.get('screen').controls">
+                              <form [formGroup]="screen">
+                                 <div class="row">
+                                    <div class="col-md-2"><strong>{{getName(item.value.name)}} :
+                                          {{getName(screen.value.name)}}</strong>
+                                    </div>
+                                    <div class="col-md-2"><label nz-checkbox formControlName="view"></label>
+                                    </div>
+                                    <div class="col-md-2"><label nz-checkbox formControlName="create"></label>
+                                    </div>
+                                    <div class="col-md-2"><label nz-checkbox formControlName="list"></label>
+                                    </div>
+                                    <div class="col-md-2"><label nz-checkbox formControlName="edit"></label>
+                                    </div>
+                                    <div class="col-md-2"><label nz-checkbox formControlName="delete"></label>
+                                    </div>
+                                 </div>
+                              </form>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</form>

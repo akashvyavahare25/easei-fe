@@ -1,0 +1,68 @@
+<div>
+	<div class="card">
+	  <div class="card-body">
+		<div class="row" style="margin-bottom: 20px;">
+		  <div class="col-9">
+			<h5>
+			  <strong>WorkFlow Snap</strong>
+			</h5>
+		  </div>
+		</div>
+		<div *ngFor="let panel of historyData">
+			<nz-collapse nzAccordion class="mb-3" *ngIf="panel.historyOfWfinstance.length > 0">
+				<nz-collapse-panel  [nzHeader]="panel.workflowName" [nzActive]="panel.active" [nzExtra]="extraTpl" (click)="findHistory(panel)">
+					<ul class="list list-unstyled" *ngIf="panel.history.length > 0">
+						<li class="item" *ngFor="let history of panel.history;let i = index">
+								<a href="javascript: void(0);" class="itemLink">
+								<div class="itemMeta">
+									<div class="donut md"[ngClass]="{'success':history.actionStatus === 'Approved','primary':history.actionStatus === 'none','orange':history.actionStatus=== 'Delegated','danger':history.actionStatus=== 'Rejected'}"></div>
+								</div>
+								<div class="mr-3 min-width900">
+									<div class="row col-md-4 ">Step {{i+1}}</div>
+									<div class="row">
+										<div class="text-muted col-md-2" >Status:</div>
+										<div class="text-muted col-md-10" *ngIf="history.lastActionStatus==='Delegated'">Delegation </div>
+										<div class="text-muted col-md-10" *ngIf="history.lastActionStatus!=='Delegated'">{{history.actionStatus==="none"?'Inprogress':history.actionStatus}} </div>
+									</div>
+									<div class="row">
+										<div class="text-muted col-md-2">User:</div>
+										<div class="text-muted col-md-10">{{history.name}} </div>
+									</div>
+									<div class="row">
+										<div class="text-muted col-md-2">Remark:</div>
+										<div class="text-muted col-md-10">{{history.remark}}</div>
+									</div>
+									<div class="row">
+										<div class="text-muted col-md-2">Time:</div>
+										<div class="text-muted col-md-10">{{getTime(history.updatedAt)}}</div>
+			
+									</div>									
+								</div>								
+								<!-- <div class="mr-3" class="col-md-12">
+									<div class="padding20"></div>								
+									
+									
+									
+									
+									</div>													 -->
+							</a>
+						</li>
+					</ul>
+				</nz-collapse-panel>
+			</nz-collapse>
+			<ng-template #extraTpl >
+				<div class="row">	
+					<span class="text-muted col-md-5" *ngIf="panel.historyOfWfinstance.length > 0 && panel.ownerUser.length > 0">WorkFlow Instance Id {{panel._id}}
+					</span>
+					<span class="text-muted col-md-7 text-right" *ngIf="panel.historyOfWfinstance.length > 0 && panel.ownerUser.length > 0">Created By {{panel.ownerUser[0].firstName}} {{panel.ownerUser[0].lastName}}, at {{getTime(panel.createdAt)}}
+					</span>
+				</div>
+				<!-- <div class="text-muted"style="font-size: 0.8rem;">Created at {{getTime(panel.createdAt)}}</div> -->
+			</ng-template>
+		</div>
+	  </div>
+	</div>
+</div>
+   
+  
+          

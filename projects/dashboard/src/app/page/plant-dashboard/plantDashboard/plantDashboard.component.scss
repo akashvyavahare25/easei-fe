@@ -1,0 +1,647 @@
+.c-subheader {
+    background: #F7F9FC;
+    box-shadow: none;
+}
+
+
+
+::ng-deep .mat-tooltip {
+    white-space:normal !important; /* Allow text to wrap */
+    overflow: visible !important; /* Display the full tooltip text */
+    max-width: none !important; /* Remove the default max-width restriction */
+    width: 100% !important; /* Set the tooltip width to 100% */
+    text-overflow: initial !important;
+  }
+
+
+// plantDashboard css started
+.plantDashboard .mat-form-field {
+    width: 12vw;
+    padding: 5px 5px;
+}
+.plantDashboard  .days {
+    list-style-type: none;
+    display: inline-flex;
+    padding-inline-start: 15px;
+    margin: 8px;
+    position: absolute;
+    top: 50px;
+    z-index: 9;
+    left: 10px;
+}
+.days  {
+    padding-right: 3px;
+}
+.daysBtn {
+    background: #F2F2F2 !important;
+    border: none !important;
+    border-radius: 16px !important;
+    padding: 5px 10px !important;
+    font: normal normal normal 12px/20px Lato !important;
+    letter-spacing: 0.22px !important;
+    color: #000000DE !important;
+    font-family: 'Lato', sans-serif !important;
+    font-weight: 600 !important;
+    margin-left: 10px !important
+}
+.btn:hover {
+    background: #E0EEFF 0% 0% no-repeat padding-box !important;
+    color: #057AE7 !important;
+    // font-weight: bold;
+}
+
+.daysBtn:focus  {
+    background: #E0EEFF 0% 0% no-repeat padding-box !important;
+    color: #057AE7 !important;
+    font-weight: bold !important; 
+    border: none !important;
+}
+.plantDashboard ul.dataValue {
+    list-style-type: none;
+    display: inline-flex;
+    padding-inline-start: 15px;
+    margin: 0px;
+    position: absolute;
+    bottom: 20px;
+}
+.plantDashboard ul.dataValue li{
+    position: relative;
+    padding-left: 15px;
+    padding-right: 5px;
+}
+.plantDashboard ul.dataValue li:nth-of-type(1)::before{
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: #EE2A41;
+    position: absolute;
+    border-radius: 10px;
+    top: 5px;
+    left: 0;
+}
+.plantDashboard ul.dataValue li:nth-of-type(2)::before{
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: #FFD000;
+    position: absolute;
+    border-radius: 10px;
+    top: 5px;
+    left: 0;
+}
+.plantDashboard ul.dataValue li:nth-of-type(3)::before{
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: #26A69A;
+    position: absolute;
+    border-radius: 10px;
+    top: 5px;
+    left: 0;
+}
+
+.plantDashboard .viewBtn {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    background: #fff;
+    border: 1px solid #057AE7;
+    border-radius: 20px;
+    padding: 5px 15px;
+    font: normal normal bold 12px/15px Lato;
+    letter-spacing: 0.6px;
+    color: #057AE7;
+    font-family: 'Lato', sans-serif;
+}
+.plantDashboard #viewBtn1 {
+     float:right;
+    right: 15px;
+    top: 10px;  
+    background: #fff;
+    border: 1px solid #057AE7;
+    border-radius: 20px;
+    padding: 5px 15px;
+    font: normal normal bold 12px/15px Lato;
+    letter-spacing: 0.6px;
+    color: #057AE7;
+    font-family: 'Lato', sans-serif;
+}
+.plantDashboard .extra {
+    background: #EAEFF5;
+    border-radius: 8px;
+    padding: 15px;
+}
+.plantDashboard .extra mark {
+    background: transparent;
+}
+.plantDashboard .title{
+    font: normal normal bold 24px/29px Lato;
+    letter-spacing: 1.2px;
+    font-family: 'Lato', sans-serif;
+    font-size: 24px;
+    color: #2D3047;
+}
+.plantDashboard .data {
+    padding-left: 15px;
+    // height: 260px;
+}
+.plantDashboard .first {
+    text-transform: uppercase;
+    font: normal normal 600 14px/30px Lato;
+    letter-spacing: 0.7px;
+    color: #888888;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+}
+.plantDashboard .second {
+    font: normal normal bold 22px/30px Lato;
+    letter-spacing: 1.1px;
+    color: #2D3047;
+    font-family: 'Lato', sans-serif;
+    font-size: 22px;
+}
+.plantDashboard .generateReport {
+    float: right;
+    background: #0575E6;
+    color: #fff;
+    border: none;
+    border: 1px solid #0575E6;
+    box-shadow: none;
+    outline: none;
+    -webkit-appearance: none;
+    border-radius: 20px;
+    padding: 9px 35px;
+    font-size: 14px;
+}
+.plantDashboard .smallDesc {
+    font: normal normal bold 16px/19px Lato;
+    letter-spacing: 0.8px;
+    color: #74819E;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+}
+.plantDashboard {
+    background: #F7F9FC;
+}
+.plantDashboard .reset {
+    padding-left: 10px;
+    position: absolute;
+    top: -10px;
+}
+
+// chart css started
+
+.plantDashboard .chart .row .mat-card {
+    box-shadow: 1px 2px 6px #00000019;
+    // padding: 0 16px;
+}
+
+
+.plantDashboard .chart .mat-card-header .mat-card-title {
+    letter-spacing: 0.8px;
+    font: normal normal bold 16px/19px Lato;
+    color: #74819E;
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+    position: relative;
+}
+.plantDashboard .chart .mat-card-header .mat-card-title .fa-info-circle {
+    padding-left: 5px;
+}
+/* .plantDashboard .chart .mat-card-header .mat-card-title:after {
+    content: '';
+    background: #057AE7;
+    width: 60px;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+} */
+.t1:after {
+    content: '';
+    background: #057AE7;
+    width: 88%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+}
+.t2:after {
+    content: '';
+    background: #057AE7;
+    width: 85%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+}
+.t3:after {
+    content: '';
+    background: #057AE7;
+    width: 100%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+}
+.t4:after {
+    content: '';
+    background: #057AE7;
+    width: 100%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+}
+.t5:after {
+    content: '';
+    background: #057AE7;
+    width: 100%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+}
+.t6:after {
+    content: '';
+    background: #057AE7;
+    width: 80%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+}
+.t7:after {
+    content: '';
+    background: #057AE7;
+    width: 100%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+}
+.plantDashboard .row.chart .mat-card {
+    margin-bottom: 10px !important;
+    box-shadow: 1px 2px 6px #00000019;
+}
+.plantDashboard .row.chart>div {
+    padding: 0px 5px;
+}
+.plantDashboard .chart .PortfolioDiv {
+    display: flex;
+    justify-content: space-between;
+}
+.plantDashboard .chart .mat-card .mat-card-header {
+    padding-bottom: 15px;
+}
+.plantDashboard .chart .PortfolioDiv .right {
+    display: flex;
+}
+.plantDashboard .chart .PortfolioDiv .right .subtitle {
+    margin: 0;
+}
+.plantDashboard .chart .PortfolioDiv .right .toggle {
+    list-style-type: none;
+    display: inherit;
+    margin: 0;
+    margin-top: -5px;
+    padding-inline-start: 15px;
+}
+.plantDashboard .chart .PortfolioDiv .right .toggle li {
+    padding: 5px 10px 0px 10px;
+    border: 1px solid #057AE7;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.plantDashboard .chart .PortfolioDiv .right .toggle li.active {
+    background: #E0EEFF 0% 0% no-repeat padding-box;
+    color: #057AE7;
+    font-weight: bold;
+}
+.plantDashboard .chart .PortfolioDiv .right .toggle li:nth-of-type(1) {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-right-width: 0px;
+}
+.plantDashboard .chart .PortfolioDiv .right .toggle li:nth-of-type(2) {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+// chart css ended
+.plantDashboard .chart .mat-card .mat-card-content .valueTitle {
+    font: normal normal bold 24px/29px Lato;
+    letter-spacing: 1.2px;
+    color: #2D3047;
+    font-family: 'Lato', sans-serif;
+}
+.plantDashboard .chart .mat-card .mat-card-content .srokeCircle {
+    width: 100%;
+    min-height: 115px;
+    max-height: 110px;
+}
+
+.treeChart {
+    width: 100%;
+    height: 300px;
+}
+
+#multilineChart {
+    width: 100%;
+    height: 315px;
+}
+
+// #chart {
+//     width: 100%;
+//     height: 315px;
+// }
+.botOSChartOuter {
+    display: flex;
+}
+.botOSChartOuter2 {
+    display: flex;
+}
+.botOSChartOuter2 .row {
+    padding-left: 15px;
+}
+.botOSChartOuter2 .row mark {
+    background: #EAEFF5;
+    padding: 10px;
+    border-radius: 4px;
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+}
+.botOSChartOuter2 .row mark b {
+    font: normal normal normal 14px/17px Lato;
+    font-family: 'Lato', sans-serif;
+}
+
+.botOSChartOuter2:before {
+    content: '';
+    border-top: 1px solid #CCCCCC;
+    width: 90%;
+    position: absolute;
+    top: -10px;
+}
+.porfolioChart {
+    width: 100%;
+    height: 260px;
+}
+.averageUptimeChart {
+    width: 100%;
+    height: 270px;
+    position: relative;
+}
+.averageSollingLossChart {
+    width: 100%;
+    height: 270px;
+}
+.botStatusChart {
+    width: 100%;
+    height: 199px;
+}
+.botOSChart {
+    width: 50%;
+    height: 200px;
+}
+.botOSChart2 {
+    width: 50%;
+    height: 200px;
+}
+.botOSChartOuter .desc {
+    padding-top: 60px;
+}
+.botOSChartOuter2 .desc {
+    padding-top: 60px;
+}
+.serviceNotification {
+    // height: 90px;
+    width: 100%;
+}
+.replacementNotification {
+    // height: 90px;
+    padding: 0!important;
+    width: 100%;
+}
+
+
+.botOSChartOuter .desc .title,
+.botOSChartOuter2 .desc .title {
+    font: normal normal bold 14px/20px Lato;
+    letter-spacing: 0.7px;
+    color: #2D3047;
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    font-size: 13px;
+}
+.botOSChartOuter .desc .d1,
+.botOSChartOuter2 .desc .d1 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+}
+.botOSChartOuter .desc .d1:before,
+.botOSChartOuter2 .desc .d1:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #26A69A;
+    position: absolute;
+    border-radius: 10px;
+    top: 3px;
+    left: 0;
+}
+.botOSChartOuter .desc .d2, 
+.botOSChartOuter2 .desc .d2 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+}
+.botOSChartOuter .desc .d2:before,
+.botOSChartOuter2 .desc .d2:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #EE2A41;
+    position: absolute;
+    border-radius: 10px;
+    top: 3px;
+    left: 0;
+}
+
+
+
+.averageUptimeChart .desc {
+    position: absolute;
+    right: 15px;
+    margin: -17px;
+    // top: 0;
+    z-index: 9;
+}
+.averageUptimeChart .desc .title {
+    font: normal normal bold 14px/20px Lato;
+    letter-spacing: 0.7px;
+    color: #2D3047;
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    font-size: 13px;
+}
+.averageUptimeChart .desc .d1 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+}
+.averageUptimeChart .desc .d1:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #F68D5D;
+    position: absolute;
+    border-radius: 10px;
+    top: 3px;
+    left: 0;
+}
+.averageUptimeChart .desc .d2 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+}
+.averageUptimeChart .desc .d2:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #9390F7;
+    position: absolute;
+    border-radius: 10px;
+    top: 3px;
+    left: 0;
+}
+
+
+
+.plantDash .desc {
+    // padding-left: 160px;
+}
+.plantDash .desc .title {
+    font: normal normal bold 14px/20px Lato;
+    letter-spacing: 0.7px;
+    color: #2D3047;
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    font-size: 13px;
+}
+.plantDash .desc .d1 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+}
+.plantDash .desc .d1:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #EE2A41;
+    position: absolute;
+    border-radius: 10px;
+    top: 3px;
+    left: 0;
+}
+.plantDash .desc .d2 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+    padding-top: 5px;
+}
+.plantDash .desc .d2:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #FFD000;
+    position: absolute;
+    border-radius: 10px;
+    top: 8px;
+    left: 0;
+}
+.plantDash .desc .d3 {
+    font: normal normal bold 14px/17px Lato;
+    letter-spacing: 0.7px;
+    color: #74819E;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    position: relative;
+    padding-left: 15px;
+    font-size: 13px;
+    padding-top: 5px;
+}
+.plantDash .desc .d3:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #26A69A;
+    position: absolute;
+    border-radius: 10px;
+    top: 8px;
+    left: 0;
+}
+
+@media (max-width: 1199px) {
+    .plantDashboard .mat-form-field {
+        width: 15vw;
+        padding: 5px 5px;
+    }
+}
+
+@media (max-width: 991px) {
+    .plantDashboard .mat-form-field {
+        width: 19vw;
+        padding: 5px 5px;
+    }
+}
+
+@media (max-width: 767px) {
+    .plantDashboard .mat-form-field {
+        width: 49%;
+        padding: 5px 5px;
+    }
+    .plantDashboard .title {
+        font-size: 19px;
+    }
+    .plantDashboard .generateReport {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+// plantDashboard css ends

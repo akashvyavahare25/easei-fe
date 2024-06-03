@@ -1,0 +1,58 @@
+.circle {
+    width: 30px;
+    height: 30px;
+    background-color: #219ab0;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.requireApprovalText {
+    padding-left: 15px;
+    font-size: 14px;
+    padding-right: 5px;
+    // color: #8e9696;
+}
+.requireApprovalRightText {
+    padding-left: 5px;
+    font-size: 14px;
+    // color: #8e9696;
+}
+
+.addCircleTextMain {
+    align-items: center;
+    padding-bottom: 20px;
+    cursor: pointer;
+}
+
+.addCircle {
+    width: 30px;
+    height: 30px;
+    background-color: #2688ca;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+.addAnotherStepText {
+    padding-left: 10px;
+    font-size: 16px;
+    color: #2688ca;
+    font-weight: 600;
+}
+
+.deleteIcon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.approval-height {
+    height: calc(100vh - 130px);
+    overflow: auto;
+    margin-right: -10px;
+}

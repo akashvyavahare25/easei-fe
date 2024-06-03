@@ -1,0 +1,367 @@
+<div class="c-subheader sticky-top justify-content-between px-3 c-header-shadow">
+    <div class="plantDashboard">
+        <div class="row" style="width: 100%;padding: 10px 0px;">
+            <div class="col-md-6">
+                <h3 class="title">Plant Overview</h3>
+            </div>
+            <div class="col-md-6">
+                <button class="generateReport" (click)="getReport()">Generate Report</button>
+            </div>
+            <div class="col-md-12" *ngIf="summary">
+                <p class="smallDesc">{{summary.noofbots}} <span *ngIf="summary.noofbots == 1">BOT </span><span *ngIf="summary.noofbots > 1">BOTS </span> Installed &nbsp;|&nbsp; {{summary.capacity}} &nbsp;
+                    |&nbsp; Last Updated
+                    On {{summary.lastupdatedtime}}
+                </p>
+            </div>
+            <div class="col-md-12" *ngIf="plantJsonData">
+                <mat-form-field appearance="fill" class="calendar">
+                    <!-- <mat-label>Last 7 days</mat-label> -->
+                    <mat-select matNativeControl [(ngModel)]="calendar" (selectionChange)="selectedDate($event.value)">
+                        <mat-option value="7">Last 7 days</mat-option>
+                        <mat-option value="15">Last 15 days</mat-option>
+                        <mat-option value="30">Last 30 days</mat-option>
+                        <mat-option value="60">Last 60 days</mat-option>
+                        <mat-option value="180">Last 180 days</mat-option>
+                        <mat-option value="365">Last 1 year</mat-option>
+                        <mat-option value='custom'>Custom date</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="customDate" appearance="fill" *ngIf="calendar == 'custom'"> 
+                    <mat-label>Enter a date range</mat-label>
+                    <mat-date-range-input [rangePicker]="picker" [max]="maxDate">
+                      <input matStartDate placeholder="Start date" (dateChange)="selectedCustomStartDate($event)">
+                      <input matEndDate placeholder="End date" (dateChange)="selectedCustomEndDate($event)">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                  </mat-form-field>
+                  <mat-form-field  appearance="fill" class="plants">
+                    <mat-label>Plants</mat-label>
+                    <mat-select [formControl]="allPlants" [(ngModel)]="allPlants1" #select multiple (selectionChange)="getKnuList($event.value)">
+                        <mat-select-trigger>
+                            {{allPlants.value ?.length >0 ?  allPlants.value[0].name : ''}}
+                            <span *ngIf="allPlants.value?.length > 1" class="example-additional-selection">
+                                +{{allPlants.value.length - 1}}
+                            </span>
+                        </mat-select-trigger>
+                        <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelection()">All Plants</mat-checkbox>
+                        </div>
+                        <mat-option (click)="optionClick()" *ngFor="let pl of plantJsonData.data" [value]="pl">
+                            {{pl.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="allKnu">
+                    <mat-label>NCU</mat-label>
+                    <mat-select matNativeControl #select1 multiple [formControl]="allKnu" [(ngModel)]="allKnu1" (selectionChange)="getStatusList($event.value)">
+                        <mat-select-trigger>
+                            {{allKnu.value ?.length >0 ? allKnu.value[0].name : ''}}
+                            <span *ngIf="allKnu.value?.length > 1" class="example-additional-selection">
+                                +{{allKnu.value.length - 1}}
+                            </span>
+                        </mat-select-trigger>
+                          <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelected1" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelection1()">All KNU</mat-checkbox>
+                        </div>
+                        <mat-option (click)="optionClick1()" *ngFor="let knu of allKnuList" [value]="knu">
+                            {{knu.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="botStatus">
+                    <mat-label>BOT Status</mat-label>
+                    <mat-select matNativeControl #select2 multiple [formControl]="botStatus"  [(ngModel)]="botStatus1" (selectionChange)="getBot($event.value)">
+                        <mat-select-trigger>
+                            {{botStatus.value ?.length > 0 ? botStatus.value[0].name : ''}}
+                            <span *ngIf="botStatus.value?.length > 1" class="example-additional-selection">
+                               +{{botStatus.value.length - 1}}
+                            </span>
+                        </mat-select-trigger> 
+                        <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelected2" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelection2()">All BOT Status</mat-checkbox>
+                        </div>
+                        <mat-option (click)="optionClick2()" *ngFor="let bot of botStatusList" [value]="bot">
+                            {{bot.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="allBot">
+                    <mat-label>BOT</mat-label>
+                    <mat-select matNativeControl #select3 multiple [formControl]="allBot" [(ngModel)]="allBot1" (selectionChange)="getBotList($event.value)">
+                        <mat-select-trigger>
+                            {{allBot.value ?.length > 0 ? allBot.value[0].name : ''}}
+                            <span *ngIf="allBot.value?.length > 1" class="example-additional-selection">
+                                +{{allBot.value.length - 1}}
+                            </span>
+                        </mat-select-trigger>
+                        <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelected3" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelection3()">All BOTs</mat-checkbox>
+                        </div>
+                        <mat-option (click)="optionClick3()" *ngFor="let bot of allBotList" [value]="bot" [matTooltip]="bot.name" >
+                            {{bot.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>  
+                <span style="position: relative;">
+                    <button type="button" class="btn btn-link resetBtn" (click)="reset()">Reset</button>
+                </span>
+            </div>
+        </div>
+
+        <div class="row" style="padding: 0px 20px;">
+            <div class="col-12">
+                <div class="row chart">
+                    <div class="col-lg-4">
+                        <mat-card class="mb-4">
+                            <mat-card-header>
+                                <mat-card-title class="t7">BOT Status</mat-card-title>
+                                <button class="viewBtn"  (click)="view('v1')">View</button>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div id="chart1" class="botStatusChart">
+                                            <highcharts-chart [Highcharts]="Highcharts" id="donut" style="width: 100%; display: block;"></highcharts-chart> 
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 plantDash">
+                                        <div class="row">
+                                            <div class="col-md-2"></div>
+                                            <div class="col-md-8" style="display: grid;  justify-content: center;">
+                                                <div *ngFor="let bot of botdatastatus" class="desc" >
+                                                    <p [ngClass]="'d'+bot.position">{{bot.name}}</p>
+                                                    <!-- <p class="d2">26 BOTs down within SLA</p>
+                                                    <p class="d3">510 healthy BOTs</p> -->
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2"></div>
+                                        </div>
+                                        
+                                    </div>
+                                 
+                                </div>
+                            </mat-card-content>
+
+                        </mat-card>
+                       
+                    </div>
+                    <div class="col-lg-4">
+                        <mat-card class="mb-4" style="height: 338px;">
+                            <mat-card-header>
+                                <mat-card-title class="t4">Cleaning Schedule </mat-card-title>
+                              <!--   <button class="viewBtn">View</button> -->
+                            </mat-card-header>
+                            <mat-card-content class="data">
+                                <div class="row"  *ngIf="cleaningData">
+                                    <div class="col-sm-12">
+                                        <div class="row col-sm-12 data1">
+                                            <div class="col-sm-12">
+                                                <b> Today :</b> {{cleaningData[0].today_date}}
+                                            </div>
+                                            <div class="col-sm-6" style="margin-top: 20px;">
+                                                <div class="first"><b> Start </b></div>
+                                                <div class="second">{{cleaningData[0].start}} </div>
+                                            </div>
+                                            <div class="col-sm-6" style="margin-top: 20px;">
+                                                <div class="first"><b>End :</b> </div>
+                                                <div class="second">{{cleaningData[0].end }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12" style="margin-top: 20px;">
+                                        <div class="row col-sm-12">
+                                            <div class="col-sm-12 extra">
+                                                <p><b> Next :</b> {{cleaningData[0].next_date}}</p>
+                                                <div class="row">
+                                                    <div class="col-sm-6" style="margin-top: 20px;">
+                                                        <div class="first"><b> Start </b></div>
+                                                        <div class="second">{{cleaningData[0].next_start}} </div>
+                                                    </div>
+                                                    <div class="col-sm-6" style="margin-top: 20px;">
+                                                        <div class="first"><b>End </b></div>
+                                                        <div class="second">{{cleaningData[0].next_end}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                    <div class="col-lg-4">
+                        <mat-card class="mb-4">
+                            <mat-card-header class="PortfolioDiv">
+                                <mat-card-title class="t3">NCU Status</mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <div id="chartTreeMap" class="treeChart porfolioChart">
+                                            <app-heatmap1 [start]="startDate" [end]="endDate" [startdatenotifier]="startdatechildNotifier" [enddatenotifier]="enddatechildNotifier" [notifier]="childNotifier" [knunotifier]="knuchildNotifier" [statusnotifier]="stauschildNotifier" [botnotifier]="botchildNotifier"></app-heatmap1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                    <div class="col-lg-4">
+                        <mat-card class="mb-4">
+                            <mat-card-header>
+                                <mat-card-title class="t2">
+                                    Average Uptime
+                                    <a data-title="Bot uptime is the ratio of total operating time of the robot and the total expected operation time. Any down time resulting from rains, high wind, manual aborts for maintenance of any system apart from robot shall not be considered as down time.">
+                                        <i class="fa fa-info-circle"></i>
+                                    </a>
+                                </mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <div id="chart2"*ngIf="chartOptions6" class="averageUptimeChart">
+                                            <div class="desc" *ngIf="averageUptimeWithAMC || averageUptimeWithoutAMC ">
+                                                <p class="d1" *ngIf="type == 'With AMC'">Avg with AMC - {{averageUptimeWithAMC}} %</p>
+                                                <p class="d2" *ngIf="typeWithoutAMC == 'Without AMC'">Avg w/o AMC - {{averageUptimeWithoutAMC}} %</p>
+                                            </div>
+                                            <apx-chart [series]="chartOptions6.series" [chart]="chartOptions6.chart"
+                                                [xaxis]="chartOptions6.xaxis" [stroke]="chartOptions6.stroke"
+                                                [colors]="chartOptions6.colors" [dataLabels]="chartOptions6.dataLabels"
+                                                [legend]="chartOptions6.legend" [markers]="chartOptions6.markers"
+                                                [grid]="chartOptions6.grid" [yaxis]="chartOptions6.yaxis" [annotations]="chartOptions6.annotations" 
+                                                [title]="chartOptions6.title" [tooltip]="chartOptions6.tooltip">
+                                            </apx-chart>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                    <div class="col-lg-4">
+                        <mat-card class="mb-4">
+                            <mat-card-header>
+                                <mat-card-title class="t1">
+                                    Average Soiling Loss
+                                    <a data-title="Soiling loss is the loss of power generation due to deposition of contamination on solar modules resulting in a loss of light transmission to solar cells.">
+                                        <i class="fa fa-info-circle"></i>
+                                    </a>
+                                </mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div class="row">
+                                    <div class="col-sm" *ngIf="chartOptions5" >
+                                        <div id="chart3" class="treeChart averageSollingLossChart averageUptimeChart">
+                                            <div class="desc" *ngIf="averageSoilingWithAMC || averageSoilingWithoutAMC ">
+                                                <p class="d1" *ngIf="soilingType == 'With AMC'">Avg with AMC - {{averageSoilingWithAMC}} %</p>
+                                                <p class="d2" *ngIf="soilingtypeWithoutAMC == 'Without AMC'">Avg w/o AMC- {{averageSoilingWithoutAMC}} %</p>
+                                            </div>
+                                            <apx-chart [series]="chartOptions5.series" [chart]="chartOptions5.chart"
+                                                [yaxis]="chartOptions5.yaxis" [xaxis]="chartOptions5.xaxis"
+                                                [labels]="chartOptions5.labels" [stroke]="chartOptions5.stroke"
+                                                [title]="chartOptions5.title" [dataLabels]="chartOptions5.dataLabels"
+                                                [grid]="chartOptions5.grid" [fill]="chartOptions5.fill"
+                                                [tooltip]="chartOptions5.tooltip" [colors]="chartOptions5.colors"
+                                                [plotOptions]="chartOptions5.plotOptions" [annotations]="chartOptions5.annotations" 
+                                                [markers]="chartOptions5.markers" [legend]="chartOptions5.legend">
+                                            </apx-chart>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                    <div class="col-lg-4">
+                            <mat-card class="mb-4" style="height: 97% !important;">
+                                    <mat-card-header>
+                                        <mat-card-title class="t5">Service Notification
+                                        </mat-card-title>
+                                        <button class="viewBtn" (click)="view('v2')">View</button>
+                                    </mat-card-header>
+                                    <mat-card-content style="margin-top:30px!important ;">
+                                        <div id="chart4" class="serviceNotification">
+
+                                            <div class="btn-group days" role="group" >
+                                                <button type="button" class="btn daysBtn">7 Days</button>
+                                                <button type="button" class="btn daysBtn">15 Days</button>
+                                                <button type="button" class="btn daysBtn" autofocus >30 Days</button>
+                                                <button type="button" class="btn daysBtn">45 Days</button>
+                                              </div>
+                                          <!--   <ul class="days">
+                                                <li><button class="daysBtn">7 Days</button></li>
+                                                <li><button class="daysBtn">15 Days</button></li>
+                                                <li><button class="daysBtn active">30 Days</button></li>
+                                                <li><button class="daysBtn">45 Days</button></li>
+                                            </ul> --> 
+                                            <highcharts-chart [Highcharts]="Highcharts" id="stackbar1" style="padding-top: 10px;width: 100%; height:80px; display: block;"></highcharts-chart> 
+                                            <mat-card-header style="padding: 0 ;margin: 0!important;margin-top:20px!important">
+                                                <div class="row" style="width: 100% !important;">
+                                                    <div class="col-md-8">
+                                                        <mat-card-title class="t6" style="margin-left: -14px;">Replacement Notification
+                                                        </mat-card-title>
+                                                    </div>
+                                                    <div class="col-md-4" style="float:left">
+                                                        <button id="viewBtn1"  (click)="view('v3')">View</button>
+                                                    </div>
+                                                </div>
+                                            </mat-card-header>
+                                            <mat-card-content>
+                                                <div class="replacementNotification">
+                                                   <!--  <ul class="days">
+                                                        <li><button class="daysBtn">7 Days</button></li>
+                                                        <li><button class="daysBtn">15 Days</button></li>
+                                                        <li><button class="daysBtn active">30 Days</button></li>
+                                                        <li><button class="daysBtn">45 Days</button></li>
+                                                    </ul> -->
+                                                    <highcharts-chart [Highcharts]="Highcharts" id="stackbar2" style="margin-top: 15px; width: 100%; height:80px; display: block;"></highcharts-chart> 
+                                                    <!-- <ul class="dataValue">
+                                                        <li>7 Days</li>
+                                                        <li>15 Days</li>
+                                                        <li>30 Days</li>
+                                                    </ul> -->
+                                                </div>
+                                            </mat-card-content>
+                                            <!-- <ul class="dataValue">
+                                                <li>7 Days</li>
+                                                <li>15 Days</li>
+                                                <li>30 Days</li>
+                                            </ul> -->
+                                        </div>
+                                    </mat-card-content>
+                            </mat-card>
+                            <!-- <div class="col-sm-12">
+                                <mat-card class="mb-4">
+                                    <mat-card-header>
+                                        <mat-card-title>Replacement Notification
+                                        </mat-card-title>
+                                        <button class="viewBtn" (click)="view('v3')">View</button>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                        <div id="chart5" class="replacementNotification">
+                                           <!--  <ul class="days">
+                                                <li><button class="daysBtn">7 Days</button></li>
+                                                <li><button class="daysBtn">15 Days</button></li>
+                                                <li><button class="daysBtn active">30 Days</button></li>
+                                                <li><button class="daysBtn">45 Days</button></li>
+                                            </ul>  
+                                            <highcharts-chart [Highcharts]="Highcharts" id="stackbar2" style="padding-top: 10px;width: 100%; height:80px; display: block;"></highcharts-chart> 
+                                            <!-- <ul class="dataValue">
+                                                <li>7 Days</li>
+                                                <li>15 Days</li>
+                                                <li>30 Days</li>
+                                            </ul>  
+                                        </div>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div> -->
+                       
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

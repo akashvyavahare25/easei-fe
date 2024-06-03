@@ -1,0 +1,24 @@
+<div>
+    <div class="card">
+      <div class="card-body">
+        <div class="row" style="margin-bottom: 20px;">
+          <div class="col-9">
+            <h5>
+              <strong>Roles</strong>
+            </h5>
+          </div>
+          <div class="col-3 addBtn">
+            <button type="button" (click)="addRole()" class="btn btn-light btn-sub px-5">
+              Add New Role
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <ag-grid-angular style="width: 100%; height: 500px;" class="ag-theme-balham" [rowData]="rowData"
+            [columnDefs]="columnDefs" (firstDataRendered)="onFirstDataRendered($event)">
+          </ag-grid-angular>
+        </div>
+      </div>
+    </div>
+  </div>
+  

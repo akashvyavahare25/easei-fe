@@ -1,0 +1,160 @@
+<div class="dialog">
+
+  <h2 mat-dialog-title>Raise Alarm</h2>
+  <mat-dialog-content class="mat-typography">
+    <div class="row" style="width: 100%;padding: 10px 0px;">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-6">
+            <p class="label">Component</p>
+            <mat-form-field appearance="fill" class="customSelect">
+                <mat-label>Select Component</mat-label>
+                <select matNativeControl required>
+                    <option value="volvo">Component</option>
+                    <option value="saab">Component 2</option>
+                </select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+              <p class="label">Select KNU</p>
+              <mat-form-field appearance="fill" class="customSelect">
+                  <mat-label>Select KNU</mat-label>
+                  <select matNativeControl required>
+                      <option value="volvo">KNU</option>
+                      <option value="saab">KNU 2</option>
+                  </select>
+              </mat-form-field>
+          </div>
+          <div class="col-md-6">
+              <p class="label">Select BCU ID</p>
+              <mat-form-field appearance="fill" class="customSelect">
+                  <mat-label>Select BCU ID</mat-label>
+                  <select matNativeControl required>
+                      <option value="volvo">BCU ID</option>
+                      <option value="saab">BCU ID 2</option>
+                  </select>
+              </mat-form-field>
+          </div>
+          <div class="col-md-6">
+              <p class="label">Select Table ID</p>
+              <mat-form-field appearance="fill" class="customSelect">
+                  <mat-label>Associated Table ID</mat-label>
+                  <select matNativeControl required>
+                      <option value="volvo">Associated Table ID</option>
+                      <option value="saab">Associated Table ID 2</option>
+                  </select>
+              </mat-form-field>
+          </div>
+          <div class="col-md-6">
+              <p class="label">Select Issue</p>
+              <mat-form-field appearance="fill" class="customSelect">
+                  <mat-label>Select Issue</mat-label>
+                  <select matNativeControl required>
+                      <option value="volvo">Issue</option>
+                      <option value="saab">Issue 2</option>
+                  </select>
+              </mat-form-field>
+          </div>
+          <div class="col-md-6">
+              <p class="label">Select Issue Type</p>
+              <mat-form-field appearance="fill" class="customSelect">
+                  <mat-label>Select Issue Type</mat-label>
+                  <select matNativeControl required>
+                      <option value="volvo">Issue Type</option>
+                      <option value="saab">Issue Type 2</option>
+                  </select>
+              </mat-form-field>
+          </div>
+          <div class="col-md-6">
+              <p class="label">Select Issue Category</p>
+              <mat-form-field appearance="fill" class="customSelect">
+                  <mat-label>Select Issue Category</mat-label>
+                  <select matNativeControl required>
+                      <option value="volvo">Issue Category</option>
+                      <option value="saab">Issue Category 2</option>
+                  </select>
+              </mat-form-field>
+          </div>
+          <div class="col-md-6">
+              <p class="label">Select Issue Description</p>
+              <mat-form-field appearance="fill" class="customSelect">
+                  <mat-label>Select Issue Description</mat-label>
+                  <select matNativeControl required>
+                      <option value="volvo">Issue Description</option>
+                      <option value="saab">Issue Description 2</option>
+                  </select>
+              </mat-form-field>
+          </div>
+          <div class="col-md-6">
+              <p class="label">Select Impact</p>
+              <mat-form-field appearance="fill" class="customSelect">
+                  <mat-label>Select Impact</mat-label>
+                  <select matNativeControl required>
+                      <option value="volvo">Impact</option>
+                      <option value="saab">Impact 2</option>
+                  </select>
+              </mat-form-field>
+          </div>
+          <div class="col-md-6">
+              <p class="label">Select Impact Details</p>
+              <mat-form-field appearance="fill" class="customSelect">
+                  <mat-label>Select Impact Details</mat-label>
+                  <select matNativeControl required>
+                      <option value="volvo">Impact Details</option>
+                      <option value="saab">Impact Details 2</option>
+                  </select>
+              </mat-form-field>
+          </div>
+          <div class="col-md-6">
+              <p class="label">Select Priority</p>
+              <mat-form-field appearance="fill" class="customSelect">
+                  <mat-label>Select Priority</mat-label>
+                  <select matNativeControl required>
+                      <option value="volvo">Priority</option>
+                      <option value="saab">Priority 2</option>
+                  </select>
+              </mat-form-field>
+          </div>
+          <div class="col-md-12">
+              <p class="label">Attachment</p>
+              <button mat-button mat-dialog-close class="uploadFile">+ Upload file</button>
+          </div>
+
+
+
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="outer">
+          <div class="name">Ticket ID</div>
+          <div class="value">T17837D7</div>
+        </div>
+        <div class="outer">
+          <div class="name">Ticket Date</div>
+          <div class="value">21.10.2021 21:47</div>
+        </div>
+        <div class="outer">
+          <div class="name">Ticket Type</div>
+          <div class="value">Manual</div>
+        </div>
+        <div class="outer">
+          <div class="name">Status</div>
+          <div class="value">Open</div>
+        </div>
+        <div class="outer">
+          <div class="name">Raised by</div>
+          <div class="value">John Doe</div>
+        </div>
+        
+        <div class="outer">
+          <div class="name">Assignee</div>
+          <div class="value">—</div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="cancel">Cancel</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial class="save">Save</button>
+  </mat-dialog-actions>
+</div>

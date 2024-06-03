@@ -1,0 +1,12 @@
+<!-- <h1>All Screens</h1> -->
+<ag-grid-angular style="width: 100wh; height: calc(100vh - 125px);" (firstDataRendered)="onFirstDataRendered($event)"
+    class="ag-theme-balham" [rowData]="screensData" [columnDefs]="columnDefs" [gridOptions]="gridOptions">
+</ag-grid-angular>
+
+<nz-modal nzWidth={1000} [(nzVisible)]="isFormVisible" nzTitle="{{screenName}}" (nzOnCancel)="handleCancel()"
+    (nzOnOk)="handleOk()">
+    <span class="screenPreview" *ngIf="form.components.length > 0">
+        <!-- <form-builder [form]="form" [options]="options"></form-builder> -->
+        <formio [form]="form"></formio>
+    </span>
+</nz-modal>

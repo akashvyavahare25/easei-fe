@@ -1,0 +1,28 @@
+<!-- <div class="home-page display-flex">
+    <div class="col-md-12 margin-auto text-center">
+        <img class="elt-image" [src]="imageSrc"/>
+        <div class="text-center sub-title">Contract Management System</div>
+    </div>
+</div> -->
+<div class="col-md-12">
+    <div *ngIf="isShown">
+        <div *ngFor="let item of dataArray">
+            <div *ngIf="item.screen && item.screen.length > 0">
+                <div class="text-grey-6 font-size-16 mb-3">
+                    <strong>{{item.application.name}}</strong>
+                </div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-2" *ngFor="let screen of item.screen">
+                            <div class="card cursor-pointer text-center" (click)="openReport(item)">
+                                <div class="card-body">
+                                    <div class="col-md-12">{{screen.name}} </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+.min-height {
+    height: calc(100vh - 200px);
+    overflow: auto;
+    overflow-x:hidden;
+    //margin-right: -5px;
+}
+.min-width{
+    min-width: 1080px;
+}

@@ -1,0 +1,59 @@
+<div *ngIf="isLogin" style="width:-webkit-fill-available">
+    <div #sidebar appSidebar>
+    </div>
+
+    <!--
+                Main content leaving the div content class
+                https://coreui.io/docs/layout/overview/
+            -->
+    <div class="c-wrapper">
+        <!--
+                  https://coreui.io/docs/components/header/
+              -->
+        <!-- <header class="c-header c-header-light c-header-fixed c-header-shadow">
+            <button matRipple class="c-header-toggler" type="button" (click)="sidebar.toggle()">
+                  <span class="c-header-toggler-icon"></span>
+            </button>
+        </header>
+        <div class="c-header-brand">
+            <div class="">
+                <img class="logo" src="assets/images/logo.png" />
+            </div>
+        </div> -->
+        <header class="c-header c-header-light  c-header-shadow">
+            <button matRipple class="c-header-toggler" type="button" (click)="sidebar.toggle()">
+                  <span class="c-header-toggler-icon"></span>
+            </button> 
+            <div class="cname">{{cust_name}}</div>
+           
+            <div class="c-header-brand">
+                <div  class="pad" *ngIf="isHide">
+                    <mat-form-field appearance="fill" >
+                        <mat-label>Choose Application</mat-label>
+                        <mat-select matNativeControl  (selectionChange)="switchApplication($event)">
+                            <mat-option value="drone">Drone</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="">
+                    <img [src]='logoImage' class="logo" />
+                </div>
+            </div>
+        </header>
+        <div class="c-body">
+            <div class="c-subheader sticky-top justify-content-between px-3 c-header-shadow">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p class="text1">Copyright © {{year | date:'yyyy'}} {{cust_name}}. All Rights Reserved.</p>
+                </div>
+                <div class="col-sm-6">
+                    <p class="text2">Terms of use | Disclaimer | Privacy Policy</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>

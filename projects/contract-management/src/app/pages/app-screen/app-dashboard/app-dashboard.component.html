@@ -1,0 +1,26 @@
+<div class="options"></div>
+<div class="options-header"></div>
+<gridster [options]="options" class="gridster-height">
+    <gridster-item [item]="item" *ngFor="let item of dashboard;let i = index">
+        <div class="button-holder" *ngIf="item.graphData">
+            <div class="row">
+                <div class="col-md-12">
+                    <plotly-plot [data]="item.graphData" [layout]="item.layout"></plotly-plot>
+                </div>
+            </div>
+            <div class="col-md-12 text-right" *ngIf="item.graphData">
+                <i class="fa fa-eye" (click)="showModal(i, item)" aria-hidden="true" title="Preview"
+                    style="cursor: pointer;font-size: 100%; color: rgba(0,0,0,.69);"></i>
+            </div>
+        </div>
+    </gridster-item>
+</gridster>
+<div class="col-md-12" *ngIf="isVisible">
+    <nz-modal nzWidth="90%" [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()" (nzOnOk)="handleCancel()">
+        <ng-container>
+            <div class="col-md-12" *ngIf="graphModal && graphModal.data">
+                <plotly-plot [data]="graphModal.data" [layout]="graphModal.layout"></plotly-plot>
+            </div>
+        </ng-container>
+    </nz-modal>
+</div>

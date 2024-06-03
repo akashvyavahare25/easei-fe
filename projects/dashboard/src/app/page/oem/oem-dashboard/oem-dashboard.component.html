@@ -1,0 +1,467 @@
+<div class="c-subheader sticky-top justify-content-between px-3 c-header-shadow">
+    <div class="oemDashboard">
+        <div class="row" style="width: 100%;padding: 10px 0px;">
+            <div class="col-md-6">
+                <h3 class="title">{{plantName}}</h3>
+            </div>
+            <div class="col-md-6">
+                <button class="raiseAlarm"  (click)="openDialog()">Raise Alarm</button>
+            </div>
+            <div class="col-md-12" *ngIf="ncuSummary">
+                <p class="smallDesc">{{ncuSummary.type}} &nbsp;|&nbsp; {{ncuSummary.capacity}} &nbsp;
+                    |&nbsp; {{ncuSummary.noofbots}} BOTs |&nbsp; Wind Alarm:<span *ngIf="ncuSummary.windalarm == 'Active'" [ngClass]="{'activeAlarm':ncuSummary.windalarm=='Active' }">{{ncuSummary.windalarm}}</span> <span *ngIf="ncuSummary.windalarm == 'InActive'" [ngClass]="{'InactiveAlarm':ncuSummary.windalarm=='InActive' }">{{ncuSummary.windalarm | titlecase}}</span>&nbsp;|&nbsp;Last Updated
+                   On {{ncuSummary.lastupdatedtime}} <!-- on 17 Sep, 9:23 AM IST -->
+                </p>
+            </div>
+            
+        </div>
+        <div class="row" style="padding: 0px 20px;">
+            <div class="col-lg-8">
+                <div class="row chart">
+                    <div class="col-md-6 chart">
+                        <mat-card class="mb-4">
+                            <mat-card-header class="PortfolioDiv">
+                                <mat-card-title class="t3">Plant BCU Status</mat-card-title>
+                                <div class="right">
+                                       <div class="btn-group toggle" role="group" aria-label="Basic outlined example" *ngIf="isView">
+                                        <button type="button" class="btn btn-outline-primary"
+                                        (click)="btnClick('table')">Chart View</button>
+                                        <button type="button" class="btn btn-outline-primary active"
+                                               (click)="btnClick('chart')">Table View</button>
+                                       </div>
+                                       <div class="btn-group toggle" role="group" aria-label="Basic outlined example" *ngIf="!isView">
+                                        <button type="button" class="btn btn-outline-primary active"
+                                        (click)="btnClick('table')">Chart View</button>
+                                        <button type="button" class="btn btn-outline-primary"
+                                               (click)="btnClick('chart')">Table View</button>
+                                       </div>
+                                   </div>
+                            </mat-card-header>
+                            <mat-card-content *ngIf="!isView">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div id="chart1" class="botStatusChart">
+                                            <highcharts-chart [Highcharts]="Highcharts" id="donut" style="padding-top: -15px;width: 100%; display: block;"></highcharts-chart> 
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-12" style="margin-top: 0px !important;">
+                                        <div class="row plantDash ">
+                                            <div *ngFor="let obj of chartData" class="col-6 desc">
+                                                <div  [ngClass]="'d'+obj.position"> <span style="color:black">{{obj.name | titlecase}}</span></div>
+                                            </div>  
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                            <mat-card-content *ngIf="isView">
+                                <div class="row">
+                                    <div class="col-sm plantDash">
+                                        <div  class="row ">
+                                            <table mat-table class="desc" [dataSource]="chartData" class="mat-elevation-z8">
+                                                <!--- Note that these columns can be defined in any order.
+                                                      The actual rendered columns are set as a property on the row definition" -->
+                                                <!-- Position Column -->
+                                                <ng-container matColumnDef="position" >
+                                                    
+                                                <th mat-header-cell *matHeaderCellDef> No. </th>
+                                                  <td mat-cell *matCellDef="let element" >
+                                                 </td>
+                                                </ng-container>                
+                                                <!-- Name Column -->
+                                                <ng-container matColumnDef="name">
+                                                  <th mat-header-cell *matHeaderCellDef> Name </th>
+                                                  <td mat-cell *matCellDef="let element"><div class=" plantDash">
+                                                    <div class=" desc ">
+                                                        <div  [ngClass]="'d'+element.position"> <span class="font"> {{element.name | titlecase}}</span></div>
+                                                    </div>
+                                                </div>   </td>
+                                                </ng-container>
+                                                <ng-container matColumnDef="value">
+                                                    <th mat-header-cell *matHeaderCellDef> Value </th>
+                                                    <td mat-cell *matCellDef="let element"> {{element.y}} </td>
+                                                  </ng-container>
+                                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                              </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div> 
+                    
+                    <div class="col-md-6" *ngIf="show">
+                        <mat-card class="mb-4" >
+                            <mat-card-header class="header-uptime">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <mat-card-title class="t2">
+                                            Plant Bot Uptime                                    
+                                        </mat-card-title>
+                                    </div>
+                                    <div class="col-md-6" style="float:left ;margin: 0;">
+                                        <div class="calendar">
+                                            <mat-form-field appearance="fill" class="calendar">
+                                               <!--  <mat-label>Last 7 days</mat-label> -->
+                                                <mat-select matNativeControl [(ngModel)]="days" (selectionChange)="selectedDate($event.value)">
+                                                    <mat-option value="7">Last 7 days</mat-option>
+                                                    <mat-option value="15">Last 15 days</mat-option>
+                                                    <mat-option value="30">Last 30 days</mat-option>
+                                                    <mat-option value="60">Last 60 days</mat-option>
+                                                    <mat-option value="180">Last 180 days</mat-option>
+                                                    <mat-option value="365">Last 1 year</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <div id="chart2" *ngIf="chartOptions6" class="averageUptimeChart">
+                                            <!-- <div class="desc">
+                                                <p class="d1">Avg with AMC - 98.9 %</p>
+                                            </div> -->
+                                            <apx-chart [series]="chartOptions6.series" [chart]="chartOptions6.chart"
+                                                [xaxis]="chartOptions6.xaxis" [stroke]="chartOptions6.stroke"
+                                                [colors]="chartOptions6.colors" [dataLabels]="chartOptions6.dataLabels"
+                                                [legend]="chartOptions6.legend" [markers]="chartOptions6.markers"
+                                                [grid]="chartOptions6.grid" [yaxis]="chartOptions6.yaxis" [annotations]="chartOptions6.annotations"
+                                                [title]="chartOptions6.title" [tooltip]="chartOptions6.tooltip">
+                                            </apx-chart>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+                <div class="row chart">
+                    <div class="col-md-6">
+                        <mat-card class="mb-4">
+                            <mat-card-header class="PortfolioDiv">
+                                <mat-card-title class="t1">Plant NCU Status</mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div id="chartTreeMap" class="treeChart porfolioChart">
+                                            <app-constantheatmap></app-constantheatmap>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12" style="margin-top:-60px!important;">
+                                        <div class="row plantDash toppadding">
+                                            <div *ngFor="let obj of ncuChartColor" class="col-12 desc">
+                                                <div  [ngClass]="'c'+obj.position">{{obj.name}}</div>
+                                            </div>  
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                    <div class="col-md-6" *ngIf="show">
+                        <div class="row">
+                            <div class="col-12">
+                                <mat-card class="mb-4 stackbar">
+                                    <mat-card-header>
+                                        <mat-card-title class="t4">
+                                           NCU Alarm Summary                            
+                                        </mat-card-title>
+                                        <button class="viewBtn" (click)="navigateNcu()">View</button>
+                                    </mat-card-header>                
+                                        
+                                   
+                                    <mat-card-content>
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="col-md-12">    
+                                                    <highcharts-chart [Highcharts]="Highcharts" id="stackbar1" style="padding-top: 10px;width: 100%; height:80px; display: block;"></highcharts-chart> 
+                                                                          
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <ul class="dataValue">
+                                                        <li>Alarms Exceeding SLA</li>
+                                                        <li>Alarms Within SLA</li>
+                                                    </ul> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                            <div class="col-12">
+                                <mat-card class="mb-4 stackbar">
+                                    <mat-card-header>
+                                        <mat-card-title class="t5">
+                                           BCU Alarm Summary                            
+                                        </mat-card-title>
+                                        <button class="viewBtn"  (click)="navigateBcu()">View</button>
+                                    </mat-card-header>          
+                                        
+                                   
+                                    <mat-card-content>
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="col-md-12">    
+                                                    <highcharts-chart [Highcharts]="Highcharts" id="stackbar2" style="padding-top: 10px;width: 100%; height:80px; display: block;"></highcharts-chart> 
+                                                                          
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <ul class="dataValue">
+                                                        <li>Alarms Exceeding SLA</li>
+                                                        <li>Alarms Within SLA</li>
+                                                        
+                                                    </ul> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>                        
+                    </div>                
+                </div>
+               
+            </div>
+       <div class="col-lg-4">
+                <div class="row chart">
+                    <div class="col-md-12" *ngIf="show">
+                        <form  [formGroup]="abortForm"  (ngSubmit)="raiseAlarm(abortForm)">  
+                            <mat-card class="mb-4 abort-card-height" >
+                                <mat-card-header>
+                                    <mat-card-title class="t6">
+                                        Abort Cleaning                               
+                                    </mat-card-title>
+                                </mat-card-header>       
+                                <mat-card-content>
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <div class="col-md-12">            
+                                                <mat-form-field appearance="fill" >
+                                                    <mat-label> Abort Level</mat-label>
+                                                    <mat-select formControlName="abortlevel" matNativeControl #select5 (selectionChange)="selectAbortLevel($event.value)"  > 
+                                                        <mat-option *ngFor="let abort of abortLevel" [value]="abort">
+                                                            {{abort}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-error>  
+                                                        <span *ngIf="!abortForm.get('abortlevel').valid && abortForm.get('abortlevel').touched">Please select abort level !!!</span>  
+                                                    </mat-error> 
+                                                </mat-form-field> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="row">
+                                        <div class="col-sm">
+                                            <div class="col-md-12"> 
+                                                <mat-form-field appearance="fill" >
+                                                    <mat-label> NCU ID </mat-label>
+                                                    <mat-select formControlName="ncuid" matNativeControl multiple (selectionChange)="selectNcuId($event.value)"  [disabled]="!disableDropdownNCU"> 
+                                                        <mat-option  *ngFor="let ncu of ncuList" [value]="ncu.id">
+                                                            {{ncu.name}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-error>  
+                                                        <span *ngIf="!abortForm.get('ncuid').valid && abortForm.get('ncuid').touched">Please select ncuid !!!</span>  
+                                                    </mat-error> 
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="row">
+                                        <div class="col-sm"> 
+                                            <div class="col-md-12">
+                                                 <mat-form-field appearance="fill" >
+                                                    <mat-label> BCU ID</mat-label>
+                                                    <mat-select formControlName="bcuid" matNativeControl #select5 multiple [disabled]="!disableDropdownBCU"> 
+                                                        <mat-option  *ngFor="let bcu of bcuList" [value]="bcu.id"  [matTooltip]="bcu.name">
+                                                            {{bcu.name}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-error>  
+                                                        <span *ngIf="!abortForm.get('bcuid').valid && abortForm.get('bcuid').touched">Please select bcuid !!!</span>  
+                                                    </mat-error> 
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12" style="padding: 15px;"></div>
+
+                                        <div class="col-sm">
+                                            <div class="col-md-12 alarm">                                            
+                                                    <div>
+                                                        <button type="submit" class="raiseAlarm">Apply Abort</button>
+                                                    </div>                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                        </form>
+                    </div>
+                    <div class="col-md-12" *ngIf="show">
+                        <form  [formGroup]="demoForm">
+                            <mat-card class="mb-4 card-height">
+                                <mat-card-header>
+                                    <mat-card-title class="t7">
+                                        Demo Cleaning                               
+                                    </mat-card-title>
+                                </mat-card-header>                    
+                                    
+                            
+                                <mat-card-content>                                
+                                    <!-- <div class="row">
+                                        <div class="col-sm">
+                                            <div class="col-md-12"> 
+                                                    <mat-form-field appearance="fill" >
+                                                        <mat-label> NCU ID </mat-label>
+                                                        <mat-select formControlName="ncuid" matNativeControl  (selectionChange)="selectDemoNcuId($event.value)"> 
+                                                           
+                                                            <mat-option  *ngFor="let ncu of ncuList" [value]="ncu.id">
+                                                                {{ncu.name}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                        <mat-error>  
+                                                            <span *ngIf="!demoForm.get('ncuid').valid && demoForm.get('ncuid').touched">Please select ncuid !!!</span>  
+                                                        </mat-error> 
+                                                    </mat-form-field>
+                                            
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="row">
+                                        <div class="col-md-12" style="padding: 15px;"></div>
+
+                                        <div class="col-sm">
+                                            <div class="col-md-12"> 
+                                                <mat-form-field appearance="fill" >
+                                                    <mat-label> BCU ID</mat-label>
+                                                    <mat-select formControlName="bcuid" multiple matNativeControl #select5  [disabled]="!dropdownBCUCleaning" > 
+                                                        
+                                                        <mat-option  *ngFor="let bcu of bcuList" [value]="bcu.id"  [matTooltip]="bcu.name">
+                                                            {{bcu.name}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-error>  
+                                                        <span *ngIf="!demoForm.get('bcuid').valid && demoForm.get('bcuid').touched">Please select bcuid !!!</span>  
+                                                    </mat-error> 
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12" style="padding: 15px;"></div>
+
+                                        <div class="col-md">
+                                            <div class="col-md-12" style="display: flex;justify-content: center;">                                            
+                                                    <div class="demo">
+                                                        <button type="submit" class="raiseAlarm" (click)="demoCleaning('start')" >Start Demo</button>
+                                                    </div> 
+                                                    <div class="demo">
+                                                        <button class="raiseAlarm" (click)="demoCleaning('stop')" >Stop Demo</button>
+                                                    </div>                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                        </form>
+                    </div>                   
+                </div>               
+            </div>   
+        </div>
+        <div class="col-md-12"  style="padding-left: 19px; padding-right: 20px;">
+            <div class="row chart">
+                <div class="col-sm-12">
+                    <mat-card class="mb-12" style="height: auto !important;">
+                        <mat-card-header>
+                            <mat-card-title class="t8"> Aborted BOT Status</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div class="row">
+                                    <table mat-table [dataSource]="botDataSource" matSort (matSortChange)="announceSortChange($event)"
+                                    class="mat-elevation-z8">
+                                
+                                  <!-- Position Column -->
+                                  <ng-container matColumnDef="level">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by level">
+                                    Level
+                                    </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.level}} </td>
+                                  </ng-container>
+                                
+                                  <!-- Name Column -->
+                                  <ng-container matColumnDef="no_of_bots_affected">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by no_of_bots_affected">
+                                      <span class="header-labels">No. Of Bots Affected</span>  
+                                    </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.no_ofbotsaffected}} </td>
+                                  </ng-container>
+                                
+                                  <!-- Weight Column -->
+                                  <ng-container matColumnDef="abort_type">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by abort_type">
+                                        Abort Type
+                                    </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.aborttype}} </td>
+                                  </ng-container>
+                                
+                                  <ng-container matColumnDef="abort_reason">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by abort_reason">
+                                        Abort Reason
+                                    </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.abortreason}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="issuer">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by issuer">
+                                        Issuer(OEM)
+                                    </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.issuer}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="aborted_since">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by aborted_since">
+                                        Aborted Since
+                                    </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.abortedsince}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="removal_abort">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by removal_abort">
+                                       <span  class="header-labels">Estimated Time Of Removal Of Abort</span> 
+                                    </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.estimetedtimeofremovalofabort}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="action">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by action">
+                                        Action
+                                    </th>
+                                    <td mat-cell *matCellDef="let element"><button type="button" class="btn btn-link resumeAbort" (click)="raiseAlarm(element)"><b>Lift Abort</b> </button></td>
+                                  </ng-container>
+                                  <ng-container matColumnDef="nodata">
+                                    <td mat-footer-row *matFooterCellDef [colSpan]="displayedBotColumns.length" 
+                                    style="text-align: center;">No Data Available</td>
+                                  </ng-container>
+                                 
+                                  <tr mat-header-row *matHeaderRowDef="displayedBotColumns"></tr>
+                                  <tr mat-row *matRowDef="let row; columns: displayedBotColumns;"></tr>
+                                  <tr mat-footer-row 
+                                  [hidden]="botDataSource.data.length >0"
+                                 *matFooterRowDef="['nodata']">
+                                </table>
+                                <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20,50]" [showFirstLastButtons]="true">
+                                </mat-paginator>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,169 @@
+<div class="row">
+    <div class="col-md-10">
+        <h1 mat-dialog-title ><b>BOT ID/NCU ID</b></h1>
+    </div>
+    <div class="col-md-2" style="display: flex;justify-content: right;">
+        <span class="material-icons-outlined"  mat-button mat-dialog-close >close</span> 
+    </div>
+</div>
+<mat-dialog-content class="mat-typography" *ngIf="!showResume">
+    <form  [formGroup]="abortpopupForm"  (ngSubmit)="openConfirmabort()" autocomplete="off">  
+        <div class="row">
+        <!--     <div class="col-md-12" style="margin-top: 15px !important;">
+                    <mat-label class="label"> Abort requested by</mat-label>
+                    <mat-form-field appearance="fill">
+                    <mat-select formControlName="abortRequestby" placeholder="Select authority" matNativeControl style="width: 100% !important;"> 
+                        <mat-option *ngFor="let req of abortrequest" [value]="req">
+                            {{req}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>  
+                        <span *ngIf="!abortpopupForm.get('abortRequestby').valid && abortpopupForm.get('abortRequestby').touched">Please select abort requested !!!</span>  
+                    </mat-error> 
+                </mat-form-field>
+            </div> -->
+            <div class="col-md-12">
+                    <mat-label class="label"> Person Requesting Abort</mat-label>
+                    <mat-form-field appearance="fill">
+                    <input matInput placeholder="Enter the name of the person requesting abort" type="text" formControlName="requestPerson" matNativeControl style="width: 100% !important;">
+                    <mat-error>  
+                        <span *ngIf="!abortpopupForm.get('requestPerson').valid && abortpopupForm.get('requestPerson').touched">Please select person requesting abort !!!</span>  
+                    </mat-error> 
+                </mat-form-field> 
+            </div>
+            <div class="col-md-12">
+                    <mat-label class="label"> Reason For Abort</mat-label>
+                    <mat-form-field appearance="fill">
+                    <mat-select formControlName="abortReason" matNativeControl style="width: 100% !important;"> 
+                        <mat-option *ngFor="let reason of abortreasonList" [value]="reason">
+                            {{reason}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>  
+                        <span *ngIf="!abortpopupForm.get('abortReason').valid && abortpopupForm.get('abortReason').touched">Please enter Reason for abort !!!</span>  
+                    </mat-error> 
+                </mat-form-field>
+            </div>
+            <div class="col-md-12">
+                    <mat-label class="label"> Estimated Time For Resume Abort</mat-label>
+                    <mat-form-field appearance="fill">
+                        <input matInput [matDatepicker]="picker" readonly placeholder="Select date" formControlName="resumeDate"  [max]="maxDate" >
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error>  
+                            <span *ngIf="!abortpopupForm.get('resumeDate').valid && abortpopupForm.get('resumeDate').touched">Please select Estimated time for resume abort !!!</span>  
+                        </mat-error> 
+                      </mat-form-field>
+            </div>
+            <div class="col-md-12">
+                    <mat-label class="label"> Enter Your Admin Password</mat-label>
+                    <mat-form-field appearance="fill">
+                    <input matInput placeholder="Enter your admin password" formControlName="adminPassword" [type]="hide ? 'password' : 'text'">
+                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                    <mat-error>  
+                        <span *ngIf="!abortpopupForm.get('adminPassword').valid && abortpopupForm.get('adminPassword').touched">Please enter enter your admin password !!!</span>  
+                    </mat-error> 
+                </mat-form-field>
+            </div>
+        </div>
+        <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close class="cancel">Cancel</button>
+            <button mat-button   cdkFocusInitial class="save" type="submit">Proceed</button>
+        </mat-dialog-actions>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-content class="mat-typography" *ngIf="showResume">
+    <form  [formGroup]="resumepopupForm"  (ngSubmit)="openConfirmResume()" autocomplete="off">
+        <div class="row">
+            <div class="col-md-12" style="margin-top: 15px !important;">
+                    <mat-label class="label"> Abort Requested By :</mat-label>
+                    <mat-label class="label">  Customer</mat-label>
+            </div>
+            <div class="col-md-12" style="margin-top: 15px !important;">
+                <mat-label class="label"> Name Of Requestor :</mat-label>
+                <mat-label class="label">{{liftAbortData.issuer | titlecase}}</mat-label>
+            </div>
+            <div class="col-md-12" style="margin-top: 15px !important;">
+                <mat-label class="label"> Reason For Abort :</mat-label>
+                <mat-label class="label"> {{liftAbortData.abortreason | titlecase}}</mat-label>
+            </div>
+            <div class="col-md-12" style="margin-top: 15px !important;">
+                <mat-label class="label"> Abort Application Date :</mat-label>
+                <mat-label class="label">{{liftAbortData.abortedsince}}</mat-label>
+            </div>
+
+            <div class="col-md-12" style="margin-top: 25px !important;">
+                <mat-label class="label"> Has The Reason Why The Abort Was Done Resolved?</mat-label>
+                <mat-form-field appearance="fill">
+                <mat-select formControlName="reasonAbort" placeholder="Select reason why the abort was done resolved" matNativeControl style="width: 100% !important;"> 
+                    <mat-option *ngFor="let val of reasonList" [value]="val">
+                        {{val}}
+                    </mat-option>
+                </mat-select>
+                <mat-error>  
+                    <span *ngIf="!resumepopupForm.get('reasonAbort').valid && resumepopupForm.get('reasonAbort').touched">Please Selectreason why the abort was done resolved !!!</span>  
+                </mat-error> 
+            </mat-form-field>
+            </div>
+            <div class="col-md-12" *ngIf="resumepopupForm.value.reasonAbort == 'No'">
+                <mat-label class="label"> Reason</mat-label>
+                    <mat-form-field appearance="fill">
+                    <input matInput placeholder="Reason"  type="text" formControlName="reason" matNativeControl style="width: 100% !important;">
+                    <mat-error>  
+                        <span *ngIf="!resumepopupForm.get('reason').valid && resumepopupForm.get('reason').touched">Please Enter the reason person !!!</span>  
+                    </mat-error> 
+                </mat-form-field> 
+            </div>
+         <!--    <div class="col-md-12" style="margin-top: 15px !important;">
+                <mat-label class="label"> Select the status of the requested abort</mat-label>
+                <mat-form-field appearance="fill">
+                <mat-select formControlName="requestStatus" placeholder="Select status" matNativeControl style="width: 100% !important;"> 
+                    <mat-option *ngFor="let status of reqStatus" [value]="status">
+                        {{status}}
+                    </mat-option>
+                </mat-select>
+                <mat-error>  
+                    <span *ngIf="!resumepopupForm.get('requestStatus').valid && resumepopupForm.get('requestStatus').touched">Please Select the status of the requested abort !!!</span>  
+                </mat-error> 
+            </mat-form-field>
+            </div>
+            <div class="col-md-12" >
+                    <mat-label class="label"> Resume requested by</mat-label>
+                    <mat-form-field appearance="fill">
+                    <mat-select formControlName="resumeRequestby" placeholder="Select authority" matNativeControl style="width: 100% !important;"> 
+                        <mat-option *ngFor="let resume of resumerequest" [value]="resume">
+                            {{resume}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>  
+                        <span *ngIf="!resumepopupForm.get('resumeRequestby').valid && resumepopupForm.get('resumeRequestby').touched">Please select resume requested !!!</span>  
+                    </mat-error> 
+                </mat-form-field>
+            </div> -->
+            <div class="col-md-12">
+                <mat-label class="label"> Person Requesting Resume Abort</mat-label>
+                    <mat-form-field appearance="fill">
+                    <input matInput placeholder="Enter the name of requested person"  type="text" formControlName="resumePerson" matNativeControl style="width: 100% !important;">
+                    <mat-error>  
+                        <span *ngIf="!resumepopupForm.get('resumePerson').valid && resumepopupForm.get('resumePerson').touched">Please select person requesting resume abort !!!</span>  
+                    </mat-error> 
+                </mat-form-field> 
+            </div>
+            <div class="col-md-12">
+                    <mat-label class="label"> Enter Your Admin Password</mat-label>
+                    <mat-form-field appearance="fill">
+                    <input matInput placeholder="Enter your admin password"  formControlName="resumeAdminPassword" [type]="hide ? 'password' : 'text'">
+                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                    <mat-error>  
+                        <span *ngIf="!resumepopupForm.get('resumeAdminPassword').valid && resumepopupForm.get('resumeAdminPassword').touched">Please enter enter your admin password !!!</span>  
+                    </mat-error> 
+                </mat-form-field>
+            </div>
+        </div>
+        <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close class="cancel">Cancel</button>
+            <button mat-button   cdkFocusInitial class="save" type="submit">Proceed</button>
+        </mat-dialog-actions>
+    </form>
+</mat-dialog-content>

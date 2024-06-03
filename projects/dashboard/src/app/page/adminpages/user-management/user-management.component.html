@@ -1,0 +1,82 @@
+<div class="c-subheader sticky-top justify-content-between px-3 c-header-shadow">
+    <div class="adminPage">
+             <div class="row" style="width: 100%;padding: 10px 0px;">
+                <div class="col-md-6">
+                    <h3 class="title">Create User</h3>
+                </div>
+                <div class="col-md-6">
+                    
+                </div>
+             </div>
+             <div class="row">
+                <form [formGroup]="userForm">
+                    <div class="row" style="width: 100%;padding: 10px 0px;">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p class="label">First Name</p>
+                                    <mat-form-field appearance="fill" class="customSelect"> 
+                                        <input matInput placeholder="First Name" formControlName="firstName" type="text"  matNativeControl>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="label">Last Name</p>
+                                    <mat-form-field appearance="fill" class="customSelect"> 
+                                        <input matInput placeholder="Last Name" formControlName="lastName" type="text"  matNativeControl>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="label">Roles</p>
+                                    <mat-form-field appearance="fill" class="customSelect"> 
+                                        <mat-select matNativeControl  formControlName="role" >
+                                            <mat-option>Roles</mat-option>
+                                            <mat-option value="SuperAdmin">Super Admin</mat-option>
+                                            <mat-option value="user">User</mat-option>
+                                            <!-- <mat-option value="30">Last 30 days</mat-option>
+                                            <mat-option value="60">Last 60 days</mat-option>
+                                            <mat-option value="180">Last 180 days</mat-option>
+                                            <mat-option value="365">Last 1 year</mat-option>
+                                            <mat-option value='custom'>Custom date</mat-option> -->
+                                        </mat-select> </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="label">Email</p>
+                                    <mat-form-field appearance="fill" class="customSelect"> 
+                                        <input matInput placeholder="Email" type="text"  formControlName="email" matNativeControl>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="label">Password</p>
+                                    <mat-form-field appearance="fill" class="customSelect"> 
+                                        <input matInput placeholder="Password" type="password" formControlName="password" matNativeControl>
+                                        <mat-error>Password between 8 and 20 characters, must contain at least one letter, one numeric digit, and one special character</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <!-- <div class="col-md-4">
+                                    <p class="label">Address</p>
+                                    <mat-form-field appearance="fill" class="customSelect"> 
+                                        <textarea matInput  formControlName="address"
+                                            cdkTextareaAutosize
+                                            ></textarea>
+                                     </mat-form-field>
+                                </div> -->
+                            </div>
+                            <div class="row " >
+                                <div class="col-md-12">
+                                    <div class="col-md-8"></div>
+                                    <div class="col-md-4 float-right btn">                                        
+                                        <div class="btnDiv">
+                                            <button mat-button  class="cancel" (click)="userList()">Cancel</button>
+                                        </div>
+                                        <div class="btnDiv">
+                                            <button mat-button cdkFocusInitial class="save" (click)="submit()">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+             </div>
+    </div>
+</div>

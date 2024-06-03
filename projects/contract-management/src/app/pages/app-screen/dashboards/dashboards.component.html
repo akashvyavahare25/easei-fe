@@ -1,0 +1,37 @@
+<div class="row min-height">
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <div class="text-grey-6 font-size-16 ml-1 mb-3">
+                <strong>Dashboards</strong>
+            </div>
+        </div>
+        <div class=" col-md-12 row" >
+            <div *ngFor="let item of graph" class="col-md-6 card">
+                <plotly-plot [data]="item.data" [layout]="item.layout"></plotly-plot>
+            </div>
+            <div class="col-md-12 card">
+                <plotly-plot [data]="graph1.data" [layout]="graph1.layout"></plotly-plot>
+            </div>        
+        </div> 
+        <div class="col-md-12 row">       
+            <div class="col-md-6  card p-0 m-0">
+                <!-- <plotly-plot [data]="graph2.data" [layout]="graph2.layout" [config]="graph2.config"></plotly-plot> -->
+                <highcharts-chart [Highcharts]="highcharts"  [options]="chartOptions"></highcharts-chart>
+            </div>
+            <div class="col-md-6 card p-0 m-0">
+                <highcharts-chart  [Highcharts]="highcharts" [options]="chartOptions1"></highcharts-chart>
+            </div>
+        </div>         
+        
+        <div class="col-md-12 row mt-1"> 
+            <div class="col-md-12 card">
+                <plotly-plot [data]="graph2.data" [layout]="graph2.layout" [config]="graph2.config"></plotly-plot> 
+            </div>
+        </div>
+        <div class="col-md-12 row ">            
+            <div class="col-md-12 card d-flex justify-content-center align-items-center">
+                <highcharts-chart  [Highcharts]="highcharts" [options]="chartOptions4"></highcharts-chart>    
+            </div>            
+        </div>
+    </div>
+</div>

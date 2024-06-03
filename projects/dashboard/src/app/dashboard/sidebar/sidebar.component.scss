@@ -1,0 +1,97 @@
+.c-sidebar {
+    width: 120px;
+}
+.c-sidebar .c-sidebar-nav-link, .c-sidebar .c-sidebar-nav-dropdown-toggle {
+    display: flex;
+    flex-direction: column;
+}
+.c-sidebar .c-sidebar-nav-link .c-sidebar-nav-icon, .c-sidebar .c-sidebar-nav-dropdown-toggle .c-sidebar-nav-icon {
+    flex: 0 0 20px;
+    margin: 0 !important;
+}
+.c-sidebar .c-sidebar-nav-link.c-active:before, .c-sidebar .c-active.c-sidebar-nav-dropdown-toggle:before {
+    content: "";
+    background: #00F260;
+}
+.c-sidebar {
+    background: #2D3047;
+}
+.c-sidebar .c-sidebar-nav-link.c-active:before {
+    content: '';
+    border: 5px solid #00F260;
+    height: 100%;
+    width: 10px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.c-sidebar .c-sidebar-nav-link.c-active {
+    background: inherit;
+    color: #00F260;
+}
+.c-sidebar .c-sidebar-nav-link.c-active .c-sidebar-nav-icon {
+    color: #00F260;
+}
+.c-sidebar .c-sidebar-nav-link:hover {
+    color: #00F260;
+    background: inherit;
+}
+.c-sidebar .c-sidebar-nav-link:hover .c-sidebar-nav-icon{
+    color: #00F260;
+}
+
+
+.c-wrapper .c-header-brand {
+    float: right;
+    padding: 0px 30px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 9999;
+}
+.c-wrapper .c-header-brand .logo {
+    height: 45px;
+}
+
+// Tooltip css
+[data-title] {
+    color: #74819E;
+    position: relative;
+}
+  
+[data-title]:hover::before {
+    content: attr(data-title);
+    position: absolute !important;
+    bottom: 0px !important;
+    left: 0px !important;
+    display: inline-block !important;
+    padding: 10px !important;
+    border-radius: 10px !important;
+    background: #2d3047 !important;
+    color: #fff !important;
+    font-size: 14px !important;
+    font-family: sans-serif !important;
+    width: 100% !important;
+    min-width: 250px !important;
+    z-index: 9999 !important;
+    font-weight: bold !important;
+}
+[data-title]:hover::after {
+    content: '';
+    position: absolute;
+    bottom: 10px;
+    left: 3px;
+    display: inline-block;
+    color: #fff;
+    border: 8px solid transparent;
+    border-top: 8px solid #2d3047;
+}
+/* .material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); } */
+.spanimg{
+    margin-top: 2px;
+    background: url("../../../../../../src/assets/images/solar.png");   
+    background-repeat: no-repeat;
+}

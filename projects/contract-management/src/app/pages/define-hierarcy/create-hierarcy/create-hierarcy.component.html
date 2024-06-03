@@ -1,0 +1,89 @@
+<div class="col-md-12">
+    <div class="card col-md-12">
+        <div class="row">
+            <div class="text-grey-6 col-md-6 font-size-16 mb-3">
+                <strong>Define Hierarchy</strong>
+            </div>
+            <div class="col-md-6 text-right padding-right30">
+                <nz-form-item class="margin-bottom0">
+                    <nz-form-control>
+                        <button *ngIf="!paramaterId"  (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+                            <strong>Submit</strong>
+                        </button>
+                        <button *ngIf="paramaterId" (click)="submitForm()" nz-button nzType="primary" [nzSize]="'small'">
+                            <strong>Update</strong>
+                        </button>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <form nz-form [nzLayout]="'vertical'" [formGroup]="hierarcyForm" role="form" class="row">
+                <div class="col-md-4">
+                    <nz-form-label class="labels" nzFor="name">Hierarchy Name</nz-form-label>
+                    <nz-form-item>
+                        <nz-form-control>
+                            <input type="text" nz-input nzSize="medium" placeholder="Report Name"
+                                formControlName="name" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="col-md-4">
+                    <nz-form-label class="labels" nzFor="name">Choose Application</nz-form-label>
+                    <nz-form-item>
+                        <nz-form-control>
+                            <nz-select nzSize="medium" nzPlaceHolder="Choose Dataset" formControlName="dataSet"
+                                (ngModelChange)="changeDataSet()">
+                                <nz-option *ngFor="let item of mastersData" [nzLabel]="item.name" [nzValue]="item._id">
+                                </nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="card col-md-12">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="card min-card-height">
+                    <div class="text-grey-6 font-size-16 padding-left10">
+                        <div class="col-md-12 row">
+                            <div class="col-md-6">
+                                <strong>Application Data</strong>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" [(ngModel)]="applicationValue" nz-input class="application" placeholder="Search"/>
+                             </div>
+                        </div>
+                        <div class="col-md-12">
+                            <ol inspire-tree-nodes class="tree"></ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="card min-card-height">
+                    <div class="text-grey-6 font-size-16 padding-left10">
+                        <div class="col-md-12 row">
+                            <div class="col-md-7">
+                                <strong>Create Hierarchy</strong>
+                            </div>
+                            <div class="col-md-4">
+                                <nz-form-item class="margin-bottom0">
+                                    <nz-form-control>
+                                        <input class="search" [(ngModel)]="searchValue" nz-input  type="text" placeholder="Search"/>
+                                    </nz-form-control>
+                                </nz-form-item>    
+                             </div>
+                        </div>                     
+                        
+                        <div class="col-md-12">
+                            <ol inspire-tree-nodes class="trees"></ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

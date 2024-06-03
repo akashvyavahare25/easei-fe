@@ -1,0 +1,134 @@
+<!--
+https://coreui.io/docs/components/sidebar/
+-->
+<style>
+    
+</style>
+
+<ul class="c-sidebar-nav">
+    <li class="c-sidebar-nav-title" style="color: #fff;text-align: center;font-size: 28px;text-transform: lowercase;">ei</li>
+    <li class="c-sidebar-nav-item" *ngIf="!isView && !omeVisible">
+        <a class="c-sidebar-nav-link" matRipple routerLink="portfolio/home" routerLinkActive="c-active">
+            <span class="material-icons-outlined">dashboard</span> Overview
+        </a>
+    </li>
+    <li class="c-sidebar-nav-item" *ngIf="omeVisible ">
+        <a class="c-sidebar-nav-link" matRipple routerLink="oem/dashboard/new" routerLinkActive="c-active">
+            <span class="material-icons-outlined">dashboard</span> Overview
+        </a>
+    </li>
+    <li class="c-sidebar-nav-item" *ngIf="omeVisible" style="margin-top:-20px !important">
+        <a class="c-sidebar-nav-link" matRipple routerLink="oem/dashboard/ncu" routerLinkActive="c-active">
+             <img src="./../../../assets/images/team1.png" alt="logo">NCU
+        </a>
+    </li>
+    <li class="c-sidebar-nav-item" *ngIf="omeVisible" style="margin-top:-10px !important" >
+        <a class="c-sidebar-nav-link" matRipple routerLink="oem/dashboard/bcu" routerLinkActive="c-active">
+           <img src="./../../../assets/images/bcu.png" alt="logo">
+            BCU
+        </a>
+    </li>
+    <li class="c-sidebar-nav-item" *ngIf="omeVisible"  style="margin-top:-10px !important">
+        <a class="c-sidebar-nav-link" matRipple routerLink="oem/dashboard/scheduleing" routerLinkActive="c-active">
+            <span class="material-icons-outlined">calendar_month</span>
+            Scheduling 
+        </a>
+    </li>
+    <li class="c-sidebar-nav-item" *ngIf="omeVisible"  style="margin-top:-10px !important">
+        <a class="c-sidebar-nav-link" matRipple routerLink="oem/dashboard/wind" routerLinkActive="c-active">
+              <img src="./../../../assets/images/wind.png" alt="logo">Wind
+        </a>
+    </li>
+    <li class="c-sidebar-nav-item" *ngIf="omeVisible"  style="margin-top:-10px !important">
+        <a class="c-sidebar-nav-link" matRipple routerLink="oem/dashboard/alarm" routerLinkActive="c-active">
+            <span class="material-icons-outlined">notification_important</span>Alarm 
+        </a>
+    </li>
+     <li class="c-sidebar-nav-item" *ngIf="isView">
+        <a class="c-sidebar-nav-link" matRipple routerLink="plant/plants" routerLinkActive="c-active">
+             <span class="material-icons-outlined">dashboard</span> Overview
+        </a>
+    </li>
+    
+    <li class="c-sidebar-nav-item" *ngIf="isView">
+        <a class="c-sidebar-nav-link" matRipple routerLink="plant/alarm" routerLinkActive="c-active">
+            <span class="material-icons-outlined">notification_important</span>
+            Alarm
+        </a>
+    </li>
+    <li class="c-sidebar-nav-item" *ngIf="isView">
+        <a class="c-sidebar-nav-link" matRipple routerLink="plant/plantService" routerLinkActive="c-active">
+           <span class="material-icons-outlined">miscellaneous_services</span> 
+            Service
+        </a>
+    </li> 
+    <li class="c-sidebar-nav-item" *ngIf="isView">
+        <a class="c-sidebar-nav-link" matRipple routerLink="plant/replacementNotification" routerLinkActive="c-active">
+            <span class="material-icons-outlined">find_replace
+            </span>  Replacement
+          </a>
+    </li>
+    <li class="c-sidebar-nav-item" *ngIf="isView"  style="margin-top:-10px !important">
+        <a class="c-sidebar-nav-link" matRipple routerLink="oem/dashboard/scheduleing" routerLinkActive="c-active">
+            <span class="material-icons-outlined">calendar_month</span>
+            Scheduling 
+        </a>
+    </li>
+    <li class="c-sidebar-nav-item" *ngIf="!isView && !omeVisible">
+        <a class="c-sidebar-nav-link" matRipple routerLink="report" routerLinkActive="c-active">
+            <i class="c-sidebar-nav-icon fa fa-bar-chart"></i> Reports
+        </a>
+    </li>
+    <li class="c-sidebar-nav-item" *ngIf="isView">
+        <a class="c-sidebar-nav-link" matRipple routerLink="plant/report" routerLinkActive="c-active">
+            <i class="c-sidebar-nav-icon fa fa-bar-chart"></i> Reports
+        </a>
+    </li>
+    <li class="c-sidebar-nav-item" *ngIf="loginVisible"  style="margin-top:-10px !important">
+        <a class="c-sidebar-nav-link" matRipple (click)="portfolioRouter()">
+            <span class="material-icons-outlined">
+                business_center
+            </span> Portfolio
+        </a>
+    </li>
+    <li class="c-sidebar-nav-item" *ngIf="plantvisible" routerLinkActive="c-active"  style="margin-top:-10px !important">
+        <a class="c-sidebar-nav-link" matRipple (click)="plantRouter()">
+            <img src="./../../../assets/images/solarp.png" alt="logo"> Plant
+        </a>
+    </li> 
+    <li class="c-sidebar-nav-item" *ngIf="oemVisible1">
+        <a class="c-sidebar-nav-link" matRipple (click)="OemRouter()">
+            <span class="material-icons-outlined md-light">factory</span>OEM
+        </a>
+    </li>
+    
+    <li class="c-sidebar-nav-item">
+        <a class="c-sidebar-nav-link" matRipple  routerLink="setting" routerLinkActive="c-active">
+            <span class="material-icons-outlined">settings</span>
+            Setttings
+        </a>
+    </li>
+
+    <li class="c-sidebar-nav-item" routerLink="help" routerLinkActive="c-active" style="margin-top:-10px !important"> 
+        <a class="c-sidebar-nav-link" matRipple >
+            <span class="material-icons-outlined">help_outlined</span>
+            Help
+        </a>
+    </li>
+        
+    <li class="c-sidebar-nav-dropdown">
+        <a  class="c-sidebar-nav-dropdown-toggle"  data-title="{{user}}" matRipple appToggle>
+          <img src="../../../assets/images/user1.png" class="user" /><i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+        </a> 
+        <ul class="c-sidebar-nav-dropdown-items">
+            <li class="c-sidebar-nav-item" style="cursor: pointer;">
+                <a data-title="{{user}}" style="padding-left: 20px;" class="c-sidebar-nav-link" matRipple (click)="logout()">
+                    <span class="material-icons-outlined">logout </span>Logout
+                </a>
+            </li> 
+        </ul>
+    </li>
+    <!-- allow hosted content -->
+    <ng-content></ng-content>
+</ul>
+
